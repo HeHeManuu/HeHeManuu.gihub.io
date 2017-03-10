@@ -99,7 +99,7 @@ This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetue
 从一开始 AT&amp;amp;T
 
 This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.Vestibulum enim wisi, viverra ne">
-<meta property="og:updated_time" content="2017-03-10T00:38:42.339Z">
+<meta property="og:updated_time" content="2017-03-10T08:16:44.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="test Markdown">
 <meta name="twitter:description" content="Welcome to ManUu!
@@ -377,6 +377,10 @@ This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetue
 <p>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse<br>id sem consectetuer libero luctus adipiscing.</p>
 </blockquote>
 <p>4 &lt; 5 4 &lt; 5</p>
+<p>This is a normal paragraph:</p>
+
+<p><pre><code>#装饰器<br>def document_it(func):<br>    print (‘Get in inner_b’)<br>    def new_function(<em>args,**kwargs):<br>        print(‘Running function:’,func.<strong>name</strong>)<br>        print(‘Position arguments:’,args)<br>        print(‘Keyword arguments:’,kwargs)<br>        result= func(</em>args,<strong>kwargs)<br>        print(‘Ruslt:’,result)<br>        return result<br>    return new_function<br>def square_it(func):<br>    print (‘Get in inner_a’)<br>    def new_function(*args,</strong>kwargs):<br>        print(‘Running function:’,func.<strong>name</strong>)<br>        result=func(<em>args,**kwargs)<br>        return result</em>result<br>    return new_function</code></pre></p>
+<p>@document_it<br>@square_it<br>def add_ints(a,b):<br>    return a+b<br></p>
 <p><table><br>    <tr><br>        <td>Foo</td><br>        <td>Foo</td><br>        <td>Foo</td><br>        <td>Foo</td><br>    </tr><br>     <tr><br>        <td>Foo</td><br>        <td>Foo</td><br>        <td>Foo</td><br>        <td>Foo</td><br>    </tr><br></table><br>Any number of underlining =’s or -’s will work.</p>
 <p>Atx-style headers use 1-6 hash characters at the start of the line, corresponding to header levels 1-6. For example:</p>
 <h1 id="This-is-an-H1"><a href="#This-is-an-H1" class="headerlink" title="This is an H1"></a>This is an H1</h1><h2 id="This-is-an-H2"><a href="#This-is-an-H2" class="headerlink" title="This is an H2"></a>This is an H2</h2><h6 id="This-is-an-H6"><a href="#This-is-an-H6" class="headerlink" title="This is an H6"></a>This is an H6</h6><p>Optionally, you may “close” atx-style headers. This is purely cosmetic — you can use this if you think it looks better. The closing hashes don’t even need to match the number of hashes used to open the header. (The number of opening hashes determines the header level.) :</p>
