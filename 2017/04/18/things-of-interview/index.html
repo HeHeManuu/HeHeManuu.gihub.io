@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="排序,复杂度,Java," />
+  <meta name="keywords" content="面试," />
 
 
 
@@ -87,22 +87,21 @@
 
 
 
-<meta name="description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
-基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
+<meta name="description" content="连续四天的面试，简单记录下。  
+xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="外部排序">
-<meta property="og:url" content="http://www.manuu.vip/blog/2017/04/17/External-sort/index.html">
+<meta property="og:title" content="四天面试小记">
+<meta property="og:url" content="http://www.manuu.vip/2017/04/18/things-of-interview/index.html">
 <meta property="og:site_name" content="ManUu">
-<meta property="og:description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
-基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg">
-<meta property="og:updated_time" content="2017-04-20T07:01:32.930Z">
+<meta property="og:description" content="连续四天的面试，简单记录下。  
+xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，">
+<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/interview/link.jpg">
+<meta property="og:updated_time" content="2017-04-20T07:47:31.911Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="外部排序">
-<meta name="twitter:description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
-基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
-<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg">
+<meta name="twitter:title" content="四天面试小记">
+<meta name="twitter:description" content="连续四天的面试，简单记录下。  
+xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，">
+<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/interview/link.jpg">
 
 
 
@@ -134,7 +133,7 @@
 
 
 
-  <title> 外部排序 | ManUu </title>
+  <title> 四天面试小记 | ManUu </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +272,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/blog/2017/04/17/External-sort/">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/04/18/things-of-interview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ManUu">
@@ -294,7 +293,7 @@
             
             
               
-                外部排序
+                四天面试小记
               
             
           </h1>
@@ -309,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T22:59:26+08:00">
-                2017-04-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T15:32:43+08:00">
+                2017-04-18
               </time>
             
 
@@ -332,8 +331,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构基础/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构基础</span>
+                  <a href="/categories/面试相关/" itemprop="url" rel="index">
+                    <span itemprop="name">面试相关</span>
                   </a>
                 </span>
 
@@ -372,12 +371,20 @@
       
 
       
-        <h4 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h4><p>前面<a href="http://blog.wangchangzhi.me/blog/2017/02/18/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E8%A7%88/" target="_blank" rel="external">基础排序算法总览–JAVA</a>介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。</p>
-<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存利用内部算法进行排序，并将排序后的子文件重新写回内存。然后将这些子文件逐趟归并，使子文件逐渐变大，直到得到这个有序文件为止。</p>
-<h4 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h4><p>假设按照内存缓冲区大小的子文件已经过内部排序成R1，R2等几个归并段。</p>
-<div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg" alt="merge"><br></div><br>此时这些归并段都放置在外存中。我们以R1和R2归并段为例，将外存中的这两个归并段分别读入内存(不一定是完全读入，可部分读入)，如下图的输入缓冲区1和输入缓冲区2中。然后在内存中进行二路归并，归并的结果顺序存储在输出缓冲区中。当输出缓冲区满了，则将这些对象顺序的写到外存中，将输出缓冲区清空，继续存放归并后的对象。直到R1和R2归并段中的对象全部读入内存并且归并都完成为止。R1和R2归并成新的归并段，然后和别的新归并段继续归并，多趟归并后最后成为一个有序文件。<br><div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg" alt="merge"><br></div>
-
-<h4 id="效率思考"><a href="#效率思考" class="headerlink" title="效率思考"></a>效率思考</h4><p>通常，对r个归并段，作m路平衡归并，归并树可用严格的m叉树来表示。第一趟可将r个初始归并段归并成$\left\lceil\frac{r}{m}\right \rceil$个归并段，以后每一趟并将l个归并段归并成$\left\lceil\frac{l}{m}\right \rceil$个归并段,直到最后形成一个大的归并段为止。树的高度=$\left\lceil\log_{m}r\right \rceil$=归并趟数。可见只要增大归并路数m，或者减少初始归并段个数r都可以减少归并趟数，以减少读写磁盘次数，达到提高外部排序效率的目的。<br>但归并路数并不是越大越好。归并路数增大时，需要相应的增加输出缓冲区的个数。如果可使用内存空间不变，则每个输入缓冲区的容量肯定会相应的减少，使得内外存交换数据次数增大。当m值过大时候，虽然归并趟数减少，但读写外存的次数仍然会增加。</p>
+        <p>连续四天的面试，简单记录下。  </p>
+<h5 id="xx一面："><a href="#xx一面：" class="headerlink" title="xx一面："></a>xx一面：</h5><p>1.简单说了项目。<br>2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是<a href="http://blog.wangchangzhi.me/blog/2017/04/17/External-sort/" target="_blank" rel="external">外部排序</a>，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，输出到外存中，直到所有的数字全部筛选完。内部使用归并肯定比堆排序处理的IO次数少，所以效率要高。<br>3.找到这个大文件的中位数，快排加上外部排序。<br>4.Lock和synchronized的区别和实现。<br>5.Java文件流，IO和NIO。  这个比较有意思，传统Java的IO是阻塞的，面试官一直追问我线程被阻塞，线程在等什么，当时没理解他问题的目的，回答等文件被写入，重复问它在等什么，回答等java调用操作系统提供的接口…蜜汁尴尬，重复问题，原来是个操作系统相关问题，在等通道处理…<br>6.面试官给了些建议，多注重底层，他们不关心那些什么框架…</p>
+<h5 id="xx二面："><a href="#xx二面：" class="headerlink" title="xx二面："></a>xx二面：</h5><p>1.JVM，GC简单说下。<br>2.多线程接触过没，简单描述下你使用的场景。<br>3.闲谈，实习时间等。</p>
+<h5 id="zz一面："><a href="#zz一面：" class="headerlink" title="zz一面："></a>zz一面：</h5><p>1.面试官第一个问题就问有刷题么，平时在哪刷题。。。答只刷了三十道题。<br>2.项目介绍。<br>3.算法题链表操作，复杂度，代码实现。  </p>
+<blockquote>
+<p>对链表的重排序问题：<br>输入：L1 L2 L3 …Ln-1 Ln<br>输出：L1 Ln L2 Ln-1 L3 Ln-2…</p>
+</blockquote>
+<p>面试期间，只给出了O($n^2$)复杂度的解决方法，当时写的代码在边界上也没处理好，虽然面试官没看出来，但是回来上机验证还是有问题。下面是用递归解决的。代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function">ListNode <span class="title">op</span><span class="params">(ListNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root.next == <span class="keyword">null</span> | root == <span class="keyword">null</span>) <span class="keyword">return</span> root;</div><div class="line">    ListNode pointer, fronter = <span class="keyword">null</span>, target;</div><div class="line">    pointer = root.next;</div><div class="line">    target = root;</div><div class="line">    <span class="keyword">while</span> (target.next != <span class="keyword">null</span>) &#123;</div><div class="line">        fronter = target;</div><div class="line">        target = target.next;</div><div class="line">    &#125;</div><div class="line">    fronter.next = <span class="keyword">null</span>;</div><div class="line">    root.next = <span class="function">target</span></div><div class="line">    <span class="title">if</span> <span class="params">(target != pointer)</span> &#123;</div><div class="line">        target.next = op(pointer);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>复杂度</strong>：每一次都会减少两个结点，假设有N个结点，第一次遍历N个结点，第二次遍历N-2个，第三次遍历N-4个…这是一个等差数列。套用等差数列公式，算出时间复杂度约为O($\frac{n^2}{4}$)。</p>
+<p>当时在面试中，想再优化问题，在稿纸上已经画出了一个链表，然后找到中间结点断开，当时思路还是卡在断开后，后面那一段链表还是从头开始到后面找，如果这样时间复杂度当然也是减少了，也只是增大了分母，但还是$n^2$的复杂度。后来回来睡觉就想到了，可惜当时没有想到。把后一段链表逆置，然后前后两个链表进行交叉合并，最后形成的链表就是目的链表。要找到中间结点需要设置两个指针，一个一次一步长一个两步长，走到链表尾部即可找到中间结点，链表逆置可以采用头插法，这里采用递归方法逆置。<br>以下面链表为例，展示处理过程：  </p>
+<p><center><br><img src="http://oo2tkpanb.bkt.clouddn.com/interview/link.jpg" alt="listnode"><br></center><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function">ListNode <span class="title">op2</span><span class="params">(ListNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root.next == <span class="keyword">null</span> | root == <span class="keyword">null</span> | root.next.next == <span class="keyword">null</span>) <span class="keyword">return</span> root;</div><div class="line">    ListNode pointer, pointer2, root2;</div><div class="line">    pointer = pointer2 = root;</div><div class="line">    <span class="comment">//先找到中间结点，断成两个链表</span></div><div class="line">    <span class="keyword">while</span> (pointer2.next != <span class="keyword">null</span>) &#123;</div><div class="line">        pointer = pointer.next;</div><div class="line">        pointer2 = pointer2.next;</div><div class="line">        <span class="keyword">if</span> (pointer2.next != <span class="keyword">null</span>)</div><div class="line">            pointer2 = pointer2.next;</div><div class="line">    &#125;</div><div class="line">    root2 = pointer.next;</div><div class="line">    pointer.next = <span class="keyword">null</span>;</div><div class="line">    <span class="comment">//将后一半链表逆置</span></div><div class="line">    root2 = inverse(root2);</div><div class="line">    pointer = root;</div><div class="line">    pointer2 = root2;</div><div class="line">    ListNode tmp1, tmp2;</div><div class="line">    <span class="keyword">while</span> (pointer != <span class="keyword">null</span> &amp;&amp; pointer2 != <span class="keyword">null</span>) &#123;</div><div class="line">        tmp1 = pointer.next;</div><div class="line">        tmp2 = pointer2.next;</div><div class="line">        pointer.next = pointer2;</div><div class="line">        pointer = tmp1;</div><div class="line">        pointer2.next = pointer;</div><div class="line">        pointer2 = tmp2;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div><div class="line"><span class="comment">//逆置链表</span></div><div class="line"><span class="function">ListNode <span class="title">inverse</span><span class="params">(ListNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root.next == <span class="keyword">null</span> | root == <span class="keyword">null</span>) <span class="keyword">return</span> root;</div><div class="line">    ListNode head = inverse(root.next);</div><div class="line">    root.next.next = root;</div><div class="line">    root.next = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">return</span> head;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>复杂度</strong>：第一步找链表中间结点，需要遍历整个链表复杂度O($n$),第二步，逆置后一段链表，复杂度O($\frac{n}{2}$)，交叉合并两个链表复杂度为O($\frac{n}{2}$),所以最后的时间复杂度为O($2n$)。</p>
+<p>4.递归都可以用迭代完成么？<br>5.同步，异步，阻塞，非阻塞。概念没讲清楚。<br>6.面试官建议到算法呢，只有多刷题，校招时候得把基础课程都温习一遍。</p>
+<h5 id="xxhr面："><a href="#xxhr面：" class="headerlink" title="xxhr面："></a>xxhr面：</h5><p>1.自我介绍。<br>2.项目介绍。<br>3.项目困难，怎么解决。<br>4.平时看什么书等。<br>5.职业规划。   </p>
 
       
     </div>
@@ -401,11 +408,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/排序/" rel="tag"># 排序</a>
-          
-            <a href="/tags/复杂度/" rel="tag"># 复杂度</a>
-          
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/面试/" rel="tag"># 面试</a>
           
         </div>
       
@@ -418,8 +421,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/02/18/基本排序算法总览/" rel="next" title="基础排序算法总览--JAVA">
-                <i class="fa fa-chevron-left"></i> 基础排序算法总览--JAVA
+              <a href="/2017/04/17/External-sort/" rel="next" title="外部排序">
+                <i class="fa fa-chevron-left"></i> 外部排序
               </a>
             
           </div>
@@ -428,8 +431,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2017/04/18/things-of-interview/" rel="prev" title="四天面试小记">
-                四天面试小记 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/22/basic-algorithm-problem-1/" rel="prev" title="基础算法题-数组相关">
+                基础算法题-数组相关 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -604,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#外部排序的概念"><span class="nav-number">1.</span> <span class="nav-text">外部排序的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本思路"><span class="nav-number">2.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体流程"><span class="nav-number">3.</span> <span class="nav-text">具体流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#效率思考"><span class="nav-number">4.</span> <span class="nav-text">效率思考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#xx一面："><span class="nav-number">1.</span> <span class="nav-text">xx一面：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#xx二面："><span class="nav-number">2.</span> <span class="nav-text">xx二面：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zz一面："><span class="nav-number">3.</span> <span class="nav-text">zz一面：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#xxhr面："><span class="nav-number">4.</span> <span class="nav-text">xxhr面：</span></a></li></ol></div>
             
 
           </div>

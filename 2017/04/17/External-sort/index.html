@@ -91,13 +91,13 @@
 基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="外部排序">
-<meta property="og:url" content="http://www.manuu.vip/blog/2017/04/19/External-sort/index.html">
+<meta property="og:url" content="http://www.manuu.vip/2017/04/17/External-sort/index.html">
 <meta property="og:site_name" content="ManUu">
 <meta property="og:description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
 基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg">
-<meta property="og:updated_time" content="2017-04-19T14:59:26.084Z">
+<meta property="og:updated_time" content="2017-04-20T07:01:32.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="外部排序">
 <meta name="twitter:description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
@@ -273,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/blog/2017/04/19/External-sort/">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/04/17/External-sort/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ManUu">
@@ -309,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T22:59:26+08:00">
-                2017-04-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T22:59:26+08:00">
+                2017-04-17
               </time>
             
 
@@ -374,10 +374,10 @@
       
         <h4 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h4><p>前面<a href="http://blog.wangchangzhi.me/blog/2017/02/18/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E8%A7%88/" target="_blank" rel="external">基础排序算法总览–JAVA</a>介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。</p>
 <h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存利用内部算法进行排序，并将排序后的子文件重新写回内存。然后将这些子文件逐趟归并，使子文件逐渐变大，直到得到这个有序文件为止。</p>
-<h4 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h4><p>假设按照内存缓冲区大小的子文件已经经过内部排序有序成为R1，R2等几个归并段。</p>
+<h4 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h4><p>假设按照内存缓冲区大小的子文件已经过内部排序成R1，R2等几个归并段。</p>
 <div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg" alt="merge"><br></div><br>此时这些归并段都放置在外存中。我们以R1和R2归并段为例，将外存中的这两个归并段分别读入内存(不一定是完全读入，可部分读入)，如下图的输入缓冲区1和输入缓冲区2中。然后在内存中进行二路归并，归并的结果顺序存储在输出缓冲区中。当输出缓冲区满了，则将这些对象顺序的写到外存中，将输出缓冲区清空，继续存放归并后的对象。直到R1和R2归并段中的对象全部读入内存并且归并都完成为止。R1和R2归并成新的归并段，然后和别的新归并段继续归并，多趟归并后最后成为一个有序文件。<br><div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg" alt="merge"><br></div>
 
-<h4 id="效率思考"><a href="#效率思考" class="headerlink" title="效率思考"></a>效率思考</h4><p>通常，对r个归并段，作m路平衡归并，归并树可用严格的m叉树来表示。第一趟可将r个初始归并段归并成$\left\lceil\frac{r}{m}\right \rceil$个归并段，以后每一趟并将l个归并段归并成$\left\lceil\frac{l}{m}\right \rceil$个归并段,直到最后形成一个大的归并段为止。树的高度=$\left\lceillog_{2}r\right \rceil$=归并趟数。可见只要增大归并路数m，或者减少初始归并段个数r都可以<br>减少归并趟数，以减少读写磁盘次数，达到提高外部排序效率的目的。<br>但归并路数并不是越大越好。归并路数增大时，需要相应的增加输出缓冲区的个数。如果可使用内存空间不变，则每个输入缓冲区的容量肯定会相应的减少，使得内外存交换数据次数增大。当m值过大时候，虽然归并趟数减少，但读写外存的次数仍然会增加。</p>
+<h4 id="效率思考"><a href="#效率思考" class="headerlink" title="效率思考"></a>效率思考</h4><p>通常，对r个归并段，作m路平衡归并，归并树可用严格的m叉树来表示。第一趟可将r个初始归并段归并成$\left\lceil\frac{r}{m}\right \rceil$个归并段，以后每一趟并将l个归并段归并成$\left\lceil\frac{l}{m}\right \rceil$个归并段,直到最后形成一个大的归并段为止。树的高度=$\left\lceil\log_{m}r\right \rceil$=归并趟数。可见只要增大归并路数m，或者减少初始归并段个数r都可以减少归并趟数，以减少读写磁盘次数，达到提高外部排序效率的目的。<br>但归并路数并不是越大越好。归并路数增大时，需要相应的增加输出缓冲区的个数。如果可使用内存空间不变，则每个输入缓冲区的容量肯定会相应的减少，使得内外存交换数据次数增大。当m值过大时候，虽然归并趟数减少，但读写外存的次数仍然会增加。</p>
 
       
     </div>
@@ -418,8 +418,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/04/18/things-of-interview/" rel="next" title="things-of-interview">
-                <i class="fa fa-chevron-left"></i> things-of-interview
+              <a href="/2017/02/18/基本排序算法总览/" rel="next" title="基础排序算法总览--JAVA">
+                <i class="fa fa-chevron-left"></i> 基础排序算法总览--JAVA
               </a>
             
           </div>
@@ -427,6 +427,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/18/things-of-interview/" rel="prev" title="四天面试小记">
+                四天面试小记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -500,7 +504,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -511,7 +515,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -522,7 +526,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -622,7 +626,7 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
+  &copy;  2016 - 
   <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-"></i>
