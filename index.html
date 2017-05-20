@@ -369,7 +369,7 @@
           
           
 1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。
-可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。代码如下：123456789101112131415161718192021222324TreeNod
+可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。代码如下：123456789101112131415161718192021222324TreeNode reConstructBinaryTree(int[] pre, int[] in) &#123
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -511,7 +511,8 @@
           
           题一Implement regular expression matching with support for ‘.’ and ‘*’.
 
-‘.’ Matches any single character.‘*’ Matches zero or more of the preceding elem
+‘.’ Matches any single character.‘*’ Matches zero or more of the preceding element.  
+The matching should cover the entire input 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -654,7 +655,7 @@
           
 1. 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。  
 
-如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。第二种，设置两个标记，一个记录值，一个记录次数
+如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。第二种，设置两个标记，一个记录值，一个记录次数，当后一个与前一个不同时，记录数减一，当记录数减少到0时候，需要更改值的标记。时间复杂度都为O(n)
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -795,7 +796,7 @@
         
           
           连续四天的面试，简单记录下。  
-xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大
+xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -936,7 +937,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
         
           
           外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
-基
+基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1093,6 +1094,16 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
 
 
 
+直接插入
+$O(n^2)$
+$O(n)$
+$O(n^2)$
+$O(1)$
+稳定
+
+
+希尔排序
+$O
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1235,7 +1246,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
           Welcome to ManUu!
 从一开始 AT&amp;T
 
-This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetuer adipiscing elit. Aliquam hendrerit 
+This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.Vestibulum enim wisi, viverra ne
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1332,7 +1343,7 @@ This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetue
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1343,7 +1354,7 @@ This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetue
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
