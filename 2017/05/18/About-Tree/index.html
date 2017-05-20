@@ -1,0 +1,873 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="二叉树,Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。
+可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。代码如下：123456789101112131415161718192021222324TreeNode reConstructBinaryTree(int[] pre, int[] in) &amp;#123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础算法题-树相关">
+<meta property="og:url" content="http://www.manuu.vip/2017/05/18/About-Tree/index.html">
+<meta property="og:site_name" content="ManUu">
+<meta property="og:description" content="1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。
+可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。代码如下：123456789101112131415161718192021222324TreeNode reConstructBinaryTree(int[] pre, int[] in) &amp;#123">
+<meta property="og:updated_time" content="2017-05-20T11:49:45.406Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础算法题-树相关">
+<meta name="twitter:description" content="1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。
+可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。代码如下：123456789101112131415161718192021222324TreeNode reConstructBinaryTree(int[] pre, int[] in) &amp;#123">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.manuu.vip/2017/05/18/About-Tree/"/>
+
+
+
+
+
+  <title>基础算法题-树相关 | ManUu</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ManUu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/05/18/About-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ManUu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ManUu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基础算法题-树相关</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-18T16:45:37+08:00">
+                2017-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法题/" itemprop="url" rel="index">
+                    <span itemprop="name">算法题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/05/18/About-Tree/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h5 id="1-输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。"><a href="#1-输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。" class="headerlink" title="1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。"></a><strong>1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。</strong></h5></blockquote>
+<p>可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function">TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span>[] pre, <span class="keyword">int</span>[] in)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (in.length == <span class="number">0</span> | pre.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    TreeNode treeNode = <span class="keyword">new</span> TreeNode(pre[<span class="number">0</span>]);</div><div class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; in.length; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (in[i] == pre[<span class="number">0</span>]) <span class="keyword">break</span>;</div><div class="line">        count++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span>[] pre2 = <span class="keyword">new</span> <span class="keyword">int</span>[count];</div><div class="line">    <span class="keyword">int</span>[] in2 = <span class="keyword">new</span> <span class="keyword">int</span>[count];</div><div class="line">    <span class="keyword">int</span>[] pre3 = <span class="keyword">new</span> <span class="keyword">int</span>[in.length - count - <span class="number">1</span>];</div><div class="line">    <span class="keyword">int</span>[] in3 = <span class="keyword">new</span> <span class="keyword">int</span>[in.length - count - <span class="number">1</span>];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; count; j++) &#123;</div><div class="line">        pre2[j] = pre[<span class="number">1</span> + j];</div><div class="line">        in2[j] = in[j];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; in.length - count - <span class="number">1</span>; k++) &#123;</div><div class="line">        pre3[k] = pre[count + <span class="number">1</span> + k];</div><div class="line">        in3[k] = in[count + <span class="number">1</span> + k];</div><div class="line">    &#125;</div><div class="line">    treeNode.left = reConstructBinaryTree(pre2, in2);</div><div class="line">    treeNode.right = reConstructBinaryTree(pre3, in3);</div><div class="line">    <span class="keyword">return</span> treeNode;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="2-输入两棵二叉树A，B，判断B是不是A的子结构。"><a href="#2-输入两棵二叉树A，B，判断B是不是A的子结构。" class="headerlink" title="2. 输入两棵二叉树A，B，判断B是不是A的子结构。"></a><strong>2. 输入两棵二叉树A，B，判断B是不是A的子结构。</strong></h5></blockquote>
+<p>递归实现。分别判断B是A的子结构，B是否是A左右子树的子结构即可。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">HasSubtree</span><span class="params">(TreeNode root1, TreeNode root2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root2 == <span class="keyword">null</span> | root1 == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">return</span> IsSimilarity(root1, root2) | HasSubtree(root1.right, root2) | HasSubtree(root1.left, root2);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">IsSimilarity</span><span class="params">(TreeNode root1, TreeNode root2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root2 == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">if</span> (root1 == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">if</span> (root1.val == root2.val) &#123;</div><div class="line">        <span class="keyword">return</span> IsSimilarity(root1.left, root2.left) &amp;&amp; IsSimilarity(root1.right, root2.right);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="3-操作给定的二叉树，将其变换为源二叉树的镜像。"><a href="#3-操作给定的二叉树，将其变换为源二叉树的镜像。" class="headerlink" title="3. 操作给定的二叉树，将其变换为源二叉树的镜像。"></a><strong>3. 操作给定的二叉树，将其变换为源二叉树的镜像。</strong></h5></blockquote>
+<p>递归实现。先镜像根节点的左右子树，再将左右子树互换。两者操作顺序不影响结果。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Mirror</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span>;</div><div class="line">    Mirror(root.left);</div><div class="line">    Mirror(root.right);</div><div class="line"></div><div class="line">    TreeNode node = root.left;</div><div class="line">    root.left = root.right;</div><div class="line">    root.right = node;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="4-从上往下打印出二叉树的每个节点，同层节点从左至右打印。"><a href="#4-从上往下打印出二叉树的每个节点，同层节点从左至右打印。" class="headerlink" title="4. 从上往下打印出二叉树的每个节点，同层节点从左至右打印。"></a><strong>4. 从上往下打印出二叉树的每个节点，同层节点从左至右打印。</strong></h5></blockquote>
+<p>利用队列即可。代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function">ArrayList&lt;Integer&gt; <span class="title">PrintFromTopToBottom</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    ArrayList&lt;Integer&gt; array = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">    LinkedList&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();</div><div class="line">    queue.add(root);</div><div class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</div><div class="line">        TreeNode pointer = queue.poll();</div><div class="line">        array.add(pointer.val);</div><div class="line">        <span class="keyword">if</span> (pointer.left != <span class="keyword">null</span>)</div><div class="line">            queue.add(pointer.left);</div><div class="line">        <span class="keyword">if</span> (pointer.right != <span class="keyword">null</span>)</div><div class="line">            queue.add(pointer.right);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="5-输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。"><a href="#5-输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。" class="headerlink" title="5. 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。"></a><strong>5. 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。</strong></h5></blockquote>
+<p>递归解决。先找数组尾部的头结点，通过头结点找出数组左右子树的分割点。分割点右边的数应该都比头结点值大。再将左右子树递归判断即可。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">VerifySquenceOfBST</span><span class="params">(<span class="keyword">int</span>[] sequence)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (sequence.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">int</span> index = sequence.length - <span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> VerifySquence(sequence, <span class="number">0</span>, index);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">VerifySquence</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> begin, <span class="keyword">int</span> last)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> length = last - begin + <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (length &lt; <span class="number">3</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">if</span> (length &gt; <span class="number">2</span>) &#123;</div><div class="line">        <span class="keyword">int</span> root = array[last];</div><div class="line">        <span class="keyword">int</span> mid = <span class="number">0</span>;</div><div class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = begin; i &lt;= last; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (array[i] &gt; root) &#123;</div><div class="line">                mid = i - <span class="number">1</span>;</div><div class="line">                flag = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (flag &amp;&amp; array[i] &lt; root) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> VerifySquence(array, begin, mid) &amp;&amp; VerifySquence(array, mid + <span class="number">1</span>, last - <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="6-输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。"><a href="#6-输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。" class="headerlink" title="6. 输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。"></a><strong>6. 输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。</strong></h5></blockquote>
+<p>通过一个List记录路径，当遇到叶子结点时，路径值和刚好等于目标值。则将这条路保存，然后移除List中的叶子路径，再探测其他路径。若大于目标值，则直接返回即可。可递归实现。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">ArrayList&lt;ArrayList&lt;Integer&gt;&gt; path = <span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</div><div class="line">ArrayList&lt;Integer&gt; array = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line"></div><div class="line">ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root, <span class="keyword">int</span> target) &#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> path;</div><div class="line">    <span class="keyword">if</span> (root.val &gt; target) <span class="keyword">return</span> path;</div><div class="line">    <span class="keyword">if</span> (root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span> &amp;&amp; target == root.val) &#123;</div><div class="line">        array.add(root.val);</div><div class="line">        path.add((ArrayList&lt;Integer&gt;) array.clone());</div><div class="line">        array.remove((Integer) root.val);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</div><div class="line">        array.add(root.val);</div><div class="line">        FindPath(root.left, target - root.val);</div><div class="line">        FindPath(root.right, target - root.val);</div><div class="line">        array.remove((Integer) root.val);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> path;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="7-输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。"><a href="#7-输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。" class="headerlink" title="7. 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。"></a><strong>7. 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。</strong></h5></blockquote>
+<p>首先将左右子树递归改成双向链表，然后配置左右子树与根节点的关系。将根节点放置在左子树的最右边结点的后面。将右子树的最左边的结点的left指向根节点。然后一道双向链表的最左端结点，返回即可。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function">TreeNode <span class="title">Convert</span><span class="params">(TreeNode pRootOfTree)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (pRootOfTree == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">if</span> (pRootOfTree != <span class="keyword">null</span>) &#123;</div><div class="line">        TreeNode node = Convert(pRootOfTree.left);</div><div class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span> &amp;&amp; node.right != <span class="keyword">null</span>) &#123;</div><div class="line">            node = node.right;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (node != <span class="keyword">null</span>) &#123;<span class="comment">//要注意边界 为null的情况</span></div><div class="line">            node.right = pRootOfTree;</div><div class="line">        &#125;</div><div class="line">        pRootOfTree.left = node;</div><div class="line">        TreeNode node1 = Convert(pRootOfTree.right);</div><div class="line">        pRootOfTree.right = node1;</div><div class="line">        <span class="keyword">if</span> (node1 != <span class="keyword">null</span>) &#123;</div><div class="line">            node1.left = pRootOfTree;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (pRootOfTree.left != <span class="keyword">null</span>) &#123;</div><div class="line">        pRootOfTree = pRootOfTree.left;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> pRootOfTree;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="8-输入一棵二叉树，判断该二叉树是否是平衡二叉树。"><a href="#8-输入一棵二叉树，判断该二叉树是否是平衡二叉树。" class="headerlink" title="8. 输入一棵二叉树，判断该二叉树是否是平衡二叉树。"></a><strong>8. 输入一棵二叉树，判断该二叉树是否是平衡二叉树。</strong></h5></blockquote>
+<p>首先通过获取树的深度，然后判断左右子树深度之差是否符合平衡。递归解决。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">IsBalanced_Solution</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">boolean</span> left = IsBalanced_Solution(root.left);</div><div class="line">    <span class="keyword">boolean</span> right = IsBalanced_Solution(root.right);</div><div class="line">    <span class="keyword">if</span> (left &amp;&amp; right) &#123;</div><div class="line">        <span class="keyword">int</span> depthLeft = TreeDepth(root.left);</div><div class="line">        <span class="keyword">int</span> depthRight = TreeDepth(root.right);</div><div class="line">        <span class="keyword">if</span> (Math.abs(depthLeft - depthRight) &lt; <span class="number">2</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> left &amp;&amp; right;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> depthLeft = TreeDepth(root.left);</div><div class="line">    <span class="keyword">int</span> depthRight = TreeDepth(root.right);</div><div class="line">    <span class="keyword">return</span> depthLeft &gt; depthRight ? depthLeft + <span class="number">1</span> : depthRight + <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="9-请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。"><a href="#9-请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。" class="headerlink" title="9. 请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。"></a><strong>9. 请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。</strong></h5></blockquote>
+<p>递归实现，分别判断左右子树的左右子树是否对应相等。<br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isSymmetrical</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) </div><div class="line">         <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">return</span> isSymm(pRoot.left, pRoot.right);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isSymm</span><span class="params">(TreeNode pRoot1, TreeNode pRoot2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (pRoot1 == <span class="keyword">null</span> &amp;&amp; pRoot2 == <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">if</span> (pRoot1 != <span class="keyword">null</span> &amp;&amp; pRoot2 != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (pRoot1.val == pRoot2.val)</div><div class="line">            <span class="keyword">return</span> isSymm(pRoot1.left, pRoot2.right) &amp; isSymm(pRoot1.right, pRoot2.left);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<h5 id="10-请实现两个函数，分别用来序列化和反序列化二叉树。"><a href="#10-请实现两个函数，分别用来序列化和反序列化二叉树。" class="headerlink" title="10. 请实现两个函数，分别用来序列化和反序列化二叉树。"></a><strong>10. 请实现两个函数，分别用来序列化和反序列化二叉树。</strong></h5></blockquote>
+<p>在每个结点的值后添加’,’,null结点用’#’表示，利用中序遍历的方式序列化。利用index记录复原到哪一位字符。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> index = -<span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="function">String <span class="title">Serialize</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="string">"#,"</span>;</div><div class="line">    StringBuilder str = <span class="keyword">new</span> StringBuilder();</div><div class="line">    str.append(root.val + <span class="string">","</span>);</div><div class="line">    str.append(Serialize(root.left));</div><div class="line">    str.append(Serialize(root.right));</div><div class="line">    <span class="keyword">return</span> str.toString();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">TreeNode <span class="title">Deserialize</span><span class="params">(String str)</span> </span>&#123;</div><div class="line">    index++;</div><div class="line">    <span class="keyword">if</span> (index &gt;= str.length())</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    String[] parts = str.split(<span class="string">","</span>);</div><div class="line">    TreeNode root = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">if</span> (!parts[index].equals(<span class="string">"#"</span>)) &#123;</div><div class="line">        root = <span class="keyword">new</span> TreeNode(Integer.parseInt(parts[index]));</div><div class="line">        root.left = Deserialize(str);</div><div class="line">        root.right = Deserialize(str);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="11-给定一颗二叉搜索树，请找出其中的第k大的结点。"><a href="#11-给定一颗二叉搜索树，请找出其中的第k大的结点。" class="headerlink" title="11. 给定一颗二叉搜索树，请找出其中的第k大的结点。"></a><strong>11. 给定一颗二叉搜索树，请找出其中的第k大的结点。</strong></h5></blockquote>
+<p>先统计左子树的数量，若大于K则k结点肯定在左子树中，若小于K则第k个结点可能在根节点或者右子树中。可递归调用。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function">TreeNode <span class="title">KthNode</span><span class="params">(TreeNode pRoot, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line">    TreeNode result = pRoot;</div><div class="line">    count = getNumOfNodes(pRoot.left);</div><div class="line">    <span class="keyword">if</span> (count &gt;= k)</div><div class="line">        <span class="keyword">return</span> KthNode(pRoot.left, k);</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (count + <span class="number">1</span> &lt; k)</div><div class="line">        <span class="keyword">return</span> KthNode(pRoot.right, k - count - <span class="number">1</span>);</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> pRoot;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getNumOfNodes</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</div><div class="line">    count = count + getNumOfNodes(pRoot.left) + getNumOfNodes(pRoot.right);</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/二叉树/" rel="tag"># 二叉树</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/27/About-Regex/" rel="next" title="基础算法题-正则相关">
+                <i class="fa fa-chevron-left"></i> 基础算法题-正则相关
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.png"
+               alt="ManUu" />
+          <p class="site-author-name" itemprop="name">ManUu</p>
+           
+              <p class="site-description motion-element" itemprop="description">learn and live</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HeHeManuu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://twitter.com/HeHeManuu" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://nnecec.cc" title="nnecec" target="_blank">nnecec</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。"><span class="nav-number">1.</span> <span class="nav-text">1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-输入两棵二叉树A，B，判断B是不是A的子结构。"><span class="nav-number">2.</span> <span class="nav-text">2. 输入两棵二叉树A，B，判断B是不是A的子结构。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-操作给定的二叉树，将其变换为源二叉树的镜像。"><span class="nav-number">3.</span> <span class="nav-text">3. 操作给定的二叉树，将其变换为源二叉树的镜像。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-从上往下打印出二叉树的每个节点，同层节点从左至右打印。"><span class="nav-number">4.</span> <span class="nav-text">4. 从上往下打印出二叉树的每个节点，同层节点从左至右打印。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。"><span class="nav-number">5.</span> <span class="nav-text">5. 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。"><span class="nav-number">6.</span> <span class="nav-text">6. 输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。"><span class="nav-number">7.</span> <span class="nav-text">7. 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-输入一棵二叉树，判断该二叉树是否是平衡二叉树。"><span class="nav-number">8.</span> <span class="nav-text">8. 输入一棵二叉树，判断该二叉树是否是平衡二叉树。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。"><span class="nav-number">9.</span> <span class="nav-text">9. 请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-请实现两个函数，分别用来序列化和反序列化二叉树。"><span class="nav-number">10.</span> <span class="nav-text">10. 请实现两个函数，分别用来序列化和反序列化二叉树。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-给定一颗二叉搜索树，请找出其中的第k大的结点。"><span class="nav-number">11.</span> <span class="nav-text">11. 给定一颗二叉搜索树，请找出其中的第k大的结点。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ManUu</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2a556027915b4826b253771db9695cf9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
