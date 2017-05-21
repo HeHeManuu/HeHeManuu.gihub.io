@@ -277,6 +277,146 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/05/21/About-HashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ManUu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ManUu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/21/About-HashMap/" itemprop="url">HashMap详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T16:01:44+08:00">
+                2017-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java集合/" itemprop="url" rel="index">
+                    <span itemprop="name">Java集合</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          HashMap   HashMap实现了Map接口，继承于AbstractMap。利用散列表来实现Key-Value元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用key的hashcode来确保元素的唯一性。HashMap不保证元素的顺序恒定不变，在扩充的过程中，键值对元
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/21/About-HashMap/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/05/18/About-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -369,7 +509,7 @@
           
           
 1. 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。
-可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。代码如下：123456789101112131415161718192021222324TreeNode reConstructBinaryTree(int[] pre, int[] in) &#123
+可用递归方式解决。首先利用前序遍历集合的根节点，将中序遍历和前序遍历的结果各分割成两部分，为左右子树的前序遍历集合和中序遍历集合。代码如下：123456789101112131415161718192021222324TreeNod
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -511,8 +651,7 @@
           
           题一Implement regular expression matching with support for ‘.’ and ‘*’.
 
-‘.’ Matches any single character.‘*’ Matches zero or more of the preceding element.  
-The matching should cover the entire input 
+‘.’ Matches any single character.‘*’ Matches zero or more of the preceding elem
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -655,7 +794,7 @@ The matching should cover the entire input
           
 1. 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。  
 
-如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。第二种，设置两个标记，一个记录值，一个记录次数，当后一个与前一个不同时，记录数减一，当记录数减少到0时候，需要更改值的标记。时间复杂度都为O(n)
+如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。第二种，设置两个标记，一个记录值，一个记录次数
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -796,7 +935,7 @@ The matching should cover the entire input
         
           
           连续四天的面试，简单记录下。  
-xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，
+xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -937,7 +1076,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
         
           
           外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
-基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存
+基
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1094,16 +1233,6 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
 
 
 
-直接插入
-$O(n^2)$
-$O(n)$
-$O(n^2)$
-$O(1)$
-稳定
-
-
-希尔排序
-$O
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1246,7 +1375,7 @@ $O
           Welcome to ManUu!
 从一开始 AT&amp;T
 
-This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.Vestibulum enim wisi, viverra ne
+This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetuer adipiscing elit. Aliquam hendrerit 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1332,7 +1461,7 @@ This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,consectetue
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
