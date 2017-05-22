@@ -1,0 +1,839 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="复杂度,Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。  
+
+如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。第二种，设置两个标记，一个记录值，一个记录次数，当后一个与前一个不同时，记录数减一，当记录数减少到0时候，需要更改值的标记。时间复杂度都为O(n)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础算法题-数组相关">
+<meta property="og:url" content="http://www.manuu.vip/2017/04/22/Basic-Algorithm-Array/index.html">
+<meta property="og:site_name" content="ManUu">
+<meta property="og:description" content="1. 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。  
+
+如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。第二种，设置两个标记，一个记录值，一个记录次数，当后一个与前一个不同时，记录数减一，当记录数减少到0时候，需要更改值的标记。时间复杂度都为O(n)">
+<meta property="og:updated_time" content="2017-05-05T06:53:04.423Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础算法题-数组相关">
+<meta name="twitter:description" content="1. 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。  
+
+如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。第二种，设置两个标记，一个记录值，一个记录次数，当后一个与前一个不同时，记录数减一，当记录数减少到0时候，需要更改值的标记。时间复杂度都为O(n)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.manuu.vip/2017/04/22/Basic-Algorithm-Array/"/>
+
+
+
+
+
+  <title>基础算法题-数组相关 | ManUu</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ManUu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/04/22/Basic-Algorithm-Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ManUu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ManUu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基础算法题-数组相关</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-22T16:45:37+08:00">
+                2017-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法题/" itemprop="url" rel="index">
+                    <span itemprop="name">算法题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/04/22/Basic-Algorithm-Array/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><strong>1. 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。</strong>  </p>
+</blockquote>
+<p>如果直接排序，后进行选择，则时间复杂度最优为O(nlogn)，这里有两种思路。<br>第一种，利用快速排序的思想，找到第n/2位置的数。然后扫描数组，确保这个数的确超过数组长度的一半。<br>第二种，设置两个标记，一个记录值，一个记录次数，当后一个与前一个不同时，记录数减一，当记录数减少到0时候，需要更改值的标记。<br>时间复杂度都为O(n)，两种方法代码分别如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">MoreThanHalfNum_Solution1</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> length = array.length;</div><div class="line">    <span class="comment">//基于快排思想</span></div><div class="line">    <span class="keyword">int</span> loc = partition(array, <span class="number">0</span>, length - <span class="number">1</span>);</div><div class="line">    <span class="keyword">while</span> (loc != length / <span class="number">2</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (loc &gt; length / <span class="number">2</span>) &#123;</div><div class="line">            loc = partition(array, <span class="number">0</span>, loc - <span class="number">1</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            loc = partition(array, loc + <span class="number">1</span>, length - <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> value = array[loc];</div><div class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (array[i] == value)</div><div class="line">            count++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (count &gt; length / <span class="number">2</span>)</div><div class="line">        <span class="keyword">return</span> value;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (low &gt;= high) <span class="keyword">return</span> low;</div><div class="line">    <span class="keyword">int</span> temp = array[low];</div><div class="line">    <span class="keyword">while</span> (low &lt; high) &#123;</div><div class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; array[high] &gt;= temp) high--;</div><div class="line">        array[low] = array[high];</div><div class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; array[low] &lt;= temp) low++;</div><div class="line">        array[high] = array[low];</div><div class="line">    &#125;</div><div class="line">    array[low] = temp;</div><div class="line">    <span class="keyword">return</span> low;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>设置两个标记来处理，最后还得验证是否超过一半：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">MoreThanHalfNum_Solution2</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> length = array.length;</div><div class="line">    <span class="keyword">int</span> key = array[<span class="number">0</span>], times = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; length; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (times == <span class="number">0</span>) &#123;</div><div class="line">            key = array[i];</div><div class="line">            times++;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (array[i] != key)</div><div class="line">                times--;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                times++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (array[i] == key)</div><div class="line">            count++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (count &gt; length / <span class="number">2</span>)</div><div class="line">        <span class="keyword">return</span> key;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>2.把只包含素因子2、3和5的数称作丑数(Ugly Number), 求按从小到大的顺序的第N个丑数。</strong></p>
+</blockquote>
+<p>不考虑的效率的话，直接迭代去判断每个数是否是丑数，直到得到第N个丑数。效率比较低下。<br>由于后面的丑数可以通过前面的丑数乘上因子获得，现在设置三个标记来标记依次产生的最小丑数，这个丑数则为下一个丑数，则这个丑数的标记前进一步，若多个标记产生的丑数都是最小的，则多个标记共同前进一步，直到获得第N个丑数。<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetUglyNumber_Solution</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (index &lt; <span class="number">2</span>) <span class="keyword">return</span> index;</div><div class="line">    <span class="keyword">int</span>[] uglyArray = <span class="keyword">new</span> <span class="keyword">int</span>[index];</div><div class="line">    uglyArray[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> index_2 = <span class="number">0</span>, index_3 = <span class="number">0</span>, index_5 = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, max = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (i &lt; index - <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">int</span> max_2 = uglyArray[index_2] * <span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> max_3 = uglyArray[index_3] * <span class="number">3</span>;</div><div class="line">        <span class="keyword">int</span> max_5 = uglyArray[index_5] * <span class="number">5</span>;</div><div class="line">        max = max_2 &lt;= max_3 ? max_2 : max_3;</div><div class="line">        max = max &lt;= max_5 ? max : max_5;</div><div class="line">        uglyArray[++i] = max;</div><div class="line">        <span class="keyword">if</span> (max == max_2)</div><div class="line">            index_2++;</div><div class="line">        <span class="keyword">if</span> (max == max_3)</div><div class="line">            index_3++;</div><div class="line">        <span class="keyword">if</span> (max == max_5)</div><div class="line">            index_5++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> uglyArray[i];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>3.输出所有和为S的连续正数序列。序列内按照从小至大的顺序，序列间按照开始数字从小到大的顺序。</strong></p>
+</blockquote>
+<p>若限制为两个数的和，可以首尾各设一个指针，计算两个指针指向值的和，大于S，则尾指针向前移动，再迭代计算。若小于S，则首指针向后移动，计算和。一直到满足要求为止。<br>这个题目要求求出连续数字的和，不限元素个数。这里继续设置两个指针，一个放在第一位，一个放在第二位，求累积和，小于S则后面指针向后移动,再累计比较。若大于S则前一个指针向后移动，再累计求和比较，直到满足要求为止，可以求出多个结果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindContinuousSequence(<span class="keyword">int</span> sum) &#123;</div><div class="line">    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; array = <span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</div><div class="line">    ArrayList&lt;Integer&gt; one = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">    <span class="keyword">int</span> len = sum / <span class="number">2</span> + <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> start = <span class="number">1</span>, end = <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span> total = start + end;</div><div class="line">    <span class="keyword">while</span> (start != len) &#123;</div><div class="line">        <span class="keyword">if</span> (total == sum) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt;= end; i++) &#123;</div><div class="line">                one.add(i);</div><div class="line">            &#125;</div><div class="line">            array.add((ArrayList&lt;Integer&gt;)one.clone());</div><div class="line">            one.clear();</div><div class="line">            <span class="keyword">if</span> (end == len)</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                total += ++end;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (total &lt; sum) &#123;</div><div class="line">            total += ++end;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (total &gt; sum) &#123;</div><div class="line">            total -= start++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>4.在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数</strong>  </p>
+</blockquote>
+<p>如果直接暴力来计算，可以想象成直接插入排序算法，当数组通过插入排序算法处理完毕时候，数字移动的个数就是逆序对的总数。时间复杂度没有下面的算法优。<br>利用归并算法。将数组分为两部分，将这两部分再递归处理。当两个数组合并成有序的序列时候，进行逆序统计，生成新排序数组是从数组尾部开始生成，也就是从两个有序的数组中，先找最大的数。设置两个指针，一个指向前一个有序数组的尾部，一个指向后一个有序数组的尾部。进行比较，当前一个大比后一个大的时候，逆序数增加后一个有序数组的头部到指针处的元素个数(若后一指针索引为j，头部的索引为low，则增加j-low+1个)，前一个指针前移。当后一个指针大，则逆序数不变。<br>最后的总逆序数为前一半数组的逆序数加上后一半数组的逆序数，再加上两个数组合并过程中统计的逆序数，即为总逆序数。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">InversePairs</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(array==<span class="keyword">null</span>||array.length==<span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> length = array.length;</div><div class="line">    <span class="keyword">return</span> merge(array,<span class="number">0</span>,length-<span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> count1 = <span class="number">0</span>, count2 = <span class="number">0</span>;</div><div class="line">    <span class="keyword">if</span> (low &lt; high) &#123;</div><div class="line">        <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</div><div class="line">        count1 = merge(array, low, mid);</div><div class="line">        count2 = merge(array, mid + <span class="number">1</span>, high);</div><div class="line">        count1 = count1 + count2 + mergeAndCount(array, low, mid, high);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> count1;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">mergeAndCount</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> low, <span class="keyword">int</span> mid, <span class="keyword">int</span> high)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[array.length];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b.length; i++) &#123;</div><div class="line">        b[i] = array[i];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> i, j, k;</div><div class="line">    <span class="keyword">for</span> (i = mid, j = high, k = high; i &gt;= low &amp;&amp; j &gt; mid; ) &#123;</div><div class="line">        <span class="keyword">if</span> (b[i] &gt; b[j]) &#123;</div><div class="line">            count += j - mid;</div><div class="line">            array[k--] = b[i--];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            array[k--] = b[j--];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (i &gt;= low) array[k--] = b[i--];</div><div class="line">    <span class="keyword">while</span> (j &gt; mid) array[k--] = b[j--];</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>&gt;5. 设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。</strong><br>回溯法，设置一个标记，标记是否可以访问。匹配成功一个字符后，则向四个方向继续匹配，失败则清除不可访问标记。<br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">hasPath</span><span class="params">(<span class="keyword">char</span>[] matrix, <span class="keyword">int</span> rows, <span class="keyword">int</span> cols, <span class="keyword">char</span>[] str)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span>[] flag = <span class="keyword">new</span> <span class="keyword">int</span>[matrix.length];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; i++)</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (isHas(matrix, rows, cols, i, j, str, <span class="number">0</span>, flag))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isHas</span><span class="params">(<span class="keyword">char</span>[] a, <span class="keyword">int</span> rows, <span class="keyword">int</span> cols, <span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">char</span>[] str, <span class="keyword">int</span> k, <span class="keyword">int</span>[] flag)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> index = i * cols + j;</div><div class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= rows || j &gt;= cols || flag[index] == <span class="number">1</span> || a[index] != str[k])</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">if</span> (k == str.length - <span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    flag[index] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (isHas(a, rows, cols, i - <span class="number">1</span>, j, str, k + <span class="number">1</span>, flag) || isHas(a, rows, cols, i + <span class="number">1</span>, j, str, k + <span class="number">1</span>, flag) ||</div><div class="line">            isHas(a, rows, cols, i, j - <span class="number">1</span>, str, k + <span class="number">1</span>, flag) || isHas(a, rows, cols, i, j + <span class="number">1</span>, str, k + <span class="number">1</span>, flag))</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    flag[index] = <span class="number">0</span>;<span class="comment">//失败则去除标记</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/复杂度/" rel="tag"># 复杂度</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/18/Things-of-Interview/" rel="next" title="四天面试小记">
+                <i class="fa fa-chevron-left"></i> 四天面试小记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/27/Basic-Algorithm-Regex/" rel="prev" title="基础算法题-正则相关">
+                基础算法题-正则相关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.png"
+               alt="ManUu" />
+          <p class="site-author-name" itemprop="name">ManUu</p>
+           
+              <p class="site-description motion-element" itemprop="description">learn and live</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HeHeManuu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://twitter.com/HeHeManuu" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://nnecec.cc" title="nnecec" target="_blank">nnecec</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ManUu</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2a556027915b4826b253771db9695cf9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
