@@ -103,7 +103,7 @@ ScrapyScrapy，是用Python开发的一个快速,高层次的网页">
 <meta property="og:description" content="爬虫概念网络爬虫，是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。根据不同的任务可分为通用爬虫，主题爬虫等。爬取的策略有广度优先，深度优先(通常很少用)，最佳优先(按照种子链接的主题相关性进行排序)。最简单的爬虫只需网络访问和页面解析工具即可，比如利用urllib2和BeautifulSoup即可完成简单的抓取任务。
 ScrapyScrapy，是用Python开发的一个快速,高层次的网页">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/scrapy/scrapy_architecture.png?imageMogr2/thumbnail/!50p">
-<meta property="og:updated_time" content="2017-06-25T10:19:22.499Z">
+<meta property="og:updated_time" content="2017-06-25T10:20:41.736Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识Scrapy">
 <meta name="twitter:description" content="爬虫概念网络爬虫，是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。根据不同的任务可分为通用爬虫，主题爬虫等。爬取的策略有广度优先，深度优先(通常很少用)，最佳优先(按照种子链接的主题相关性进行排序)。最简单的爬虫只需网络访问和页面解析工具即可，比如利用urllib2和BeautifulSoup即可完成简单的抓取任务。
@@ -387,7 +387,7 @@ ScrapyScrapy，是用Python开发的一个快速,高层次的网页">
 <h4 id="Scrapy框架"><a href="#Scrapy框架" class="headerlink" title="Scrapy框架"></a>Scrapy框架</h4><p>Scrapy主要包含以下组件。</p>
 <h5 id="Scrapy-Engine"><a href="#Scrapy-Engine" class="headerlink" title="Scrapy Engine"></a>Scrapy Engine</h5><p>引擎负责控制系统所有组件中的数据流，和特定的动作发生后触发事件。</p>
 <h5 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h5><p>调度器接受引擎的请求，并将其入队，以便在引擎请求他们时候返回。</p>
-<h5 id="Downloader"><a href="#Downloader" class="headerlink" title="Downloader"></a>Downloader</h5><p>下载器获取网络页面，将其返回给引擎，spider。</p>
+<h5 id="Downloader"><a href="#Downloader" class="headerlink" title="Downloader"></a>Downloader</h5><p>下载器获取网络页面，将其返回给引擎，然后引擎再传递给spider。</p>
 <h5 id="Spiders"><a href="#Spiders" class="headerlink" title="Spiders"></a>Spiders</h5><p>Spiders是Scrapy用户定制解析和抽取信息的类。</p>
 <h5 id="Item-Pipeline"><a href="#Item-Pipeline" class="headerlink" title="Item Pipeline"></a>Item Pipeline</h5><p>Item Pipeline处理被Spiders提取出来的items，包括清洗，验证和持久化。</p>
 <h5 id="Downloader-middlewares"><a href="#Downloader-middlewares" class="headerlink" title="Downloader middlewares"></a>Downloader middlewares</h5><p>下载中间件放置在引擎和下载器中间，处理引擎传给下载器的请求，以及下载器传给引擎的回复。我们可以根据自己项目中的需求对下载中间件进行定制。</p>
