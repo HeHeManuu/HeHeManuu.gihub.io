@@ -1,0 +1,1103 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="容器，List,Set,Map," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="基本概念
+线性表线性表是由n（n≥0）个数据元素a[0]，a[1]，a[2]，…，a[n-1]组成的有限序列。存在一个唯一的没有前驱的（头）数据元素；存在一个唯一的没有后继的（尾）数据元素；此外，每一个数据元素均有一个直接前驱和一个直接后继数据元素。
+非线性非线性结构中,各数据元素之间的前驱后继关系要比线性结构复杂。如图，树等。
+Listlist 是一个元素有序的集合，每个元素可以通过索引访问，并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 常用容器详解">
+<meta property="og:url" content="http://www.manuu.vip/2017/07/22/Collection-And-Map/index.html">
+<meta property="og:site_name" content="ManUu">
+<meta property="og:description" content="基本概念
+线性表线性表是由n（n≥0）个数据元素a[0]，a[1]，a[2]，…，a[n-1]组成的有限序列。存在一个唯一的没有前驱的（头）数据元素；存在一个唯一的没有后继的（尾）数据元素；此外，每一个数据元素均有一个直接前驱和一个直接后继数据元素。
+非线性非线性结构中,各数据元素之间的前驱后继关系要比线性结构复杂。如图，树等。
+Listlist 是一个元素有序的集合，每个元素可以通过索引访问，并">
+<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/java_collection.png">
+<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/java_map.png">
+<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/hashmap-put.png">
+<meta property="og:updated_time" content="2017-07-30T06:41:10.617Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 常用容器详解">
+<meta name="twitter:description" content="基本概念
+线性表线性表是由n（n≥0）个数据元素a[0]，a[1]，a[2]，…，a[n-1]组成的有限序列。存在一个唯一的没有前驱的（头）数据元素；存在一个唯一的没有后继的（尾）数据元素；此外，每一个数据元素均有一个直接前驱和一个直接后继数据元素。
+非线性非线性结构中,各数据元素之间的前驱后继关系要比线性结构复杂。如图，树等。
+Listlist 是一个元素有序的集合，每个元素可以通过索引访问，并">
+<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/java_collection.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.manuu.vip/2017/07/22/Collection-And-Map/"/>
+
+
+
+
+
+  <title>Java 常用容器详解 | ManUu</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ManUu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/07/22/Collection-And-Map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ManUu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ManUu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 常用容器详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T22:19:42+08:00">
+                2017-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-容器/" itemprop="url" rel="index">
+                    <span itemprop="name">Java 容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/07/22/Collection-And-Map/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><hr>
+<h3 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h3><p>线性表是由n（n≥0）个数据元素a[0]，a[1]，a[2]，…，a[n-1]组成的有限序列。存在一个唯一的没有前驱的（头）数据元素；存在一个唯一的没有后继的（尾）数据元素；此外，每一个数据元素均有一个直接前驱和一个直接后继数据元素。</p>
+<h3 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h3><p>非线性结构中,各数据元素之间的前驱后继关系要比线性结构复杂。如图，树等。</p>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>list 是一个元素有序的集合，每个元素可以通过索引访问，并且允许重复的元素。</p>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>set 是一个不允许元素重复的集合，其有序性与具体的实现类有关。</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>map 是将键映射到值的结构。一个映射不能包含重复的键；每个键最多只能映射到一个值。</p>
+<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><p>queue 是 FIFO 的序列。<br>deque 是可以在两端进行操作的序列。  </p>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><p>stack 是 LIFO 的序列。</p>
+<h3 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a>Heap</h3><p>n 个记录的序列 L[1…n] 称为堆，当且仅当该序列满足下面两个条件任意一个。($1 \le i \le \left\lfloor\frac{n}{2}\right \rfloor$)</p>
+<ul>
+<li>L[i] ≤ L[2i] &amp;&amp; L[i] ≤ L[2i+1]  (小堆)  </li>
+<li>L[i] ≥ L[2i] &amp;&amp; L[i] ≥ L[2i+1]  (大堆)  </li>
+</ul>
+<h2 id="相关类图的层级关系"><a href="#相关类图的层级关系" class="headerlink" title="相关类图的层级关系"></a>相关类图的层级关系</h2><hr>
+<h3 id="集合相关"><a href="#集合相关" class="headerlink" title="集合相关"></a>集合相关</h3><p>下图给出了常用的集合容器的层级关系，有些依赖关系未标出。<br><img src="http://oo2tkpanb.bkt.clouddn.com/java_collection.png" alt="Java"></p>
+<p><strong>Iterable:</strong> 迭代器接口，只含一个方法 iterator()，返回 Iterator 对象。所有的集合容器都使用迭代器对象来访问容器中的元素。Iterator 迭代器接口只含有三个方法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</div><div class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hashNext</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Java1.5开始可以使用 <strong>for each</strong> 更加简化的遍历方式。迭代器访问元素的顺序取决于集合的类型，如对 HashSet 进行遍历，元素会随机不重复的出现，无法预知元素被访问的顺序。  </p>
+<p><strong>Collection:</strong> 所有集合容器的父接口，它定义了一系列集合操作的规范。 </p>
+<p><strong>List:</strong> 有序，可重复的集合接口。继承自 <strong>Collection</strong> 接口，其元素的索引是按照插入的顺序构建。定义了更加具体的一系列有序集合的操作规范。 </p>
+<p><strong>ArrayList:</strong> 利用数组实现的有序集合类，除了实现 <strong>List</strong>接口外，还提供一些方法来操作内部用来存储列表的数组的大小。允许 Null 元素。默认初始容量为10，<strong>若已知所需的容量，需初始化时指定容量，以减少后续动态扩容的次数</strong>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * <span class="doctag">@param</span> minCapacity the desired minimum capacity</div><div class="line">  */</div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</div><div class="line">     <span class="comment">// overflow-conscious code</span></div><div class="line">     <span class="keyword">int</span> oldCapacity = elementData.length;</div><div class="line">     <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</div><div class="line">     <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</div><div class="line">         newCapacity = minCapacity;</div><div class="line">     <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</div><div class="line">         newCapacity = hugeCapacity(minCapacity);</div><div class="line">     <span class="comment">// minCapacity is usually close to size, so this is a win:</span></div><div class="line">     elementData = Arrays.copyOf(elementData, newCapacity);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>上述代码可知，ArrayList 默认的扩容方式以原容量的0.5倍增加。  </p>
+<p><strong>LinkedList:</strong> 用链表来实现 <strong>List</strong> 接口的有序集合类，同时实现了 <strong>deque</strong> 接口，允许 null 元素。LinkedList 类为链表头及尾结点设置 get、remove 和 insert 等统一的命名方法。这些操作允许将链表列表用作堆栈、队列或双端队列。</p>
+<p><strong>Vector:</strong> 用法和 ArrayList 类似，是一个旧类。同样，<strong>若已知所需的容量，需初始化时指定容量，以减少后续动态扩容的次数。</strong>  </p>
+<blockquote>
+<p>Vector 与 ArrayList, LinkedList 之间的区别如下：  </p>
+<ol>
+<li>Vector 可指定增加容量。ArrayList 不可，若不指定，需扩容时，Vector 扩容一倍，ArrayList 则扩容0.5倍。</li>
+<li>Vector 是同步的，ArrayList 和 LinkedList 不是。</li>
+<li>LinkedList 增删效率高，ArrayList 和 Vector 支持随机访问。  </li>
+</ol>
+</blockquote>
+<p><strong>Stack:</strong> Vector 的子类，模拟栈的容器。  </p>
+<p><strong>Set:</strong> 继承自 <strong>Collection</strong> 接口，限定了不可含有重复元素的集合。其添加对象时，是利用对象的 equals 方法来判断两对象是否相等。需要对象的 equals 方法有效，否则并不能实现真正无重复的集合。  </p>
+<p><strong>HashSet:</strong> 实现 <strong>Set</strong> 接口，由哈希表（实际上是一个 HashMap 实例）实现。它不保证 迭代顺序。允许使用 null 元素。其通过元素的 hashCode 值来决定该元素在 HashSet 中的存储位置。  </p>
+<p><strong>LinkedHashSet:</strong> 具有可预知迭代顺序的 <strong>Set</strong> 接口的哈希表和链表实现。实际是利用 LinkedHashMap 实现。</p>
+<p><strong>SortedSet:</strong> 继承自  <strong>Set</strong>,定义了关于元素排序方法的规约。元素使用自然顺序或者根据通常在创建有序 Set 时提供的 Comparator 进行排序。  </p>
+<p><strong>NavigableSet:</strong> 扩展了 <strong>SortedSet</strong> 接口，具有为给定搜索目标报告最接近匹配项的导航方法。方法 lower、floor、ceiling 和 higher 分别返回小于、小于等于、大于等于、大于给定元素的元素。</p>
+<p><strong>TreeSet:</strong> 基于 TreeMap 的 NavigableSet 实现。  </p>
+<p><strong>所有具有排序性质的容器，通常需提供两种方式来进行排序比较，默认的是元素得实现 Comparable 接口，或者提供一个外部比较器 Comparator。否则将会运行中抛出 ClassCastException exception。</strong> Comparable 需实现 compareTo 方法，Comparator 接口需要实现compare 方法，equals 方法可选实现。两者代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T o)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//1.8之前的Comparator接口只有两个方法</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(T o1, T o2)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object object)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于Set集合的实现，其容器中元素的 equals 方法至关重要。重写 equals 方法需遵守以下几点： </p>
+<ul>
+<li><strong>自反性</strong>：对于任何非空的 x, x.equals(x)都应该返回 true</li>
+<li><strong>对称性</strong>：对于任何引用 x 和 y，当且仅当 x.equals(y) 返回true时，y.equals(x) 也应该返回 true</li>
+<li><strong>传递性</strong>：对于任何引用 x,y,z，如果 x.equals(y)返回true，y.equals(z) 返回true，那么 x.equals(z) 也应该返回 true</li>
+<li><strong>一致性</strong>：如果 x 和 y 的引用没有发生变化，那么反复调用 x.equals(y) 的结果应该相同</li>
+<li>对于任何非空的引用 x,x.equals(null) 应该返回 false  </li>
+</ul>
+<p>注意：当此方法被重写时，通常有必要重写 hashCode 方法，以维护 hashCode 方法的常规协定，该协定声明相等对象必须具有相等的哈希码。<br>以下是一个重写equals 方法举例。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> id;</div><div class="line">    B b;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</div><div class="line">        <span class="comment">// 同一个对象</span></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == obj) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="comment">// 对象为null</span></div><div class="line">        <span class="keyword">if</span> (obj == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="comment">// 两者不同类</span></div><div class="line">        <span class="keyword">if</span> (obj.getClass() != getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="comment">// 同类，需判定其内容是否分别相等</span></div><div class="line">        A other = (A) obj;</div><div class="line">        <span class="keyword">return</span> (other.id == <span class="keyword">this</span>.id) &amp;&amp; (<span class="keyword">this</span>.b.equals(other.b));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>Queue:</strong> 定义了队列操作的规范，从 <strong>Collection</strong> 继承了一系列方法。从以下代码中可知队列一些常用的方法之间的区别。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 将元素插入此队列（如果立即可行且不会违反容量限制），在成功时返回</div><div class="line">     * true，如果当前没有可用的空间，则抛出 IllegalStateException。</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 将元素插入此队列（如果立即可行且不会违反容量限制），当使用有容量限制的</div><div class="line">     * 队列时，此方法通常要优于add(E)，后者可能无法插入元素，而只是抛出一个异常。</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">offer</span><span class="params">(E e)</span></span>;</div><div class="line">    <span class="comment">// 返回队列头，若队列空则 throws NoSuchElementException</span></div><div class="line">    <span class="function">E <span class="title">remove</span><span class="params">()</span></span>;</div><div class="line">    <span class="comment">// 返回队列头，若队列空，则返回 null</span></div><div class="line">    <span class="function">E <span class="title">poll</span><span class="params">()</span></span>;</div><div class="line">    <span class="comment">// 返回队列头，若队列为空，则 throws NoSuchElementException</span></div><div class="line">    <span class="function">E <span class="title">element</span><span class="params">()</span></span>;</div><div class="line">    <span class="comment">// return the head of this queue, or null if this queue is empty</span></div><div class="line">    <span class="function">E <span class="title">peek</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>Deque:</strong> 支持在两端插入和移除元素的线性结构。此接口定义在双端队列两端访问元素的方法。提供插入、移除和检查元素的方法。每种方法都存在两种形式：一种形式在操作失败时抛出异常，另一种形式返回一个特殊值(false or null)。如下表总结所示：  </p>
+<p><center><table><tr><th></th><th colspan="2">第一个元素</th><th colspan="2">最后一个元素</th></tr><tr><th></th><th>抛出异常</th><th>特殊值</th><th>抛出异常</th><th>特殊值</th></tr><tr><td>insert</td><td>addFirst(e)</td><td>offerFirst(e)</td><td>addLast(e)</td><td>offerLast(e)</td></tr><tr><td>remove</td><td>removeFirst()</td><td>pollFirst()</td><td>removeLast()</td><td>pollLast()</td></tr><tr><td>check</td><td>getFirst()</td><td>peekFirst()</td><td>getLast()</td><td>peekLast()</td></tr></table></center><br>实现<strong>Deque</strong>接口的结构，可以当做队列和栈使用，其内部，提供了很多同功能异名的方法，例如 pop 方法和 removeFirst 方法等。  </p>
+<p><strong>BlockingQueue:</strong> 支持两个附加操作的 Queue，这两个操作是：获取元素时<strong>等待</strong>双端队列变为非空；存储元素时<strong>等待</strong>双端队列中的空间变得可用。  </p>
+<p><strong>PriorityQueue:</strong> 一个基于优先级<strong>堆</strong>的无界优先级队列。优先级队列的元素按照其自然顺序进行排序，或者根据构造队列时提供的 Comparator 进行排序，具体取决于所使用的构造方法。优先级队列不允许使用 null 元素。不可插入不可比较对象，否则抛出异常。<br>构造方法只分析通过其他集合类创建的方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">PriorityQueue</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</div><div class="line">    <span class="comment">// 若是排序类，只需要直接转换成数组即可,不能含有null</span></div><div class="line">    <span class="keyword">if</span> (c <span class="keyword">instanceof</span> SortedSet&lt;?&gt;) &#123;</div><div class="line">        SortedSet&lt;? extends E&gt; ss = (SortedSet&lt;? extends E&gt;) c;</div><div class="line">        <span class="keyword">this</span>.comparator = (Comparator&lt;? <span class="keyword">super</span> E&gt;) ss.comparator();</div><div class="line">        initElementsFromCollection(ss);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 若是优先级队列，直接赋值</span></div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (c <span class="keyword">instanceof</span> PriorityQueue&lt;?&gt;) &#123;</div><div class="line">        PriorityQueue&lt;? extends E&gt; pq = (PriorityQueue&lt;? extends E&gt;) c;</div><div class="line">        <span class="keyword">this</span>.comparator = (Comparator&lt;? <span class="keyword">super</span> E&gt;) pq.comparator();</div><div class="line">        initFromPriorityQueue(pq);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// 需要转换成数组，且需要通过比较器实现堆化</span></div><div class="line">        <span class="keyword">this</span>.comparator = <span class="keyword">null</span>;</div><div class="line">        initFromCollection(c);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>堆化就是利用比较器将数组构造成一个堆，形式上可以想象成完全二叉树。父节点比子节点都大或者小。调整堆的源码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * 从数组中段开始，遍历堆化到数组头</div><div class="line">  */</div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">heapify</span><span class="params">()</span> </span>&#123;</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = (size &gt;&gt;&gt; <span class="number">1</span>) - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</div><div class="line">         siftDown(i, (E) queue[i]);</div><div class="line"> &#125;</div><div class="line"> <span class="comment">// 两种方式的比较器进行堆调整。</span></div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">siftDown</span><span class="params">(<span class="keyword">int</span> k, E x)</span> </span>&#123;</div><div class="line">     <span class="keyword">if</span> (comparator != <span class="keyword">null</span>)</div><div class="line">         siftDownUsingComparator(k, x);</div><div class="line">     <span class="keyword">else</span></div><div class="line">         siftDownComparable(k, x);</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">siftDownUsingComparator</span><span class="params">(<span class="keyword">int</span> k, E x)</span> </span>&#123;</div><div class="line">     <span class="keyword">int</span> half = size &gt;&gt;&gt; <span class="number">1</span>;</div><div class="line">     <span class="keyword">while</span> (k &lt; half) &#123;</div><div class="line">         <span class="keyword">int</span> child = (k &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>;   <span class="comment">//左子节点索引</span></div><div class="line">         Object c = queue[child];</div><div class="line">         <span class="keyword">int</span> right = child + <span class="number">1</span>;  <span class="comment">//右子节点索引</span></div><div class="line">         <span class="keyword">if</span> (right &lt; size &amp;&amp;</div><div class="line">             comparator.compare((E) c, (E) queue[right]) &gt; <span class="number">0</span>)</div><div class="line">             c = queue[child = right];   <span class="comment">//获取左右子节点中大的一个</span></div><div class="line">         <span class="keyword">if</span> (comparator.compare(x, (E) c) &lt;= <span class="number">0</span>)</div><div class="line">             <span class="keyword">break</span>;   <span class="comment">//只要符合大小堆，即可结束。</span></div><div class="line">         queue[k] = c;  <span class="comment">//将子节点中大的元素转到k索引的位置</span></div><div class="line">         k = child;  <span class="comment">//将子节点中大的元素的索引赋予k，继续循环处理</span></div><div class="line">     &#125;</div><div class="line">     queue[k] = x;  <span class="comment">//调整完毕，最终将x元素放置到k索引处</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>DelayQueue:</strong> Delayed元素的一个无界阻塞队列，只有在延迟期满时才能从中提取元素。其内部是由PriorityQueue来存储元素的。<br>这里主要介绍一个 poll 方法，此方法获取并移除此队列的头部，在可从此队列获得到期延迟的元素，或者到达指定的等待时间之前一直等待（如有必要）。代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> E <span class="title">poll</span><span class="params">(<span class="keyword">long</span> timeout, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</div><div class="line">    <span class="keyword">long</span> nanos = unit.toNanos(timeout);</div><div class="line">    <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock; </div><div class="line">    lock.lockInterruptibly();</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            E first = q.peek();</div><div class="line">            <span class="keyword">if</span> (first == <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (nanos &lt;= <span class="number">0</span>)</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    nanos = available.awaitNanos(nanos); <span class="comment">// Block until signalled, interrupted, or timed out.</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">long</span> delay = first.getDelay(NANOSECONDS);</div><div class="line">                <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>)  <span class="comment">// 延迟期已经满足，则立即返回此元素</span></div><div class="line">                    <span class="keyword">return</span> q.poll();</div><div class="line">                <span class="keyword">if</span> (nanos &lt;= <span class="number">0</span>)  <span class="comment">// 等待时间已到，则返回null</span></div><div class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">                first = <span class="keyword">null</span>; <span class="comment">// don't retain ref while waiting</span></div><div class="line">                <span class="keyword">if</span> (nanos &lt; delay || leader != <span class="keyword">null</span>)</div><div class="line">                    nanos = available.awaitNanos(nanos); <span class="comment">// 等待</span></div><div class="line">                <span class="keyword">else</span> &#123; <span class="comment">// 等待时间大于delay</span></div><div class="line">                    Thread thisThread = Thread.currentThread();</div><div class="line">                    leader = thisThread;<span class="comment">// 主线程等待下一个头元素</span></div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        <span class="keyword">long</span> timeLeft = available.awaitNanos(delay);</div><div class="line">                        nanos -= delay - timeLeft;</div><div class="line">                    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                        <span class="keyword">if</span> (leader == thisThread)</div><div class="line">                            leader = <span class="keyword">null</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">        <span class="keyword">if</span> (leader == <span class="keyword">null</span> &amp;&amp; q.peek() != <span class="keyword">null</span>)</div><div class="line">            available.signal();<span class="comment">// 给其他线程的信号</span></div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="映射表相关"><a href="#映射表相关" class="headerlink" title="映射表相关"></a>映射表相关</h3><p>下面是 Map 相关的类关系图，列出了一些常用的 Map 容器类。</p>
+<p><center><br><img src="http://oo2tkpanb.bkt.clouddn.com/java_map.png" alt="Java"><br></center><br><strong>Map:</strong> 定义了一系列映射表相关的规约。可描述为：将键映射到值的结构，一个映射不能包含重复的键；每个键最多只能映射到一个值。提供三种 <strong>Collection</strong> 视图，允许以键集、值集或键-值映射关系集的形式查看某个映射的内容。映射的顺序依据具体的实现类的属性，如TreeMap可保证映射的顺序。元素的非空属性也有具体实现类决定。</p>
+<p><strong>HashMap:</strong><br>这里分析的是1.7版本的HashMap处理细节，1.8版本的HashMap相关分析及与1.7版本的差别<a href="http://blog.wangchangzhi.me/2017/05/21/Map-HashMap/" target="_blank" rel="external">点这里</a><br>有两个参数影响其性能：<strong>初始容量</strong>和<strong>加载因子</strong>。容量 是哈希表中桶的数量，初始容量只是哈希表在创建时的容量。加载因子 是哈希表在其容量自动增加之前可以达到多满的一种尺度。<br>对于构造函数，提供了多种方式，可使用默认的参数，默认的初始容量是16，加载因子为0.75。也可自行设定初始容量和加载因子，加载因子最好不要更改，太小会浪费空间，太大会增加碰撞的几率。  </p>
+<p>下面分析几个主要的方法, 如索引位置的确定，put，resize方法。<br>1.7版本 HashMap 的 put 方法整体流程图如下：  </p>
+<p><center><br><img src="http://oo2tkpanb.bkt.clouddn.com/hashmap-put.png" alt="图"><br></center><br>put 方法的源码解析如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Returns index for hash code h.</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">indexFor</span><span class="params">(<span class="keyword">int</span> h, <span class="keyword">int</span> length)</span> </span>&#123;</div><div class="line">    <span class="comment">// assert Integer.bitCount(length) == 1 : "length must be a non-zero power of 2";</span></div><div class="line">    <span class="keyword">return</span> h &amp; (length-<span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 返回原结点的值，无，则返回null</span></div><div class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</div><div class="line">    <span class="comment">// map是空时初始化table</span></div><div class="line">    <span class="keyword">if</span> (table == EMPTY_TABLE) &#123;</div><div class="line">        inflateTable(threshold);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// key是null时将数据放入table[0]下的链表中</span></div><div class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">return</span> putForNullKey(value);</div><div class="line">    <span class="comment">// 计算key的hash值，找到这个key的位置索引</span></div><div class="line">    <span class="keyword">int</span> hash = hash(key);</div><div class="line">    <span class="keyword">int</span> i = indexFor(hash, table.length);</div><div class="line">    <span class="keyword">for</span> (Entry&lt;K,V&gt; e = table[i]; e != <span class="keyword">null</span>; e = e.next) &#123;</div><div class="line">        Object k;</div><div class="line">        <span class="comment">// 判断key是否存在，如果存在更新value</span></div><div class="line">        <span class="keyword">if</span> (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</div><div class="line">            V oldValue = e.value;</div><div class="line">            e.value = value;</div><div class="line">            e.recordAccess(<span class="keyword">this</span>);</div><div class="line">            <span class="keyword">return</span> oldValue;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 总数自增</span></div><div class="line">    modCount++;</div><div class="line">    <span class="comment">// 不存的key,则会创建一个entry实例</span></div><div class="line">    addEntry(hash, key, value, i);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">addEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> ((size &gt;= threshold) &amp;&amp; (<span class="keyword">null</span> != table[bucketIndex])) &#123;</div><div class="line">        resize(<span class="number">2</span> * table.length);</div><div class="line">        hash = (<span class="keyword">null</span> != key) ? hash(key) : <span class="number">0</span>;</div><div class="line">        <span class="comment">// 获取这个key所在的链表地址</span></div><div class="line">        bucketIndex = indexFor(hash, table.length);</div><div class="line">    &#125;</div><div class="line"><span class="comment">// 创建一个新的entry</span></div><div class="line">    createEntry(hash, key, value, bucketIndex);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">createEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;</div><div class="line">    Entry&lt;K,V&gt; e = table[bucketIndex];</div><div class="line">    <span class="comment">// 创建一个新的entry实例，将它置于链表数组，如果有hash冲突的话，它会位于原链表头，如果没有hash冲突，这个新实例的next就是Null</span></div><div class="line">    table[bucketIndex] = <span class="keyword">new</span> Entry&lt;&gt;(hash, key, value, e);</div><div class="line">    size++;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>resize 方法源代码及解析如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> newCapacity)</span> </span>&#123;</div><div class="line">    Entry[] oldTable = table;</div><div class="line">    <span class="keyword">int</span> oldCapacity = oldTable.length;</div><div class="line">    <span class="keyword">if</span> (oldCapacity == MAXIMUM_CAPACITY) &#123;<span class="comment">// 达到最大容量，则直接返回</span></div><div class="line">        threshold = Integer.MAX_VALUE;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Entry[] newTable = <span class="keyword">new</span> Entry[newCapacity];<span class="comment">// 创建新的散列表</span></div><div class="line">    transfer(newTable, initHashSeedAsNeeded(newCapacity));</div><div class="line">    table = newTable;<span class="comment">// 将新散列表覆盖原始的</span></div><div class="line">    threshold = (<span class="keyword">int</span>)Math.min(newCapacity * loadFactor, MAXIMUM_CAPACITY + <span class="number">1</span>);<span class="comment">// 更新阈值</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 旧表向新表转移的时候，采用的是头插法。所以原始的碰撞链表可能</div><div class="line"> * 会拆分成两个链表，这些链表中的元素的相对位置变成倒序。</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">transfer</span><span class="params">(Entry[] newTable, <span class="keyword">boolean</span> rehash)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> newCapacity = newTable.length;</div><div class="line">    <span class="keyword">for</span> (Entry&lt;K,V&gt; e : table) &#123;</div><div class="line">        <span class="keyword">while</span>(<span class="keyword">null</span> != e) &#123;</div><div class="line">            Entry&lt;K,V&gt; next = e.next;</div><div class="line">            <span class="keyword">if</span> (rehash) &#123;<span class="comment">// 是否重新计算hash</span></div><div class="line">                e.hash = <span class="keyword">null</span> == e.key ? <span class="number">0</span> : hash(e.key);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">int</span> i = indexFor(e.hash, newCapacity);<span class="comment">//重新计算索引位置</span></div><div class="line">            e.next = newTable[i];</div><div class="line">            newTable[i] = e;<span class="comment">// 放置在链表头</span></div><div class="line">            e = next;<span class="comment">// 指向后一个元素</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>LinkedHashMap:</strong>  Map 接口的散列表和链表实现，具有可预知的迭代顺序。此实现与 HashMap 的不同之处在于，它维护着一个记录插入顺序的双向链表。</p>
+<p><strong>SortMap:</strong> 提供关于键的总体排序 的 Map。该映射是根据其键的自然顺序进行排序的，或者根据通常在创建有序映射时提供的 Comparator 进行排序。对有序映射的 collection 视图（由 entrySet、keySet 和 values 方法返回）进行迭代时，此顺序就会反映出来。</p>
+<p><strong>NavigableMap:</strong> 扩展的 SortedMap，具有了针对给定搜索目标返回最接近匹配项的导航方法。方法 lowerEntry、floorEntry、ceilingEntry 和 higherEntry 分别返回与小于、小于等于、大于等于、大于给定键的键关联的 Map.Entry 对象，如果不存在这样的键，则返回 null。</p>
+<p><strong>TreeMap:</strong> 基于红黑树的 NavigableMap 实现。该映射根据其键的自然顺序进行排序，或者根据创建映射时提供的 Comparator 进行排序，具体取决于使用的构造方法。key 必须实现Comparable 接口或者在构造TreeMap传入自定义的Comparator，否则会在运行时抛出ClassCastException 类型的异常。<br>TreeMap 为 containsKey、get、put 和 remove 操作提供受保证的 log(n) 时间开销。<br>下面对TreeMap的put 方法进行源码分析，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 返回原结点的值，无，则返回null</span></div><div class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</div><div class="line">    Entry&lt;K,V&gt; t = root;</div><div class="line">    <span class="keyword">if</span> (t == <span class="keyword">null</span>) &#123; <span class="comment">// 树为null的情况</span></div><div class="line">        compare(key, key); <span class="comment">// null检测</span></div><div class="line"></div><div class="line">        root = <span class="keyword">new</span> Entry&lt;&gt;(key, value, <span class="keyword">null</span>);<span class="comment">// 添加到根结点</span></div><div class="line">        size = <span class="number">1</span>;</div><div class="line">        modCount++;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>; </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> cmp;</div><div class="line">    Entry&lt;K,V&gt; parent;</div><div class="line">    <span class="comment">// split comparator and comparable paths</span></div><div class="line">    Comparator&lt;? <span class="keyword">super</span> K&gt; cpr = comparator;</div><div class="line">    <span class="keyword">if</span> (cpr != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">do</span> &#123;</div><div class="line">            parent = t;<span class="comment">// 记住父节点</span></div><div class="line">            cmp = cpr.compare(key, t.key);</div><div class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</div><div class="line">                t = t.left;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</div><div class="line">                t = t.right;</div><div class="line">            <span class="keyword">else</span><span class="comment">// 相同key，则直接覆盖，返回</span></div><div class="line">                <span class="keyword">return</span> t.setValue(value);</div><div class="line">        &#125; <span class="keyword">while</span> (t != <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;<span class="comment">// 使用key内部的比较器，</span></div><div class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        Comparable&lt;? <span class="keyword">super</span> K&gt; k = (Comparable&lt;? <span class="keyword">super</span> K&gt;) key;</div><div class="line">        <span class="keyword">do</span> &#123;</div><div class="line">            parent = t;<span class="comment">// 记住父节点</span></div><div class="line">            cmp = k.compareTo(t.key);</div><div class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</div><div class="line">                t = t.left;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</div><div class="line">                t = t.right;</div><div class="line">            <span class="keyword">else</span><span class="comment">// 相同key，则直接覆盖，返回</span></div><div class="line">                <span class="keyword">return</span> t.setValue(value);</div><div class="line">        &#125; <span class="keyword">while</span> (t != <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 没有相同的key情况</span></div><div class="line">    Entry&lt;K,V&gt; e = <span class="keyword">new</span> Entry&lt;&gt;(key, value, parent);</div><div class="line">    <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>) <span class="comment">// 直接添加结点</span></div><div class="line">        parent.left = e;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        parent.right = e;</div><div class="line">    fixAfterInsertion(e);<span class="comment">// 进行着色和旋转的操作</span></div><div class="line">    size++;</div><div class="line">    modCount++;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><del>Dictionary</del>:</strong> Dictionary 类是任何可将键映射到相应值的类的抽象父类。任何非 null 对象都可以用作键或值。==此类已过时。新的实现应该实现 Map 接口，而不是扩展此类。==</p>
+<p><strong>HashTable:</strong> 此类实现一个散列表，该散列表将键映射到相应的值。任何非 null 对象都可以用作键或值。除了同步和不允许null 元素和HashMap大致相同。<br>其并发性不如ConcurrentHashMap，因为ConcurrentHashMap引入了分段锁。Hashtable 不建议使用，没有同步的需求场合可以用HashMap替换，需要同步安全的场合可以用ConcurrentHashMap替换。</p>
+<blockquote>
+<p>下面总结了 HashTable 和 HashMap 的异同点。 </p>
+<ul>
+<li>来源，都实现了 Map 接口，HashMap 继承自AbstractMap,而 HashTable 继承自 Dictionary。  </li>
+<li>同步，HashTable 是同步的，HashMap 不是。  </li>
+<li>遍历，HashMap 和 HashTable 都可使用 Iterator 迭代器，而 HashTable 还保留使用了 Enumeration。  </li>
+<li>扩容方式，HashMap 初始容量16，扩容每次增加一倍容量，而 HashTable 初始容量11，扩容结果为 old*2+1。</li>
+<li>null 元素，HashMap允许键值为 null，HashTbale 不允许。</li>
+<li>hash值，HashMap 需重新计算，而 HashTable 直接使用对象的 hashCode 进行操作。</li>
+</ul>
+</blockquote>
+<p><strong>ConcurrentMap:</strong> 额外提供 putIfAbsent、remove、replace 方法原子操作的 Map。<br>内存一致性效果：当存在其他并发 collection 时，将对象放入 ConcurrentMap 之前的线程中的操作 happen-before 随后通过另一线程从 ConcurrentMap 中访问或移除该元素的操作。</p>
+<p><strong>ConcurrentHashMap:</strong> 支持获取的完全并发和更新的所期望可调整并发的哈希表。  </p>
+<ul>
+<li>JDK6,7 中的 ConcurrentHashmap 主要使用 Segment 来实现减小锁粒度，把 HashMap 分割成若干个Segment，在 put 的时候需要锁住Segment，get 时候不加锁。  </li>
+<li>JDK8 中对 ConcurrentHashMap 进行了完全重写。</li>
+</ul>
+<h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><p><strong>Collections:</strong> 此在 collection 上进行操作或返回 collection 的静态方法组成，其中提供了一系列静态方法，用于对集合中元素进行排序、搜索以及线程安全等各种操作。主要提供如下方法等： </p>
+<ul>
+<li>排序，提供两种，一种自然排序，一共提供外部比较器 Comparator。</li>
+<li>查找集合元素，binarySearch，同样提供两种方式，自然排序，或者提供外部比较器。</li>
+<li>复制集合，将一个集合的所有元素复制到另一个中。</li>
+<li>返回集合中的最大或者最小的元素，和上述一样，也是提供两种比较方式。</li>
+<li>翻转集合，或者固定偏移集合中的元素。</li>
+<li>提供同步包装器，如 synchronizedMap 方法。</li>
+</ul>
+<p><strong>Arrays:</strong> 此类包含用来操作数组（比如排序和搜索）的各种方法。此类还包含一个允许将数组作为列表来查看的静态工厂。主要提供以下方法。  </p>
+<ul>
+<li>给数组赋值：通过 fill 方法。</li>
+<li>对数组排序：通过 sort 方法,按升序。</li>
+<li>比较数组：通过 equals 方法比较数组中元素值是否相等。</li>
+<li>查找数组元素：通过 binarySearch 方法能对排序好的数组进行二分查找法操作。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>针对上述几张图中的一些常用容器作简要的总结，插入和读取的时间复杂度仅给出<strong>最坏情况</strong>下的。具体如下：  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">容器名</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:center">内部结构</th>
+<th style="text-align:center">扩容策略</th>
+<th style="text-align:center">插入</th>
+<th style="text-align:center">读取</th>
+<th style="text-align:center">是否同步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ArrayList</td>
+<td style="text-align:left">可伸缩的索引序列</td>
+<td style="text-align:center">数组</td>
+<td style="text-align:center">增长0.5倍</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">Vector</td>
+<td style="text-align:left">可伸缩的索引序列</td>
+<td style="text-align:center">数组</td>
+<td style="text-align:center">增长(1倍 or 固定大小)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">LinkedList</td>
+<td style="text-align:left">可高效增删操作的序列</td>
+<td style="text-align:center">链表</td>
+<td style="text-align:center">无界</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">ArrayQueue</td>
+<td style="text-align:left">循环数组实现的双端队列</td>
+<td style="text-align:center">循环数组</td>
+<td style="text-align:center">手动扩容</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">HashSet</td>
+<td style="text-align:left">无重复的无序集合</td>
+<td style="text-align:center">HashMap(散列表)</td>
+<td style="text-align:center">增长1倍</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">TreeSet</td>
+<td style="text-align:left">有序集合</td>
+<td style="text-align:center">TreeMap(红黑树)</td>
+<td style="text-align:center">无界</td>
+<td style="text-align:center">O(logN)</td>
+<td style="text-align:center">O(logN)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">LinkedHashSet</td>
+<td style="text-align:left">可保存插入顺序的集合</td>
+<td style="text-align:center">LinkedHashMap(散列表+双向链表)</td>
+<td style="text-align:center">增长1倍</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">PriorityQueue</td>
+<td style="text-align:left">可高效删除符合规则元素的集合</td>
+<td style="text-align:center">堆</td>
+<td style="text-align:center">增长1 or 0.5倍</td>
+<td style="text-align:center">O(logN)</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">DelayQueue</td>
+<td style="text-align:left">Delayed元素的一个阻塞队列</td>
+<td style="text-align:center">PriorityQueue(数组)</td>
+<td style="text-align:center">增长1 or 0.5倍</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">HashMap</td>
+<td style="text-align:left">存储键值对的结构</td>
+<td style="text-align:center">散列表(1.8中红黑树改善性能)</td>
+<td style="text-align:center">增长1倍</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">TreeMap</td>
+<td style="text-align:left">存储键值有序的结构</td>
+<td style="text-align:center">红黑树</td>
+<td style="text-align:center">无界</td>
+<td style="text-align:center">O(logN)</td>
+<td style="text-align:center">O(logN)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">LinkedHashMap</td>
+<td style="text-align:left">可保存插入顺序的映射表</td>
+<td style="text-align:center">散列表+双向链表</td>
+<td style="text-align:center">增长1倍</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">WeakHashMap</td>
+<td style="text-align:left">可将无用的键值对回收的映射表</td>
+<td style="text-align:center">数组 + ReferenceQueue(队列)</td>
+<td style="text-align:center">增加1倍</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">HashTable</td>
+<td style="text-align:left">并发的存储键值对的映射表</td>
+<td style="text-align:center">散列表</td>
+<td style="text-align:center">增长1倍 + 1</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">ConcurrentHashMap</td>
+<td style="text-align:left">高效并发的存储键值对的映射表</td>
+<td style="text-align:center">散列表(分段加锁)</td>
+<td style="text-align:center">增长1倍</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">是</td>
+</tr>
+</tbody>
+</table>
+<p><strong>附：上表这所有的Hash相关的容器，查找和插入时间复杂度，N代表发生碰撞的那条链表长度。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/容器，List/" rel="tag"># 容器，List</a>
+          
+            <a href="/tags/Set/" rel="tag"># Set</a>
+          
+            <a href="/tags/Map/" rel="tag"># Map</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/Scrapy-1/" rel="next" title="(爬虫一) 初识Scrapy">
+                <i class="fa fa-chevron-left"></i> (爬虫一) 初识Scrapy
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.png"
+               alt="ManUu" />
+          <p class="site-author-name" itemprop="name">ManUu</p>
+           
+              <p class="site-description motion-element" itemprop="description">learn and live</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HeHeManuu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://twitter.com/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://nnecec.cc" title="nnecec" target="_blank">nnecec</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表"><span class="nav-number">1.1.</span> <span class="nav-text">线性表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非线性"><span class="nav-number">1.2.</span> <span class="nav-text">非线性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-number">1.3.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set"><span class="nav-number">1.4.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">1.5.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Queue"><span class="nav-number">1.6.</span> <span class="nav-text">Queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack"><span class="nav-number">1.7.</span> <span class="nav-text">Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap"><span class="nav-number">1.8.</span> <span class="nav-text">Heap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关类图的层级关系"><span class="nav-number">2.</span> <span class="nav-text">相关类图的层级关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集合相关"><span class="nav-number">2.1.</span> <span class="nav-text">集合相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#映射表相关"><span class="nav-number">2.2.</span> <span class="nav-text">映射表相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具类"><span class="nav-number">2.3.</span> <span class="nav-text">工具类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ManUu</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2a556027915b4826b253771db9695cf9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
