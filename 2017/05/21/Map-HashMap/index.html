@@ -95,19 +95,19 @@
 
 
 <meta name="description" content="HashMap
-   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。   这里主要基于JDK1.8版本的 HashMap 源码">
+   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。   这里主要基于 JDK1.8 版本的 HashMap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java8-HashMap详解">
 <meta property="og:url" content="http://www.manuu.vip/2017/05/21/Map-HashMap/index.html">
 <meta property="og:site_name" content="ManUu">
 <meta property="og:description" content="HashMap
-   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。   这里主要基于JDK1.8版本的 HashMap 源码">
+   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。   这里主要基于 JDK1.8 版本的 HashMap">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/java_map.png">
-<meta property="og:updated_time" content="2017-07-30T06:46:51.776Z">
+<meta property="og:updated_time" content="2017-07-30T06:51:10.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8-HashMap详解">
 <meta name="twitter:description" content="HashMap
-   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。   这里主要基于JDK1.8版本的 HashMap 源码">
+   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。   这里主要基于 JDK1.8 版本的 HashMap">
 <meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/java_map.png">
 
 
@@ -333,8 +333,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java集合/" itemprop="url" rel="index">
-                    <span itemprop="name">Java集合</span>
+                  <a href="/categories/Java-容器/" itemprop="url" rel="index">
+                    <span itemprop="name">Java 容器</span>
                   </a>
                 </span>
 
@@ -383,7 +383,7 @@
 
       
         <h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><hr>
-<p>   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。<br>   这里主要基于JDK1.8版本的 HashMap 源码进行分析。Map 相关的类图如下所示：</p>
+<p>   HashMap 实现了 Map 接口，继承于 AbstractMap。利用散列表来实现 Key-Value 元素的存取。散列表是用链表数组实现的，每个列表被称为桶(bucket)。利用 key 的 hashcode 来确保元素的唯一性。HashMap 不保证元素的顺序恒定不变，在扩充的过程中，键值对元素位置会被再分配。<br>   这里主要基于 JDK1.8 版本的 HashMap 源码进行分析。Map 相关的类图如下所示：</p>
 <p><center><br>    <img src="http://oo2tkpanb.bkt.clouddn.com/java_map.png" alt="map"><br></center></p>
 <h3 id="HashMap-构造"><a href="#HashMap-构造" class="headerlink" title="HashMap 构造"></a>HashMap 构造</h3><hr>
 <p>HashMap 有两个参数影响其性能：初始容量和加载因子。容量是哈希表中桶的数量，初始容量是哈希表在创建时的容量。加载因子是哈希表在其容量自动增加之前可以达到多满的一种尺度。<br>HashMap 提供了三种构造函数。第一种通过直接设置初始容量和加载因子。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Constructs an empty HashMap with the specified initial</div><div class="line">     * capacity and load factor.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span>  initialCapacity the initial capacity</div><div class="line">     * <span class="doctag">@param</span>  loadFactor      the load factor</div><div class="line">     * <span class="doctag">@throws</span> IllegalArgumentException if the initial capacity is negative </div><div class="line">     *         or the load factor is nonpositive       </div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</div><div class="line">        <span class="comment">//初始容量为负，则抛出</span></div><div class="line">        <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +</div><div class="line">                                               initialCapacity);</div><div class="line">        <span class="comment">//大于最大容量则设为最大容量                                    </span></div><div class="line">        <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</div><div class="line">            initialCapacity = MAXIMUM_CAPACITY;</div><div class="line">        <span class="comment">//检测加载因子是否是正数</span></div><div class="line">        <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +</div><div class="line">                                               loadFactor);</div><div class="line">        <span class="keyword">this</span>.loadFactor = loadFactor;</div><div class="line">        <span class="comment">//将初始容量转为向上最近的2的次方。例如初始为9转为16</span></div><div class="line">        <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
@@ -545,7 +545,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -567,7 +567,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
