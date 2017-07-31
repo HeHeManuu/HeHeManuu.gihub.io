@@ -78,7 +78,7 @@
 <meta property="og:description" content="概念
 泛型泛型在编程语言中出现的最初的目的是希望类或方法具有最广泛的表达能力。通过解耦类或者方法与所使用的类型之间的约束来实现。 
 通常一般的类和方法，只能应用于具体的类型，基本类型或者自定义的类，若要编写应用于多种类型的代码，这种限制会对代码的束缚很大。在Java语言处于还未出现泛型的版本时，只能通过 Object 是所有类型的父类和类型强制转换两个特点的配合来实现类型泛化。下面是一个容器代码实">
-<meta property="og:updated_time" content="2017-07-31T01:43:41.664Z">
+<meta property="og:updated_time" content="2017-07-31T01:45:38.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 泛型详解">
 <meta name="twitter:description" content="概念
@@ -429,8 +429,8 @@
 <h5 id="PECS"><a href="#PECS" class="headerlink" title="PECS"></a>PECS</h5><p>用法可以总结成：PECS ( Producer Extends，Consumer Super )。  </p>
 <p>假设你有一个 List<thing> 相关的容器，现在你想灵活的对此容器进行操作。</thing></p>
 <ol>
-<li>如果你是想遍历 List，并对每一项元素操作时，此时这个容器是 Producer（生产元素），应该使用 List&lt;? extends Thing&gt;.</li>
-<li>如果你是想添加元素到 List，那么此时容器是 Consumer（消费元素）List&lt;? super Thing&gt;</li>
+<li>如果你是想遍历 List，并对每一项元素操作时，此时这个容器是 Producer（生产元素），应该使用 List&lt;? extends Thing&gt;。</li>
+<li>如果你是想添加元素到 List，那么此时容器是 Consumer（消费元素）List&lt;? super Thing&gt;。</li>
 </ol>
 <h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><hr>
 <p>先看下面的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErasedTypeEquivalence</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(string [] args)</span> </span>&#123;</div><div class="line">        Class c1 = <span class="keyword">new</span> ArrayList&lt;String&gt;().getClass();</div><div class="line">        Class c2 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;().getClass();</div><div class="line">        System.out.print(c1 == c2);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/* Output</span></div><div class="line">true</div><div class="line">*/</div></pre></td></tr></table></figure></p>
