@@ -80,7 +80,7 @@
 字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/char_stream.png">
-<meta property="og:updated_time" content="2017-08-05T14:10:24.409Z">
+<meta property="og:updated_time" content="2017-08-05T14:22:53.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java IO 详解">
 <meta name="twitter:description" content="概念流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
@@ -369,7 +369,7 @@
 <li>Unicode 是一个很大的字符集，将世界上很多的符号都包含进去，其所需的字节数就比较大，其应用效率不高，因为过多的字节空间的浪费。</li>
 <li>为了提高 Unicode 的编码效率，于是就出现了 UTF-8 编码。UTF-8 可以根据不同的符号自动选择编码的长短。比如英文字母可以只用1个字节就够了。</li>
 </ol>
-<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>在 Java 中，管道为同一个虚拟机内的两个线程提供了通信的方式。<br>这个不同于 Unix / Linux 的管道，在系统中的管道可以为不同的地址空间内的进程提供通信。而在Java 中只能为相同进程中的不同线程提供通信。</p>
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>在 Java 中，管道为同一个虚拟机内的两个线程提供了通信的方式。这个不同于 Unix / Linux 的管道，在系统中的管道可以为不同的地址空间内的进程提供通信。而在Java 中只能为相同进程中的不同线程提供通信。</p>
 <h2 id="类图及功能详解"><a href="#类图及功能详解" class="headerlink" title="类图及功能详解"></a>类图及功能详解</h2><p>在 Java IO 的包内，类种类繁多，下面介绍一些常用的类，给出相关特性和内部方法的逻辑解析。</p>
 <h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>下面是字节流相关类的层级关系图，只标出些常用的类。<br><img src="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png" alt="ByteStream"></p>
 <p><strong>OutputStream:</strong> 此抽象类是所有表示输出字节流相关类的基类。输出流接受输出字节并将这些字节发送到某个接收器。下面列出这个基类实用的方法总览：</p>
