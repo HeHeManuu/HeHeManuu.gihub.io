@@ -78,7 +78,7 @@
 基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg">
-<meta property="og:updated_time" content="2017-04-20T07:01:32.930Z">
+<meta property="og:updated_time" content="2017-08-05T14:20:24.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="外部排序">
 <meta name="twitter:description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
@@ -357,7 +357,7 @@
       
 
       
-        <h4 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h4><p>前面<a href="http://blog.wangchangzhi.me/blog/2017/02/18/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E8%A7%88/" target="_blank" rel="external">基础排序算法总览–JAVA</a>介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。</p>
+        <h4 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h4><p>前面<a href="http://blog.wangchangzhi.me/2017/02/18/Basic-Sort-Algorithms/" target="_blank" rel="external">基础排序算法总览–JAVA</a>介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。</p>
 <h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存利用内部算法进行排序，并将排序后的子文件重新写回内存。然后将这些子文件逐趟归并，使子文件逐渐变大，直到得到这个有序文件为止。</p>
 <h4 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h4><p>假设按照内存缓冲区大小的子文件已经过内部排序成R1，R2等几个归并段。</p>
 <div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg" alt="merge"><br></div><br>此时这些归并段都放置在外存中。我们以R1和R2归并段为例，将外存中的这两个归并段分别读入内存(不一定是完全读入，可部分读入)，如下图的输入缓冲区1和输入缓冲区2中。然后在内存中进行二路归并，归并的结果顺序存储在输出缓冲区中。当输出缓冲区满了，则将这些对象顺序的写到外存中，将输出缓冲区清空，继续存放归并后的对象。直到R1和R2归并段中的对象全部读入内存并且归并都完成为止。R1和R2归并成新的归并段，然后和别的新归并段继续归并，多趟归并后最后成为一个有序文件。<br><div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg" alt="merge"><br></div>
