@@ -68,22 +68,25 @@
 
 
 
-<meta name="description" content="概念流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
+<meta name="description" content="概念
+流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
 字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
 字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java IO 详解">
 <meta property="og:url" content="http://www.manuu.vip/2017/08/05/Java-IO/index.html">
 <meta property="og:site_name" content="ManUu">
-<meta property="og:description" content="概念流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
+<meta property="og:description" content="概念
+流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
 字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
 字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/char_stream.png">
-<meta property="og:updated_time" content="2017-08-05T14:22:53.587Z">
+<meta property="og:updated_time" content="2017-08-05T14:25:01.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java IO 详解">
-<meta name="twitter:description" content="概念流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
+<meta name="twitter:description" content="概念
+流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
 字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
 字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
 <meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png">
@@ -360,7 +363,8 @@
       
 
       
-        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="流"><a href="#流" class="headerlink" title="流"></a>流</h3><p>流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。</p>
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><hr>
+<h3 id="流"><a href="#流" class="headerlink" title="流"></a>流</h3><p>流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。</p>
 <h3 id="字节"><a href="#字节" class="headerlink" title="字节"></a>字节</h3><p>字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。</p>
 <h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p>在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。</p>
 <h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>在计算机中，是指把字符集中的字符编码为指定集合中某一对象，以便文本在计算机中存储和通过通信网络的传递。例如目前比较常见的 ASCII，UTF-8, Unicode。</p>
@@ -370,7 +374,8 @@
 <li>为了提高 Unicode 的编码效率，于是就出现了 UTF-8 编码。UTF-8 可以根据不同的符号自动选择编码的长短。比如英文字母可以只用1个字节就够了。</li>
 </ol>
 <h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>在 Java 中，管道为同一个虚拟机内的两个线程提供了通信的方式。这个不同于 Unix / Linux 的管道，在系统中的管道可以为不同的地址空间内的进程提供通信。而在Java 中只能为相同进程中的不同线程提供通信。</p>
-<h2 id="类图及功能详解"><a href="#类图及功能详解" class="headerlink" title="类图及功能详解"></a>类图及功能详解</h2><p>在 Java IO 的包内，类种类繁多，下面介绍一些常用的类，给出相关特性和内部方法的逻辑解析。</p>
+<h2 id="类图及功能详解"><a href="#类图及功能详解" class="headerlink" title="类图及功能详解"></a>类图及功能详解</h2><hr>
+<p>在 Java IO 的包内，类种类繁多，下面介绍一些常用的类，给出相关特性和内部方法的逻辑解析。</p>
 <h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>下面是字节流相关类的层级关系图，只标出些常用的类。<br><img src="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png" alt="ByteStream"></p>
 <p><strong>OutputStream:</strong> 此抽象类是所有表示输出字节流相关类的基类。输出流接受输出字节并将这些字节发送到某个接收器。下面列出这个基类实用的方法总览：</p>
 <table>
@@ -533,9 +538,11 @@
 <p><strong>CharArrayWriter:</strong> 继承自 Writer，此类实现一个可用作 Writer 的字符缓冲区，缓冲区会随向流中写入数据而自动增长。  </p>
 <p><strong>CharArrayReader:</strong> 继承自 Reader，此类实现一个可用作字符输入流的字符缓冲区。</p>
 <p><strong>PrintWriter:</strong> 继承自 Writer，将文本输出流打印对象格式化表示形式。功能和 PrintStream 类似。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>字节流和字符流相关类的对照表如下所示：</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><hr>
+<p>字节流和字符流相关类的对照表如下所示：</p>
 <p><table width="100%" cellspacing="0" cellpadding="5" style="border: 1px solid #aaaaaa;"><tbody><tr><td>&nbsp;</td><td align="center" colspan="2">字节</td><td align="center" colspan="2">字符</td></tr><tr><td>&nbsp;</td><td>Input</td><td>Output</td><td>Input</td><td>Output</td></tr><tr><td align="center">基类</td><td>InputStream</td><td>OutputStream</td><td>Reader</td><td>Writer</td></tr><tr><td align="center">转换</td><td>&nbsp;</td><td>&nbsp;</td><td>InputStreamReader</td><td>OutputStreamWriter</td></tr><tr><td align="center">数组</td><td>ByteArrayInputStream</td><td>ByteArrayOutputStream</td><td>CharArrayReader</td><td>CharArrayWriter</td></tr><tr><td align="center">文件</td><td>FileInputStream</td><td>FileOutputStream</td><td>FileReader</td><td>FileWriter</td></tr><tr><td align="center">管道</td><td>PipedInputStream</td><td>PipedOutputStream</td><td>PipedReader</td><td>PipedWriter</td></tr><tr><td align="center">缓冲</td><td>BufferedInputStream</td><td>BufferedOutputStream</td><td>BufferedReader</td><td>BufferedWriter</td></tr><tr><td align="center">过滤</td><td>FilterInputStream</td><td>FilterOutputStream</td><td>FilterReader</td><td>FilterWriter</td></tr><tr><td align="center">解析</td><td>PushbackInputStream</td><td>&nbsp;</td><td>PushbackReader</td><td>&nbsp;</td></tr><tr><td align="center">字符串</td><td>&nbsp;</td><td>&nbsp;</td><td>StringReader</td><td>StringWriter</td></tr><tr><td align="center">数据</td><td>DataInputStream</td><td>DataOutputStream</td><td>&nbsp;</td><td><br></td></tr><tr><td align="center">数据格式化</td><td>&nbsp;</td><td>PrintStream</td><td>&nbsp;</td><td>PrintWriter</td></tr><tr><td align="center">对象</td><td>ObjectInputStream</td><td>ObjectOutputStream</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td align="center">公共</td><td>SequenceInputStream</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><strong>《Java 编程思想 第四版》<br>《Java 核心技术卷 二 第九版》</strong></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><hr>
+<p><strong>《Java 编程思想 第四版》<br>《Java 核心技术卷 二 第九版》</strong></p>
 
       
     </div>
