@@ -1,0 +1,993 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java IO," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="概念流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
+字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
+字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java IO 详解">
+<meta property="og:url" content="http://www.manuu.vip/2017/08/05/Java-IO/index.html">
+<meta property="og:site_name" content="ManUu">
+<meta property="og:description" content="概念流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
+字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
+字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
+<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png">
+<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/char_stream.png">
+<meta property="og:updated_time" content="2017-08-05T14:10:24.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java IO 详解">
+<meta name="twitter:description" content="概念流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
+字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
+字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
+<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.manuu.vip/2017/08/05/Java-IO/"/>
+
+
+
+
+
+  <title>Java IO 详解 | ManUu</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ManUu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/08/05/Java-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ManUu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ManUu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java IO 详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-05T21:50:09+08:00">
+                2017-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/08/05/Java-IO/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="流"><a href="#流" class="headerlink" title="流"></a>流</h3><p>流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。</p>
+<h3 id="字节"><a href="#字节" class="headerlink" title="字节"></a>字节</h3><p>字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。</p>
+<h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p>在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。</p>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>在计算机中，是指把字符集中的字符编码为指定集合中某一对象，以便文本在计算机中存储和通过通信网络的传递。例如目前比较常见的 ASCII，UTF-8, Unicode。</p>
+<ol>
+<li>美国国家信息交换标准码，一种使用 7 个或 8 个二进制位进行编码的方案，最多可以给 256 个字符 (包括字母、数字、标点符号、控制字符及其他符号) 分配数值。</li>
+<li>Unicode 是一个很大的字符集，将世界上很多的符号都包含进去，其所需的字节数就比较大，其应用效率不高，因为过多的字节空间的浪费。</li>
+<li>为了提高 Unicode 的编码效率，于是就出现了 UTF-8 编码。UTF-8 可以根据不同的符号自动选择编码的长短。比如英文字母可以只用1个字节就够了。</li>
+</ol>
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>在 Java 中，管道为同一个虚拟机内的两个线程提供了通信的方式。<br>这个不同于 Unix / Linux 的管道，在系统中的管道可以为不同的地址空间内的进程提供通信。而在Java 中只能为相同进程中的不同线程提供通信。</p>
+<h2 id="类图及功能详解"><a href="#类图及功能详解" class="headerlink" title="类图及功能详解"></a>类图及功能详解</h2><p>在 Java IO 的包内，类种类繁多，下面介绍一些常用的类，给出相关特性和内部方法的逻辑解析。</p>
+<h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>下面是字节流相关类的层级关系图，只标出些常用的类。<br><img src="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png" alt="ByteStream"></p>
+<p><strong>OutputStream:</strong> 此抽象类是所有表示输出字节流相关类的基类。输出流接受输出字节并将这些字节发送到某个接收器。下面列出这个基类实用的方法总览：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>功能</th>
+<th>方法特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>write(int b)</td>
+<td>将指定的字节写入此输出流</td>
+<td>虚方法，子类必须实现此方法。向输出流写入一个字节。要写入的字节是参数 b 的八个低位。 b 的 24 个高位将被忽略</td>
+</tr>
+<tr>
+<td>write(byte[] b, int off, int len)</td>
+<td>将指定 byte 数组中从偏移量 off 开始的 len 个字节写入此输出流</td>
+<td>建议子类重写此方法并提供更有效的实现</td>
+</tr>
+<tr>
+<td>flush()</td>
+<td>刷新此输出流并强制写出所有缓冲的输出字节</td>
+<td>如果此输出流的实现已经缓冲了以前写入的任何字节，则调用此方法指示应将这些字节立即写入它们预期的目标</td>
+</tr>
+</tbody>
+</table>
+<p><strong>InputStream:</strong> 此抽象类是所有字节输入流相关类的基类。下面介绍关于这个基类的常用方法总览：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>功能</th>
+<th>方法特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read()</td>
+<td>从输入流中读取数据的下一个字节</td>
+<td>虚方法，子类必须实现。返回 0 到 255 范围内的 int 字节值。如果因为已经到达流末尾而没有可用的字节，则返回值 -1</td>
+</tr>
+<tr>
+<td>read(byte[] b, int off, int len)</td>
+<td>将输入流中最多 len 个数据字节读入 byte 数组</td>
+<td>在输入数据可用、检测到流末尾或者抛出异常前，此方法一直阻塞。返回实际读取的字节数</td>
+</tr>
+<tr>
+<td>skip(long n)</td>
+<td>跳过和丢弃此输入流中数据的 n 个字节</td>
+<td>返回跳过的实际字节数。如果 n 为负，则不跳过任何字节</td>
+</tr>
+</tbody>
+</table>
+<p>下面看 read(byte[] b, int off, int len) 方法源代码的解析：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (b == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (off &lt; <span class="number">0</span> || len &lt; <span class="number">0</span> || len &gt; b.length - off) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> c = read();</div><div class="line">        <span class="keyword">if</span> (c == -<span class="number">1</span>) &#123; <span class="comment">// 读到尾部</span></div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        b[off] = (<span class="keyword">byte</span>)c;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">for</span> (; i &lt; len ; i++) &#123;</div><div class="line">                c = read();</div><div class="line">                <span class="keyword">if</span> (c == -<span class="number">1</span>) &#123;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                b[off + i] = (<span class="keyword">byte</span>)c; <span class="comment">// 转换成byte，读出来的是int</span></div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException ee) &#123;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> i; <span class="comment">// 返回实际读取的字节数</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>FileOutputStream:</strong> 文件输出流是用于将数据写入 File 或 FileDescriptor 的输出流。文件是否可用或能否可以被创建取决于基础平台。提供了两个 native method 的写方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> b, <span class="keyword">boolean</span> append)</span> <span class="keyword">throws</span> IOException</span>;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">writeBytes</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len, <span class="keyword">boolean</span> append)</span> <span class="keyword">throws</span> IOException</span>;</div></pre></td></tr></table></figure></p>
+<p><strong>FileInputStream:</strong> 继承自 InputStream, 其从文件系统中的某个文件中获得输入字节。哪些文件可用取决于主机环境。可通过字符串，文件描述符，文件来创建。</p>
+<p><strong>FilterOutputStream:</strong> 此类是过滤输出流的所有类的基类。过滤相关的类，它们将已存在的输出流作为其成员，利用装饰模式，提供一些额外的功能。<br>FilterOutputStream 类只是简单地重写那些将请求传递给其成员 OutputStream 的所有方法。其子类会进一步重写方法并提供额外的功能。</p>
+<p><strong>FilterInputStream:</strong> 此类是过滤输入流的所有类的基类。和FilterOutputStream 对应，使用其他输入流作为成员，利用装饰模式，提供额外的一些功能。<br>同样，其也是简单重写了一些基本方法，其子类会进一步重写方法以提供更多的功能。</p>
+<p><strong>DataOutputStream:</strong> 继承自FilterOutputStream，实现了 DataOutput 接口。DataOutput 接口用于将数据从任意 Java 基本类型转换为一系列字节，并将这些字节写入二进制流。<br>允许应用程序以适当方式将基本 Java 数据类型写入输出流中。下面看 writeInt 方法的代码实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 从 int 的高位八位开始，依次写入四个字节。</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">writeInt</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        out.write((v &gt;&gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xFF</span>); <span class="comment">// 无符号右移动，空位补0</span></div><div class="line">        out.write((v &gt;&gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>);</div><div class="line">        out.write((v &gt;&gt;&gt;  <span class="number">8</span>) &amp; <span class="number">0xFF</span>);</div><div class="line">        out.write((v &gt;&gt;&gt;  <span class="number">0</span>) &amp; <span class="number">0xFF</span>);</div><div class="line">        incCount(<span class="number">4</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>DataInputStream:</strong> 继承自 FilterInputStream，实现了DataInput 接口。DataInput 提供了从二进制流中读取字节，并根据所有 Java 基本类型数据进行重构的相关方法。<br>下面看于上面 writeInt 对应的 readInt 方法的解析：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">readInt</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">int</span> ch1 = in.read(); <span class="comment">// 连续读四个字节 第一个是高位</span></div><div class="line">        <span class="keyword">int</span> ch2 = in.read();</div><div class="line">        <span class="keyword">int</span> ch3 = in.read();</div><div class="line">        <span class="keyword">int</span> ch4 = in.read();</div><div class="line">        <span class="keyword">if</span> ((ch1 | ch2 | ch3 | ch4) &lt; <span class="number">0</span>) <span class="comment">// 验证这四个字节未到尾部</span></div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EOFException();</div><div class="line">        <span class="comment">// 重构 Int</span></div><div class="line">        <span class="keyword">return</span> ((ch1 &lt;&lt; <span class="number">24</span>) + (ch2 &lt;&lt; <span class="number">16</span>) + (ch3 &lt;&lt; <span class="number">8</span>) + (ch4 &lt;&lt; <span class="number">0</span>));</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>PrintStream:</strong> 继承自FilterOutputStream, 实现了Appendable 和 Closeable 接口。<br>PrintStream 为其他输出流添加了功能，使它们能够方便地打印各种数据值表示形式。<br>PrintStream 永远不会抛出 IOException；而是，异常情况仅设置可通过 checkError 方法测试的内部标志。下面是一个 PrintStream 的用法举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PrintStream printStream = <span class="keyword">new</span> PrintStream(outputStream);</div><div class="line">printStream.printf(Locale.CHINA, <span class="string">"Text + data: %1$"</span>, <span class="number">123</span>);</div><div class="line">printStream.close();</div></pre></td></tr></table></figure></p>
+<p>内部详细的实现方法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 使用指定格式字符串和参数将格式化的字符串写入此输出流</span></div><div class="line"><span class="function"><span class="keyword">public</span> PrintStream <span class="title">printf</span><span class="params">(Locale l, String format, Object ... args)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> format(l, format, args);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"><span class="function"><span class="keyword">public</span> PrintStream <span class="title">format</span><span class="params">(String format, Object ... args)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123; <span class="comment">// 锁对象</span></div><div class="line">                ensureOpen(); <span class="comment">// 确保未关闭</span></div><div class="line">                <span class="keyword">if</span> ((formatter == <span class="keyword">null</span>)</div><div class="line">                    || (formatter.locale() != Locale.getDefault()))</div><div class="line">                    formatter = <span class="keyword">new</span> Formatter((Appendable) <span class="keyword">this</span>); <span class="comment">// 初始化</span></div><div class="line">                formatter.format(Locale.getDefault(), format, args); <span class="comment">// 直接调用</span></div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedIOException x) &#123;</div><div class="line">            Thread.currentThread().interrupt();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException x) &#123;</div><div class="line">            trouble = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>PushbackInputStream:</strong> 继承自 FilterInputStream, 其为另一个输入流添加功能，即 “推回 (push back)” 或 “取消读取 (unread)” 字节的能力。<br>下面介绍其 read 方法和 unread 方法的细节解析：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span>[] b, <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        ensureOpen(); <span class="comment">// 确保打开</span></div><div class="line">        <span class="keyword">if</span> (b == <span class="keyword">null</span>) &#123; <span class="comment">// 参数合法性验证</span></div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (off &lt; <span class="number">0</span> || len &lt; <span class="number">0</span> || len &gt; b.length - off) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> avail = buf.length - pos;</div><div class="line">        <span class="keyword">if</span> (avail &gt; <span class="number">0</span>) &#123; <span class="comment">// 先从缓冲区读数据</span></div><div class="line">            <span class="keyword">if</span> (len &lt; avail) &#123;</div><div class="line">                avail = len;</div><div class="line">            &#125;</div><div class="line">            System.arraycopy(buf, pos, b, off, avail);</div><div class="line">            pos += avail;</div><div class="line">            off += avail;</div><div class="line">            len -= avail;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (len &gt; <span class="number">0</span>) &#123; <span class="comment">// 不够，再从流中读取</span></div><div class="line">            len = <span class="keyword">super</span>.read(b, off, len);</div><div class="line">            <span class="keyword">if</span> (len == -<span class="number">1</span>) &#123;</div><div class="line">                <span class="keyword">return</span> avail == <span class="number">0</span> ? -<span class="number">1</span> : avail;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> avail + len;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> avail;</div><div class="line">    &#125;</div><div class="line"><span class="comment">// 回退</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unread</span><span class="params">(<span class="keyword">byte</span>[] b, <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        ensureOpen();</div><div class="line">        <span class="keyword">if</span> (len &gt; pos) &#123; <span class="comment">// 回退会导致 buf 溢出</span></div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Push back buffer is full"</span>);</div><div class="line">        &#125;</div><div class="line">        pos -= len;</div><div class="line">        System.arraycopy(b, off, buf, pos, len); <span class="comment">// 回退给buf</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>BufferedOutputStream:</strong> 继承自FilterOutputStream，实现缓冲的输出流。通过设置缓冲机制，程序不必针对每次字节写入调用底层系统，而提升性能。<br><strong>我们可以根据具体的硬件设备属性来设置缓冲区大小来优化性能</strong>。假设硬件写一次的大小为4KB，我们可以将缓冲区的大小设为 4KB 的倍数。如果磁盘写的性能较好，设置 16KB or 64KB 性能要比 4KB 好很多。<br>下面分析 write 方法的源码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> b)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (count &gt;= buf.length) &#123; <span class="comment">// 超过长度则将缓冲区数据写入</span></div><div class="line">            flushBuffer();</div><div class="line">        &#125;</div><div class="line">        buf[count++] = (<span class="keyword">byte</span>)b;</div><div class="line">    &#125;</div><div class="line"><span class="comment">// 将缓冲区的数据写入</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">flushBuffer</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</div><div class="line">            out.write(buf, <span class="number">0</span>, count);</div><div class="line">            count = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>BufferedInputStream:</strong> 继承自 FilterInputStream, 其为另一个输入流添加一些功能，即缓冲输入以及支持 mark 和 reset 方法的能力。</p>
+<p><strong>ObjectOutputStream:</strong> 继承自 OutputStream。将 Java 对象的基本数据类型和图形写入 OutputStream，只能将支持 java.io.Serializable 接口的对象写入流中。<br>下面简要的介绍了 ObjectOutputStream  序列化某个类的方法，后面的类中会给出对应的反序列化操作。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//需序列化的类</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"t.tmp"</span>));</div><div class="line"></div><div class="line">Test test = <span class="keyword">new</span> Test();</div><div class="line"></div><div class="line">oos.writeObject(test);</div><div class="line">oos.close();</div></pre></td></tr></table></figure></p>
+<p>writeObject 方法用于将对象写入流中。所有对象都可以通过 writeObject 写入。可将多个对象或基元写入流中。下面分析writeObject 方法代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (enableOverride) &#123;</div><div class="line">            writeObjectOverride(obj); <span class="comment">// 子类用于重写默认 writeObject 方法的方法。需Final 修饰。</span></div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            writeObject0(obj, <span class="keyword">false</span>); <span class="comment">// 主要的处理方法</span></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException ex) &#123;</div><div class="line">            <span class="keyword">if</span> (depth == <span class="number">0</span>) &#123;</div><div class="line">                writeFatalException(ex);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">throw</span> ex;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject0</span><span class="params">(Object obj, <span class="keyword">boolean</span> unshared)</span></span></div><div class="line">        <span class="keyword">throws</span> IOException</div><div class="line">    &#123;   <span class="comment">// 设置数据块模式，返回上一模式状态。</span></div><div class="line">        <span class="keyword">boolean</span> oldMode = bout.setBlockDataMode(<span class="keyword">false</span>);</div><div class="line">        depth++;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">// 处理之前写入的对象及不可替代的对象。如类：Object.class</span></div><div class="line">            <span class="keyword">int</span> h;</div><div class="line">            <span class="keyword">if</span> ((obj = subs.lookup(obj)) == <span class="keyword">null</span>) &#123;</div><div class="line">                writeNull();</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!unshared &amp;&amp; (h = handles.lookup(obj)) != -<span class="number">1</span>) &#123;</div><div class="line">                writeHandle(h);<span class="comment">// 例如 引用等</span></div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> Class) &#123;</div><div class="line">                writeClass((Class) obj, unshared); <span class="comment">// 写入类信息。</span></div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> ObjectStreamClass) &#123;</div><div class="line">                <span class="comment">// 写入类的序列化描述符</span></div><div class="line">                writeClassDesc((ObjectStreamClass) obj, unshared);</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// 处理那些可替代的对象</span></div><div class="line">            Object orig = obj;</div><div class="line">            Class cl = obj.getClass();</div><div class="line">            ObjectStreamClass desc;</div><div class="line">            <span class="keyword">for</span> (;;) &#123;</div><div class="line">                <span class="comment">// REMIND: skip this check for strings/arrays?</span></div><div class="line">                Class repCl;</div><div class="line">                desc = ObjectStreamClass.lookup(cl, <span class="keyword">true</span>);</div><div class="line">                <span class="keyword">if</span> (!desc.hasWriteReplaceMethod() ||</div><div class="line">                    (obj = desc.invokeWriteReplace(obj)) == <span class="keyword">null</span> ||</div><div class="line">                    (repCl = obj.getClass()) == cl)</div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                cl = repCl;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (enableReplace) &#123;</div><div class="line">                Object rep = replaceObject(obj);</div><div class="line">                <span class="keyword">if</span> (rep != obj &amp;&amp; rep != <span class="keyword">null</span>) &#123;</div><div class="line">                    cl = rep.getClass();</div><div class="line">                    desc = ObjectStreamClass.lookup(cl, <span class="keyword">true</span>);</div><div class="line">                &#125;</div><div class="line">                obj = rep;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// 如果对象被替代，再次检测下是否是已写入对象以及不可替代的对象</span></div><div class="line">            <span class="keyword">if</span> (obj != orig) &#123;</div><div class="line">                subs.assign(orig, obj);</div><div class="line">                <span class="keyword">if</span> (obj == <span class="keyword">null</span>) &#123;</div><div class="line">                    writeNull();</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!unshared &amp;&amp; (h = handles.lookup(obj)) != -<span class="number">1</span>) &#123;</div><div class="line">                    writeHandle(h);</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> Class) &#123;</div><div class="line">                    writeClass((Class) obj, unshared);</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> ObjectStreamClass) &#123;</div><div class="line">                    writeClassDesc((ObjectStreamClass) obj, unshared);</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> String) &#123;</div><div class="line">                <span class="comment">// 处理字符串类型</span></div><div class="line">                writeString((String) obj, unshared);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cl.isArray()) &#123;</div><div class="line">                <span class="comment">// 处理数组</span></div><div class="line">                writeArray(obj, desc, unshared);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> Enum) &#123;</div><div class="line">                <span class="comment">// 处理枚举类</span></div><div class="line">                writeEnum((Enum) obj, desc, unshared);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> Serializable) &#123;</div><div class="line">                <span class="comment">// 处理实现序列化的普通对象</span></div><div class="line">                writeOrdinaryObject(obj, desc, unshared);</div><div class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 抛出异常</span></div><div class="line">                <span class="keyword">if</span> (extendedDebugInfo) &#123;</div><div class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NotSerializableException(</div><div class="line">                        cl.getName() + <span class="string">"\n"</span> + debugInfoStack.toString());</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> NotSerializableException(cl.getName());</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            depth--;</div><div class="line">            bout.setBlockDataMode(oldMode);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>ObjectInputStream:</strong> 继承自InputStream，实现了ObjecInput 和 ObjectStreamConstants。ObjectInput 扩展 DataInput 接口以包含对象的读操作。ObjectInputStream 用于恢复那些以前序列化的对象。其他用途包括使用套接字流在主机之间传递对象，或者用于编组和解组远程通信系统中的实参和形参。只有支持 java.io.Serializable 或 java.io.Externalizable 接口的对象才能从流读取。<strong>必须使用与写入对象时相同的类型和顺序从相应 ObjectInputstream 中读回对象。</strong><br>下面展示于 ObjectOutputStream 中用法对应的对象反序列化的操作实例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"t.tmp"</span>));</div><div class="line"></div><div class="line">Object test = ois.readObject();</div><div class="line">ois.close();</div><div class="line"></div><div class="line">System.out.println(test.getClass());</div><div class="line"></div><div class="line"><span class="comment">/* output</span></div><div class="line">class Test</div><div class="line">*/</div></pre></td></tr></table></figure></p>
+<p><strong>PipedOutputStream:</strong> 继承自 OutputStream，实现基于字节的 “管道化” 概念的输出流。管道输出流是管道的发送端。其内部持有一个 PipedInputStream 对象。通过它来进行读写操作。下面展示一个管道连接的方法源码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">connect</span><span class="params">(PipedInputStream snk)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (snk == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sink != <span class="keyword">null</span> || snk.connected) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Already connected"</span>);</div><div class="line">        &#125;</div><div class="line">        sink = snk; <span class="comment">// 赋值给其内部成员</span></div><div class="line">        snk.in = -<span class="number">1</span>; <span class="comment">// 写标志索引 内部是一个循环数组</span></div><div class="line">        snk.out = <span class="number">0</span>; <span class="comment">// 读标志索引 </span></div><div class="line">        snk.connected = <span class="keyword">true</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>PipedInputStream:</strong> 继承自 InputStream,实现基于字节的 “管道化”概念的输入流。管道输入流是管道的接收端。管道的基本构造是在 PipedInputStream 内部实现的。内部包含一个循环数组的缓冲区，还有两个线程的对象，读线程和写线程。<br>下面看管道的一个 receive 方法源码解析：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 同步的</span></div><div class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">receive</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span>  <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        checkStateForReceive(); <span class="comment">// 验证接受的状态</span></div><div class="line">        writeSide = Thread.currentThread(); <span class="comment">// 写线程标志</span></div><div class="line">        <span class="keyword">int</span> bytesToTransfer = len; <span class="comment">// 获得写入的字长</span></div><div class="line">        <span class="keyword">while</span> (bytesToTransfer &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (in == out) </div><div class="line">                awaitSpace(); <span class="comment">// 满，则等</span></div><div class="line">            <span class="keyword">int</span> nextTransferAmount = <span class="number">0</span>; <span class="comment">// 接下来可移动的空间大小</span></div><div class="line">            <span class="keyword">if</span> (out &lt; in) &#123; </div><div class="line">                nextTransferAmount = buffer.length - in;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (in &lt; out) &#123;</div><div class="line">                <span class="keyword">if</span> (in == -<span class="number">1</span>) &#123; </div><div class="line">                    in = out = <span class="number">0</span>;</div><div class="line">                    nextTransferAmount = buffer.length - in;</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    nextTransferAmount = out - in;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (nextTransferAmount &gt; bytesToTransfer) <span class="comment">// 若空间满足字节大小</span></div><div class="line">                nextTransferAmount = bytesToTransfer;</div><div class="line">            <span class="keyword">assert</span>(nextTransferAmount &gt; <span class="number">0</span>);</div><div class="line">            System.arraycopy(b, off, buffer, in, nextTransferAmount);</div><div class="line">            bytesToTransfer -= nextTransferAmount; <span class="comment">// 更新写入的字长</span></div><div class="line">            off += nextTransferAmount; <span class="comment">// 重置偏移量</span></div><div class="line">            in += nextTransferAmount; <span class="comment">// 更新写入的位置索引</span></div><div class="line">            <span class="keyword">if</span> (in &gt;= buffer.length) &#123; <span class="comment">// 循环数组操作</span></div><div class="line">                in = <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>下面解析管道的 read 方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 检测到流末尾、抛出异常前，该方法将一直阻塞</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span>  <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (b == <span class="keyword">null</span>) &#123; <span class="comment">// 验证参数的合法性</span></div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (off &lt; <span class="number">0</span> || len &lt; <span class="number">0</span> || len &gt; b.length - off) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/* possibly wait on the first character */</span></div><div class="line">        <span class="keyword">int</span> c = read();</div><div class="line">        <span class="keyword">if</span> (c &lt; <span class="number">0</span>) &#123; <span class="comment">// 数据合法验证</span></div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        b[off] = (<span class="keyword">byte</span>) c;</div><div class="line">        <span class="keyword">int</span> rlen = <span class="number">1</span>; <span class="comment">// 记录读取的字节长</span></div><div class="line">        <span class="keyword">while</span> ((in &gt;= <span class="number">0</span>) &amp;&amp; (len &gt; <span class="number">1</span>)) &#123;</div><div class="line"></div><div class="line">            <span class="keyword">int</span> available; <span class="comment">// 可读的字节长</span></div><div class="line"></div><div class="line">            <span class="keyword">if</span> (in &gt; out) &#123;</div><div class="line">                available = Math.min((buffer.length - out), (in - out));</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                available = buffer.length - out;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// 在前面已经读取了一个字节</span></div><div class="line">            <span class="keyword">if</span> (available &gt; (len - <span class="number">1</span>)) &#123;</div><div class="line">                available = len - <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            System.arraycopy(buffer, out, b, off + rlen, available); <span class="comment">// 读取</span></div><div class="line">            out += available; <span class="comment">// 更新读取的位置索引</span></div><div class="line">            rlen += available; <span class="comment">// 更新读取的字节长</span></div><div class="line">            len -= available; <span class="comment">// 更新剩余要读取的字节长</span></div><div class="line"> </div><div class="line">            <span class="keyword">if</span> (out &gt;= buffer.length) &#123; <span class="comment">// 循环数组操作</span></div><div class="line">                out = <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (in == out) &#123; <span class="comment">// 读到了 写位置，则缓冲区置空</span></div><div class="line">                <span class="comment">/* now empty */</span></div><div class="line">                in = -<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> rlen; <span class="comment">// 返回读取的字节长</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>ByteArrayOutputStream:</strong> 继承自 OutputStream，其中的数据被写入一个 byte 数组。缓冲区会随着数据的不断写入而自动增长。可使用 toByteArray() 和 toString() 获取数据。此类中的方法在关闭此流后仍可被调用，而不会产生任何 IOException。<br>下面给出 write 方法的源码解析：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 同步的</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> ((off &lt; <span class="number">0</span>) || (off &gt; b.length) || (len &lt; <span class="number">0</span>) || <span class="comment">// 验证参数的合法性</span></div><div class="line">            ((off + len) - b.length &gt; <span class="number">0</span>)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException();</div><div class="line">        &#125;</div><div class="line">        ensureCapacity(count + len); <span class="comment">// 确保容量够用，不够则扩充</span></div><div class="line">        System.arraycopy(b, off, buf, count, len); <span class="comment">// 进行赋值</span></div><div class="line">        count += len;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>ByteArrayInputStream:</strong> 继承自 InputStream,其内部包含一个缓冲区，该缓冲区包含从流中读取的字节。内部计数器跟踪 read 方法要提供的下一个字节。此方法同样，关闭流后，可继续调用，不会产生 IOException。<br>下面介绍基础用法举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">byte</span>[] bytes = xxx <span class="comment">//get byte array from somewhere.</span></div><div class="line"></div><div class="line">InputStream input = <span class="keyword">new</span> ByteArrayInputStream(bytes);</div><div class="line"></div><div class="line"><span class="keyword">int</span> data = input.read();<span class="function">n</span></div><div class="line"><span class="title">while</span><span class="params">(data != <span class="number">-1</span>)</span> &#123;</div><div class="line">  <span class="comment">//do something with data</span></div><div class="line">  </div><div class="line">  data = input.read();</div><div class="line">&#125;</div><div class="line">input.close();</div></pre></td></tr></table></figure></p>
+<p><strong>SequenceInputStream:</strong> 继承自 InputStream,其可实现其他输入流的逻辑串联。其内部持有一个 Enumeration 和 InputStream 成员。此类提供了多个构造方法，可串联两个输入流，也可串联多个输入流（SequenceInputStream 也可）。<br>下面基本用法举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">SequenceInputStream sequenceInputStream1 = <span class="keyword">new</span> SequenceInputStream(input1, input2); <span class="comment">// input* 代表输入流</span></div><div class="line"></div><div class="line">SequenceInputStream sequenceInputStream2 = <span class="keyword">new</span> SequenceInputStream(input3, input4);</div><div class="line"></div><div class="line">SequenceInputStream sequenceInputStream = <span class="keyword">new</span> SequenceInputStream(sequenceInputStream1, sequenceInputStream2))&#123;</div><div class="line"></div><div class="line"><span class="keyword">int</span> data = sequenceInputStream.read();</div><div class="line"><span class="keyword">while</span>(data != -<span class="number">1</span>)&#123;</div><div class="line">    System.out.println(data);</div><div class="line">    data = sequenceInputStream.read();</div><div class="line">&#125;</div><div class="line">sequenceInputStream.close();</div></pre></td></tr></table></figure></p>
+<h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><p>下面是字符流相关类的层级关系图，只标出些常用的类。<br><img src="http://oo2tkpanb.bkt.clouddn.com/io/char_stream.png" alt="CharStream"></p>
+<p><strong>Writer:</strong> 所有写入字符流的基类，实现了Closeable，Appendable 和 Flushable 接口。子类必须实现的方法有 write(char[], int, int)、flush() 和 close()，多数子类将重写此处定义的一些方法，以提供更高的效率和其他功能。<br>下面列出此基类的主要方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>功能</th>
+<th>方法特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>write(int c)</td>
+<td>写入单个字符</td>
+<td>写入单个字符。要写入的字符包含在给定整数值的 16 个低位中，16 高位被忽略。用于支持高效单字符输出的子类应重写此方法</td>
+</tr>
+<tr>
+<td>write(char[] b, int off, int len)</td>
+<td>写入字符数组的某一部分</td>
+<td>虚方法，子类应实现此方法</td>
+</tr>
+<tr>
+<td>append(CharSequence csq, int start, int end)</td>
+<td>将指定字符序列的子序列添加到此 writer.Appendable</td>
+<td></td>
+</tr>
+<tr>
+<td>write(String str, int off,int len)</td>
+<td>写入字符串的某一部分</td>
+<td></td>
+</tr>
+<tr>
+<td>flush()</td>
+<td>刷新此输出流并强制写出所有缓冲的输出字节</td>
+<td>虚方法。如果该流已保存缓冲区中各种 write() 方法的所有字符，则立即将它们写入预期目标。如果该目标是另一个字符或字节流，则将其刷新。因此，一次 flush() 调用将刷新 Writer 和 OutputStream 链中的所有缓冲区</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reader:</strong> 所有读取字符流的基类，实现了 Readable 和 Closeable 接口。<br>子类必须实现的方法有 read(char[], int, int) 和 close()。同样，多数子类将重写此处定义的一些方法，以提供更高的效率和其他功能。<br>下面列出此基类的主要方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>功能</th>
+<th>方法特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read()</td>
+<td>读取单个字符</td>
+<td>读取单个字符。在字符可用、发生 I/O 错误或者已到达流的末尾前，此方法一直阻塞。用于支持高效的单字符输入的子类应重写此方法</td>
+</tr>
+<tr>
+<td>read(char[] cbuf, int off, int len)</td>
+<td>将字符读入数组的某一部分</td>
+<td>虚方法，子类应实现此方法。将字符读入数组的某一部分。在某个输入可用、发生 I/O 错误或者到达流的末尾前，此方法一直阻塞</td>
+</tr>
+<tr>
+<td>read(CharBuffer target)</td>
+<td>试图将字符读入指定的字符缓冲区</td>
+<td>缓冲区可用作字符的存储库</td>
+</tr>
+<tr>
+<td>skip(long n)</td>
+<td>跳过 n 个字符</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>BufferedWriter:</strong> 继承自 Writer，主要功能将文本写入字符输出流，可指定缓冲区大小，缓冲各个字符，从而提供单个字符、数组和字符串的高效写入。该类提供了 newLine() 方法，它使用平台自己的行分隔符概念。<strong>建议用 BufferedWriter 包装所有其 write() 操作可能开销很高的 Writer（如 FileWriters 和 OutputStreamWriters）。</strong><br>下面介绍基本的用法，使用缓冲来提升性能：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FileWriter output = <span class="keyword">new</span> FileWriter(<span class="string">"data.bin"</span>);</div><div class="line"></div><div class="line"><span class="keyword">try</span>(BufferedWriter bufferedWriter =</div><div class="line">    <span class="keyword">new</span> BufferedWriter(output))&#123;</div><div class="line"></div><div class="line">    bufferedWriter.write(<span class="string">"Hello World"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>BufferedReader:</strong> 继承自 Reader，和BufferedWriter 相对应，可从字符输入流中读取文本，指定缓冲区大小，从而实现字符、数组和行的高效读取。<strong>通常，Reader 每个读取请求都会导致对底层字符或字节流进行相应的读取请求。因此，建议用 BufferedReader 包装所有其 read() 操作可能开销很高的 Reader（如 FileReader 和 InputStreamReader）。</strong></p>
+<p><strong>OutpuStreamWriter:</strong> 继承自 Writer，它是字符流通向字节流的桥梁。其内部是利用 StreamEncoder 完成转换的功能的。<strong>为了获得最高效率，可考虑将 OutputStreamWriter 包装到 BufferedWriter 中，以避免频繁调用转换器。</strong><br>下面是其用法的简单举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">OutputStream outputStream = <span class="keyword">new</span> FileOutputStream(<span class="string">"c:\\data\\output.txt"</span>);</div><div class="line">Writer outputStreamWriter = <span class="keyword">new</span> OutputStreamWriter(outputStream);</div><div class="line"></div><div class="line">outputStreamWriter.write(<span class="string">"Hello World"</span>);</div><div class="line">outputStreamWriter.close();</div></pre></td></tr></table></figure></p>
+<p><strong>InputStreamReader:</strong> 继承自 Reader，是字节流通向字符流的桥梁，其内部持有 StreamDecoder，转换功能都是这个对象完成的。每次调用 read() 方法都会导致从底层输入流读取一个或多个字节。要启用从字节到字符的有效转换，可以提前从底层流读取更多的字节，使其超过满足当前读取操作所需的字节。<strong>为了达到最高效率，可要考虑在 BufferedReader 内包装 InputStreamReader。</strong></p>
+<p><strong>FileWriter:</strong> 继承自 OutputStreamWriter，用来写入字符文件的便捷类。其默认使用平台内部的字符编码，要想自己指定字符编码，可以使用 OutputStreamWriter 传入FileOutputStream 同时设置编码再做处理。</p>
+<p><strong>FileReader:</strong> 继承自 InputStreamReader, 用来读取字符文件的便捷类。同样，若需要指定编码，请使用 InputStreamReader。<br>下面介绍其基本的使用方法举例，在下面的代码中使用了Java 7 中的新特性 try-with-resources ，这样不用显式的关闭流了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>(FileReader fileReader = <span class="keyword">new</span> FileReader(<span class="string">"c:\\data\\text.txt"</span>))&#123;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> data = fileReader.read();</div><div class="line">    <span class="keyword">while</span>(data != -) &#123;</div><div class="line">        System.out.print((<span class="keyword">char</span>) data));</div><div class="line">        data = fileReader.read();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>StringWriter:</strong> 继承自Writer 的一个字符流，可以用其回收在字符串缓冲区中的输出来构造字符串。<br>下面介绍其基本的用法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">StringWriter stringWriter = <span class="keyword">new</span> StringWriter();</div><div class="line"></div><div class="line"><span class="comment">//write characters to writer.</span></div><div class="line">stringWriter.write(<span class="string">"This is a text"</span>);</div><div class="line"></div><div class="line">String data = stringWriter.toString();</div><div class="line">StringBuffer dataBuffer = stringWriter.getBuffer();</div><div class="line"></div><div class="line">stringWriter.close();</div></pre></td></tr></table></figure></p>
+<p><strong>StringReader:</strong> 继承自Reader的源为一个字符串的字符流。其内部持有 String 对象来进行存储字符。</p>
+<p><strong>PipedWriter:</strong> 继承自 Writer，实现基于字符的 “管道化” 概念的输出流。其内部实现和 PipedOutputStream 逻辑基本一致，区别仅仅是一个基于字节，一个基于字符。</p>
+<p><strong>PipedReader:</strong> 继承自 Reader，实现基于字符的 “管道化” 概念的输入流。和上述一样，和 PipedInputStream 逻辑一致，仅字符和字节的区别。<br>下面给出一个使用案例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">PipedWriter pipedWriter = <span class="keyword">new</span> PipedWriter();</div><div class="line">PipedReader pipedReader = <span class="keyword">new</span> PipedReader(pipedWriter);</div><div class="line"></div><div class="line"><span class="keyword">int</span> data = pipedReader.read();</div><div class="line"><span class="keyword">while</span>(data != -<span class="number">1</span>) &#123;</div><div class="line">  doSomethingWithData(data);</div><div class="line"></div><div class="line">  data = pipedReader.read();</div><div class="line">&#125;</div><div class="line">pipedReader.close();</div></pre></td></tr></table></figure></p>
+<p><strong>FilterWriter:</strong> 继承自 Writer，用于写入已过滤的字符流的抽象类，其子类应重写类中的一些方法，并且还可以提供一些额外的方法和字段。  </p>
+<p><strong>FilterReader:</strong> 继承自 Reader，其用于读取已过滤的字符流的抽象类，子类应重写相应方法以获得更加细化的功能。  </p>
+<p><strong>PushbackReader:</strong> 继承自 FilterReader，允许将字符推回到流的字符流 reader。其内部实现的逻辑与 PushbackInputStream 一致，差别是字符和字节。</p>
+<p><strong>CharArrayWriter:</strong> 继承自 Writer，此类实现一个可用作 Writer 的字符缓冲区，缓冲区会随向流中写入数据而自动增长。  </p>
+<p><strong>CharArrayReader:</strong> 继承自 Reader，此类实现一个可用作字符输入流的字符缓冲区。</p>
+<p><strong>PrintWriter:</strong> 继承自 Writer，将文本输出流打印对象格式化表示形式。功能和 PrintStream 类似。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>字节流和字符流相关类的对照表如下所示：</p>
+<p><table width="100%" cellspacing="0" cellpadding="5" style="border: 1px solid #aaaaaa;"><tbody><tr><td>&nbsp;</td><td align="center" colspan="2">字节</td><td align="center" colspan="2">字符</td></tr><tr><td>&nbsp;</td><td>Input</td><td>Output</td><td>Input</td><td>Output</td></tr><tr><td align="center">基类</td><td>InputStream</td><td>OutputStream</td><td>Reader</td><td>Writer</td></tr><tr><td align="center">转换</td><td>&nbsp;</td><td>&nbsp;</td><td>InputStreamReader</td><td>OutputStreamWriter</td></tr><tr><td align="center">数组</td><td>ByteArrayInputStream</td><td>ByteArrayOutputStream</td><td>CharArrayReader</td><td>CharArrayWriter</td></tr><tr><td align="center">文件</td><td>FileInputStream</td><td>FileOutputStream</td><td>FileReader</td><td>FileWriter</td></tr><tr><td align="center">管道</td><td>PipedInputStream</td><td>PipedOutputStream</td><td>PipedReader</td><td>PipedWriter</td></tr><tr><td align="center">缓冲</td><td>BufferedInputStream</td><td>BufferedOutputStream</td><td>BufferedReader</td><td>BufferedWriter</td></tr><tr><td align="center">过滤</td><td>FilterInputStream</td><td>FilterOutputStream</td><td>FilterReader</td><td>FilterWriter</td></tr><tr><td align="center">解析</td><td>PushbackInputStream</td><td>&nbsp;</td><td>PushbackReader</td><td>&nbsp;</td></tr><tr><td align="center">字符串</td><td>&nbsp;</td><td>&nbsp;</td><td>StringReader</td><td>StringWriter</td></tr><tr><td align="center">数据</td><td>DataInputStream</td><td>DataOutputStream</td><td>&nbsp;</td><td><br></td></tr><tr><td align="center">数据格式化</td><td>&nbsp;</td><td>PrintStream</td><td>&nbsp;</td><td>PrintWriter</td></tr><tr><td align="center">对象</td><td>ObjectInputStream</td><td>ObjectOutputStream</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td align="center">公共</td><td>SequenceInputStream</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><strong>《Java 编程思想 第四版》<br>《Java 核心技术卷 二 第九版》</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-IO/" rel="tag"># Java IO</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/30/Java-Generics/" rel="next" title="Java 泛型详解">
+                <i class="fa fa-chevron-left"></i> Java 泛型详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.png"
+               alt="ManUu" />
+          <p class="site-author-name" itemprop="name">ManUu</p>
+           
+              <p class="site-description motion-element" itemprop="description">learn and live</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HeHeManuu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://twitter.com/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://nnecec.cc" title="nnecec" target="_blank">nnecec</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流"><span class="nav-number">1.1.</span> <span class="nav-text">流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节"><span class="nav-number">1.2.</span> <span class="nav-text">字节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符"><span class="nav-number">1.3.</span> <span class="nav-text">字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码"><span class="nav-number">1.4.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道"><span class="nav-number">1.5.</span> <span class="nav-text">管道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类图及功能详解"><span class="nav-number">2.</span> <span class="nav-text">类图及功能详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字节流"><span class="nav-number">2.1.</span> <span class="nav-text">字节流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符流"><span class="nav-number">2.2.</span> <span class="nav-text">字符流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ManUu</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2a556027915b4826b253771db9695cf9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
