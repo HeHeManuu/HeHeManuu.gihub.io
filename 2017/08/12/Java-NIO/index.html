@@ -72,12 +72,12 @@
 NIO 特性
 为原始数据类型提供缓存
 字符集编码和解码
-Channels：一个新的原始I/O 抽象
+Channels：一个新的原始 I/O 抽象
 支持锁和内存映射文件的文件接口
 多路，非阻塞的高伸缩性的 I/O
 
 Channel通道（Channel）是对原 IO 中流的一种抽象，所有数据都要通过通道进行传输。
-Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有的数据读写都是通过缓冲区进行的。在前面的 IO 相关">
+Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有的数据读写都是通过缓冲区进行的。在前面的 IO 相">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java NIO 解读">
 <meta property="og:url" content="http://www.manuu.vip/2017/08/12/Java-NIO/index.html">
@@ -86,26 +86,26 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 NIO 特性
 为原始数据类型提供缓存
 字符集编码和解码
-Channels：一个新的原始I/O 抽象
+Channels：一个新的原始 I/O 抽象
 支持锁和内存映射文件的文件接口
 多路，非阻塞的高伸缩性的 I/O
 
 Channel通道（Channel）是对原 IO 中流的一种抽象，所有数据都要通过通道进行传输。
-Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有的数据读写都是通过缓冲区进行的。在前面的 IO 相关">
+Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有的数据读写都是通过缓冲区进行的。在前面的 IO 相">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/Java_NIO.png">
-<meta property="og:updated_time" content="2017-08-12T12:05:31.517Z">
+<meta property="og:updated_time" content="2017-08-14T01:45:41.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO 解读">
 <meta name="twitter:description" content="概念
 NIO 特性
 为原始数据类型提供缓存
 字符集编码和解码
-Channels：一个新的原始I/O 抽象
+Channels：一个新的原始 I/O 抽象
 支持锁和内存映射文件的文件接口
 多路，非阻塞的高伸缩性的 I/O
 
 Channel通道（Channel）是对原 IO 中流的一种抽象，所有数据都要通过通道进行传输。
-Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有的数据读写都是通过缓冲区进行的。在前面的 IO 相关">
+Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有的数据读写都是通过缓冲区进行的。在前面的 IO 相">
 <meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/Java_NIO.png">
 
 
@@ -374,7 +374,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 <h3 id="NIO-特性"><a href="#NIO-特性" class="headerlink" title="NIO 特性"></a>NIO 特性</h3><ul>
 <li>为原始数据类型提供缓存</li>
 <li>字符集编码和解码</li>
-<li>Channels：一个新的原始I/O 抽象</li>
+<li>Channels：一个新的原始 I/O 抽象</li>
 <li>支持锁和内存映射文件的文件接口</li>
 <li>多路，非阻塞的高伸缩性的 I/O</li>
 </ul>
@@ -384,14 +384,14 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 <h3 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h3><p>阻塞和非阻塞是描述程序在等待调用结果（消息，返回值）时的状态。下面我们以某线程调用为例来解释两个概念。<br><strong>阻塞</strong>：线程调用方法，其结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会再次执行。<br><strong>非阻塞</strong>：线程调用方法，在没有获得结果，会直接返回，不会一直等待结果，线程不会被挂起。</p>
 <h3 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h3><p>同步和异步是描述程序之间的信息通信机制的方式。<br><strong>同步</strong>：当线程发出一个调用，在调用没有获得数据之前，此调用不会返回。<br><strong>异步</strong>：当线程发出一个调用，此调用会立即返回，当被调用者准备好结果时，通过状态、通知来通知线程，或通过回调函数处理这个调用。</p>
 <h2 id="内部组件详解"><a href="#内部组件详解" class="headerlink" title="内部组件详解"></a>内部组件详解</h2><hr>
-<p>NIO 内部的核心组件 Channel，Buffer 和 Selector。下面先介绍这三个部分内容。</p>
+<p>NIO 内部的核心组件 Channel，Buffer 和 Selector。下面介绍这三个部分内容。</p>
 <h3 id="Channel-1"><a href="#Channel-1" class="headerlink" title="Channel"></a>Channel</h3><p>通道是原始 IO 流的抽象，其与流相似，但有如下的区别：</p>
 <ul>
-<li>通道可读可写。但流的读写通常是单向的。</li>
+<li>通道可读可写，但流的读写通常是单向的。</li>
 <li>通道可以异步地读写。</li>
-<li>通道读写都必须与一个Buffer交互。</li>
+<li>通道读写都必须与 Buffer 交互。</li>
 </ul>
-<p>下面介绍Channel 相关的的类的层级关系，使用缩进来表现这些类的层级关系。</p>
+<p>下面介绍 Channel 相关类的层级关系，使用缩进来表示这些类的层级关系。</p>
 <ul>
 <li>AbstractInterruptibleChannel<ul>
 <li>FileChannel</li>
@@ -408,7 +408,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 </li>
 </ul>
 <p><strong>AbstractInterruptibleChannel</strong>：可中断通道的基本实现类。此抽象类封装了实现通道异步关闭和中断所需的低级别机制。  </p>
-<p><strong>FileChannel</strong>：用于读取、写入、映射和操作文件的通道。这是一个抽象类，其内部定义了很多文件的操作方法。官方给出了如下的特定文件操作的特性描述：</p>
+<p><strong>FileChannel</strong>：用于读取、写入、映射和操作文件的通道。这是一个抽象类，其内部定义了很多文件的操作方法。官方给出了如下的文件操作的特性描述：</p>
 <ol>
 <li>对文件中绝对位置的字节进行读取或写入，对通道当前位置无影响。</li>
 <li>将文件中的某个区域直接映射到内存中；对于较大的文件，这样的读写方法更为高效。</li>
@@ -416,7 +416,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 <li>以一种可被很多操作系统优化为直接向文件系统缓存发送或从中读取的高速传输方法，将字节从文件传输到某个其他通道中，反之亦然。</li>
 <li>可以锁定某个文件区域，以阻止其他程序对其进行访问。</li>
 </ol>
-<p>FileChannel 的实例化，可以通过类中的静态方法 open 方法，同样也可以从现有的 FileInputStream、FileOutputStream 或 RandomAccessFile 对象获得文件通道，方法是调用该对象的 getChannel 方法，这会返回一个连接到相同底层文件的文件通道。<strong>FileChannel 不可以设置阻塞模式。</strong><br>实例创建代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"data.txt"</span>);</div><div class="line">FileChannel inChannel = fis.getChannel();</div><div class="line"></div><div class="line"><span class="comment">// 使用细节</span></div><div class="line">ByteBuffer buffer = ByteBuffer.allocate(<span class="number">1024</span>);  </div><div class="line"><span class="comment">//将数据从通道中读入字节缓冲中  </span></div><div class="line"><span class="keyword">int</span> in = inputChannel.read(buffer);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// FileInputStream getChannel 方法细节</span></div><div class="line"><span class="function"><span class="keyword">public</span> FileChannel <span class="title">getChannel</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (channel == <span class="keyword">null</span>) &#123;</div><div class="line">                channel = FileChannelImpl.open(fd, path, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">this</span>); <span class="comment">// 调用这个方法实例化</span></div><div class="line">                fd.incrementAndGetUseCount();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> channel;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>FileChannel 的实例化，可以通过其类中的 open 静态方法，同样也可以从现有的 FileInputStream、FileOutputStream 或 RandomAccessFile 对象获得文件通道，通过调用这些对象的 getChannel 方法，这会返回一个连接到相同底层文件的文件通道。<strong>FileChannel 不可以设置阻塞模式。</strong><br>实例创建代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"data.txt"</span>);</div><div class="line">FileChannel inChannel = fis.getChannel();</div><div class="line"></div><div class="line"><span class="comment">// 使用细节</span></div><div class="line">ByteBuffer buffer = ByteBuffer.allocate(<span class="number">1024</span>);  </div><div class="line"><span class="comment">//将数据从通道中读入字节缓冲中  </span></div><div class="line"><span class="keyword">int</span> in = inputChannel.read(buffer);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// FileInputStream getChannel 方法细节</span></div><div class="line"><span class="function"><span class="keyword">public</span> FileChannel <span class="title">getChannel</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (channel == <span class="keyword">null</span>) &#123;</div><div class="line">                channel = FileChannelImpl.open(fd, path, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">this</span>); <span class="comment">// 调用这个方法实例化</span></div><div class="line">                fd.incrementAndGetUseCount();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> channel;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p><strong>SelectableChannel</strong>：可利用 Selector 实现多路复用的通道。与选择器一起使用，此类的实例必须首先通过 register 方法进行注册。</p>
 <p><strong>AbstractSelectableChannel</strong>：可选择通道的基本实现类。此类定义了处理通道注册、注销和关闭机制的各种方法。它会维持此通道的当前阻塞模式及其当前的选择键集。</p>
 <p><strong>DatagramChannel</strong>：此类是针对面向数据报（UDP）套接字的可选择通道。通过 open 方法创建数据报通道。新创建的数据报通道已打开，但尚未连接。可以使用 send 和 receive 方法，无需连接数据报通道。如果为了避免作为每次发送和接收操作的一部分而执行的安全检查开销，可以通过调用 connect 方法来建立数据报通道连接。此时可以使用 read 和 write 方法进行数据的交互。<br>下面给出此类的一些基本用法举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">DatagramChannel channel = DatagramChannel.open();</div><div class="line">channel.socket().bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">6666</span>)); <span class="comment">// 绑定端口</span></div><div class="line"></div><div class="line">ByteBuffer buf = ByteBuffer.allocate(<span class="number">64</span>);</div><div class="line">channel.receive(buf); <span class="comment">// 接受数据，多余的数据丢弃</span></div><div class="line"></div><div class="line">String newData = <span class="string">"hello world"</span>;</div><div class="line">buf.clear();</div><div class="line">buf.put(newData.getBytes());</div><div class="line">buf.flip(); <span class="comment">// 读写模式转换</span></div><div class="line"><span class="keyword">int</span> sent = channel.send(buf, <span class="keyword">new</span> InetSocketAddress(<span class="string">"wang.com"</span>, <span class="number">80</span>)); <span class="comment">// 发送给远程</span></div><div class="line"></div><div class="line"><span class="comment">// 建立连接</span></div><div class="line">channel.connect(<span class="keyword">new</span> InetSocketAddress(<span class="string">"wang.com"</span>, <span class="number">80</span>));   </div><div class="line"><span class="keyword">int</span> Read = channel.read(buf); <span class="comment">// 读</span></div><div class="line"><span class="keyword">int</span> Written = channel.write(buf);</div></pre></td></tr></table></figure></p>
@@ -439,7 +439,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 <tr>
 <td>connect(SocketAddress remote)</td>
 <td>连接此通道的套接字</td>
-<td>若通道非阻塞，则调用非阻塞的连接，若连接成功返回true，否则 false，在后续调用finishConnect 方法完成连接</td>
+<td>若通道非阻塞，则调用非阻塞的连接，若连接成功返回 true，否则 false，在后续调用 finishConnect 方法完成连接</td>
 </tr>
 <tr>
 <td>finishConnect()</td>
@@ -474,7 +474,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 </tbody>
 </table>
 <p><strong>ServerSocketChannel</strong>：针对面向流的侦听套接字 (Server TCP) 的可选择通道。可以调用 open 方法创建服务器套接字通道。新创建的服务器套接字通道已打开，但尚未绑定。此时若直接调用 accept 方法会导致抛出 NotYetBoundException，需先调用服务器套接字的 bind 方法来绑定服务器套接字通道。<br>下面给出此类的相关用法举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ServerSocketChannel ssc = ServerSocketChannel.open();</div><div class="line">ssc.socket().bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">6666</span>));</div><div class="line"></div><div class="line"><span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</div><div class="line">    SocketChannel sc = ssc.accept();</div><div class="line"></div><div class="line">    <span class="comment">//do something with sc...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="Buffer-1"><a href="#Buffer-1" class="headerlink" title="Buffer"></a>Buffer</h3><p>Java NIO 中的 Buffer 用于和NIO通道进行双向交互的。下面我们介绍 NIO 包下所有的 buffer 相关的类。从类命名即可看出，这些 “*Buffer” 类内部是通过 byte，char，short，int，long，float 或 double 类型来操作缓冲区中的字节。</p>
+<h3 id="Buffer-1"><a href="#Buffer-1" class="headerlink" title="Buffer"></a>Buffer</h3><p>Java NIO 中的 Buffer 用于和 NIO 通道进行双向交互的。下面我们介绍 NIO 包下所有的 buffer 相关的类。从类命名即可看出，这些 “*Buffer” 类内部是通过 byte，char，short，int，long，float 或 double 类型来操作缓冲区中的字节。</p>
 <ul>
 <li>Buffer <ul>
 <li>ByteBuffer<ul>
@@ -538,7 +538,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 <p><strong>ByteBuffer</strong>：继承自 Buffer，实现了 Comparable<bytebuffer> 泛型接口。它是针对字节这个类型的缓冲区实现，根据字节的特性，内部实现便利的字节操作方法。<br>其方法可归纳为以下几个部分：</bytebuffer></p>
 <ol>
 <li>获取和写入数据：单个字节，批量数据等。</li>
-<li>读写其他基本类型的数据的方法，如getChar,putChar。</li>
+<li>读写其他基本类型的数据的方法，如 getChar，putChar。</li>
 <li>创建视图缓冲区的方法，可将字节缓冲区视为包含其他基本类型值的缓冲区。</li>
 <li>对字节缓冲区进行 compacting（压缩）、duplicating（共享整个序列） 和 slicing（共享子序列） 的方法。</li>
 </ol>
@@ -553,7 +553,8 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 <p>下面展示了上述静态方法实现的细节：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ByteBuffer <span class="title">allocateDirect</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DirectByteBuffer(capacity); <span class="comment">// 创建子类实例</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ByteBuffer <span class="title">allocate</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (capacity &lt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HeapByteBuffer(capacity, capacity); <span class="comment">// 同样创建子类实例</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p><strong>MappedByteBuffer</strong>：直接字节缓冲区，其内容是文件的内存映射区域。映射的字节缓冲区是通过 FileChannel.map 方法创建的。此类用特定于内存映射文件区域的操作扩展 ByteBuffer 类。<br>下面给出具体的使用案例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> length = <span class="number">0x8FFFFFF</span>;</div><div class="line">MappedByteBuffer mappedByteBuffer = <span class="keyword">new</span> RandomAccessFile(<span class="string">"test.txt"</span>, <span class="string">"r"</span>)</div><div class="line">                    .getChannel()</div><div class="line">                    .map(FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, length);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</div><div class="line">    <span class="keyword">byte</span> b = mappedByteBuffer.get();</div><div class="line">&#125;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</div><div class="line">    mappedByteBuffer.put((<span class="keyword">byte</span>)<span class="string">'T'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>其他基本数据类型的缓冲类和 ByteBuffer 用法和特征基本一致，仅仅针对各个数据类型的特征做了一些便利的处理。</strong></p>
-<h3 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h3><p>Selector 提供了查询通道的 IO 操作是否准备好的能力。Selector 允许单线程处理多个 Channel。相对于一个线程一个通道来说，不仅仅减少了线程资源的使用，还节约了线程之间上下文切换的开销。<br><strong>SelectionKey</strong>：表示 SelectableChannel 在 Selector 中的注册的标记。每次向选择器注册通道时就会创建一个选择键。调用某键的 cancel 方法、关闭其通道。取消键，会把该键添加到选择器的已取消键集，在下一次进行选择操作时移除它。<br>SelectionKey 主要含有下面四个部分：</p>
+<h3 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h3><p>Selector 提供了查询通道的 IO 操作是否准备好的能力。Selector 允许单线程处理多个 Channel。相对于一个线程一个通道来说，不仅仅减少了线程资源的使用，还节约了线程之间上下文切换的开销。  </p>
+<p><strong>SelectionKey</strong>：表示 SelectableChannel 在 Selector 中的注册的标记。每次向选择器注册通道时就会创建一个选择键。调用某键的 cancel 方法、关闭其通道。取消键，会把该键添加到选择器的已取消键集，在下一次进行选择操作时移除它。<br>SelectionKey 主要含有下面四个部分：</p>
 <ul>
 <li>Channel</li>
 <li>Selector</li>
@@ -662,18 +663,17 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 </table>
 <p>下面给出此类和通道的配合使用举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">Selector selector = Selector.open();</div><div class="line">channel.configureBlocking(<span class="keyword">false</span>); <span class="comment">// 通道设置非阻塞</span></div><div class="line">SelectionKey key = channel.register(selector, SelectionKey.OP_READ); <span class="comment">// 注册选择器，且设置了感兴趣的事务</span></div><div class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">    <span class="keyword">int</span> readyChannels = selector.select();</div><div class="line">    <span class="keyword">if</span> (readyChannels == <span class="number">0</span>) <span class="keyword">continue</span>;</div><div class="line">    Set selectedKeys = selector.selectedKeys();</div><div class="line">    Iterator keyIterator = selectedKeys.iterator();</div><div class="line">    <span class="keyword">while</span> (keyIterator.hasNext()) &#123;</div><div class="line">        SelectionKey key = keyIterator.next();</div><div class="line">        <span class="keyword">if</span> (key.isValid()) &#123;</div><div class="line">            <span class="keyword">if</span> (key.isAcceptable()) &#123;</div><div class="line">                <span class="comment">// a connection was accepted by a ServerSocketChannel.</span></div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isConnectable()) &#123;</div><div class="line">                <span class="comment">// a connection was established with a remote server.</span></div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isReadable()) &#123;</div><div class="line">                channel = key.channel();</div><div class="line">                <span class="comment">// a channel is ready for reading</span></div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isWritable()) &#123;</div><div class="line">                <span class="comment">// a channel is ready for writing</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        keyIterator.remove();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="与传统-IO-的比较"><a href="#与传统-IO-的比较" class="headerlink" title="与传统 IO 的比较"></a>与传统 IO 的比较</h2><hr>
-<h3 id="阻塞-IO-与非阻塞-IO"><a href="#阻塞-IO-与非阻塞-IO" class="headerlink" title="阻塞 IO 与非阻塞 IO"></a>阻塞 IO 与非阻塞 IO</h3><p>按照概念中给出的阻塞与非阻塞的概念，两者最大的区别：传统 IO 是阻塞的，NIO 是非阻塞的。两者都是同步的。</p>
+<h3 id="阻塞-IO-与非阻塞-IO"><a href="#阻塞-IO-与非阻塞-IO" class="headerlink" title="阻塞 IO 与非阻塞 IO"></a>阻塞 IO 与非阻塞 IO</h3><p>按照概念介绍部分中给出的阻塞与非阻塞的概念，两者最大的区别：传统 IO 是阻塞的，NIO 是非阻塞的。两者都是同步的。</p>
 <ul>
 <li>传统 IO : 同步阻塞 IO</li>
 <li>NIO : 同步非阻塞 IO</li>
 </ul>
-<p>传统 IO 是同步阻塞的毋庸置疑，下面分析下 NIO 的同步和非阻塞的部分。<br>在 NIO 中，一个 read 操作通常包括两个不同阶段：</p>
+<p>传统 IO 是同步阻塞的毋庸置疑，下面分析 NIO 同步和非阻塞的原因。<br>在 NIO 中，一个 read 操作通常包括两个不同阶段：</p>
 <ol>
 <li>等待通道数据准备好；</li>
 <li>从通道向缓冲复制数据。</li>
 </ol>
-<p>根据《UNIX网络编程》中的 IO multiplexing model 图模拟了 Java NIO 中的图示：</p>
-<p><center><br><img src="http://oo2tkpanb.bkt.clouddn.com/Java_NIO.png" alt="NIO"><br></center><br>从图中可知，程序会先调用 select 方法，NIO 提供了三种 Select 方法，如上表所示。当调用阻塞的 select 方法时，会程序会一直阻塞，知道通道数据准备完毕，当调用非阻塞的 select 方法时，程序会直接返回 0，然后再不断的调用此方法，直至通道数据准备完毕。当通道数据准备完毕后，会进行通道数据复制到缓冲的操作，此时程序是阻塞的。虽然程序是阻塞的，但这是由于调用自身的方法导致的，并不是因为 IO 操作导致的，所以称 NIO 为非阻塞的。<br>关于同步和异步，《UNIX网络编程》中有这样的一段话：</p>
+<p>根据《UNIX网络编程》中的 IO multiplexing model 图模拟了 Java NIO 中的图示：<br><img src="http://oo2tkpanb.bkt.clouddn.com/Java_NIO.png" alt="NIO"><br>从图中可知，程序会先调用 select 方法，NIO 提供了三种 Select 方法，如上表所示。当调用阻塞的 select 方法时，会程序会一直阻塞，直至通道数据准备完毕，当调用非阻塞的 select 方法时，程序会直接返回 0，然后再不断的调用此方法，直至通道数据准备完毕。当通道数据准备完毕后，会进行通道数据复制到缓冲的操作，此时程序是阻塞的。虽然程序是阻塞的，但这是由于调用自身的方法导致的，并不是因为 IO 操作导致的，所以称 NIO 为非阻塞的。<br>关于同步和异步，《UNIX网络编程》中有这样的一段话：</p>
 <blockquote>
 <p>A synchronous I/O operation causes the requesting process to be blocked until that I/O operation completes.<br>An asynchronous I/O operation does not cause the requesting process to be blocked. </p>
 </blockquote>
@@ -733,6 +733,10 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/13/Basic-Algorithm-DP/" rel="prev" title="动态规划-子序列问题合集">
+                动态规划-子序列问题合集 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -806,7 +810,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -828,7 +832,7 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
