@@ -1,0 +1,841 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,Scrapy," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前面的一篇爬虫文章 (爬虫一) 初识 Scrapy 介绍了 Scrapy 的基本部件功能和用法。下面的内容将介绍利用 Scrapy 进行新闻抓取的爬虫任务。
+定制爬虫首先根据具体的抓取需求，对任务进行分析。这里以抓取门户网站的新闻为任务。目的为获取精确的新闻网页的相关信息，例如标题，作者，来源，发布时间，内容等。我们需要对特定的网站新闻网页进行 url 及标签分析。
+网页内容抽取网页内容抽取的算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(爬虫二) Scrapy-抓取新闻网页爬虫">
+<meta property="og:url" content="http://www.manuu.vip/2017/08/19/Scrapy-2/index.html">
+<meta property="og:site_name" content="ManUu">
+<meta property="og:description" content="前面的一篇爬虫文章 (爬虫一) 初识 Scrapy 介绍了 Scrapy 的基本部件功能和用法。下面的内容将介绍利用 Scrapy 进行新闻抓取的爬虫任务。
+定制爬虫首先根据具体的抓取需求，对任务进行分析。这里以抓取门户网站的新闻为任务。目的为获取精确的新闻网页的相关信息，例如标题，作者，来源，发布时间，内容等。我们需要对特定的网站新闻网页进行 url 及标签分析。
+网页内容抽取网页内容抽取的算法">
+<meta property="og:updated_time" content="2017-08-23T14:48:46.857Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(爬虫二) Scrapy-抓取新闻网页爬虫">
+<meta name="twitter:description" content="前面的一篇爬虫文章 (爬虫一) 初识 Scrapy 介绍了 Scrapy 的基本部件功能和用法。下面的内容将介绍利用 Scrapy 进行新闻抓取的爬虫任务。
+定制爬虫首先根据具体的抓取需求，对任务进行分析。这里以抓取门户网站的新闻为任务。目的为获取精确的新闻网页的相关信息，例如标题，作者，来源，发布时间，内容等。我们需要对特定的网站新闻网页进行 url 及标签分析。
+网页内容抽取网页内容抽取的算法">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.manuu.vip/2017/08/19/Scrapy-2/"/>
+
+
+
+
+
+  <title>(爬虫二) Scrapy-抓取新闻网页爬虫 | ManUu</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ManUu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2017/08/19/Scrapy-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ManUu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ManUu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">(爬虫二) Scrapy-抓取新闻网页爬虫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T14:41:21+08:00">
+                2017-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前面的一篇爬虫文章 <a href="http://blog.wangchangzhi.me/2017/06/20/Scrapy-1/" target="_blank" rel="external">(爬虫一) 初识 Scrapy</a> 介绍了 Scrapy 的基本部件功能和用法。下面的内容将介绍利用 Scrapy 进行新闻抓取的爬虫任务。</p>
+<h3 id="定制爬虫"><a href="#定制爬虫" class="headerlink" title="定制爬虫"></a>定制爬虫</h3><p>首先根据具体的抓取需求，对任务进行分析。这里以抓取门户网站的新闻为任务。目的为获取精确的新闻网页的相关信息，例如标题，作者，来源，发布时间，内容等。我们需要对特定的网站新闻网页进行 url 及标签分析。</p>
+<h3 id="网页内容抽取"><a href="#网页内容抽取" class="headerlink" title="网页内容抽取"></a>网页内容抽取</h3><p>网页内容抽取的算法通常有以下几种：  </p>
+<ol>
+<li><strong>基于标签的正文抽取</strong>，将网页解析成 DOM 树，利用工具对标签的内容进行选择，比如 title 等标签，针对具体网站页面标签的 class 和 id 等属性利用 Xpath 或 CSS 选择器进行内容的选择。这种方法适用于小范围（少数几个网站），高精度（对网页内容抽取的正确性需求较高）的网页内容提取。需要针对特定网站模版进行标签的提取，然后设定提取内容的规则。本文将介绍这种方法。   </li>
+<li><strong>基于标签密度的方法</strong>，也就是利用正文块的文本较长的特点进行正文抽取，实现算法需要在去除页面脚本语言基础上，统计每行文本字符数量，然后设置阈值进行筛选。该算法网址<a href="http://code.google.com/p/cx-extractor/" target="_blank" rel="external">点我</a>。目前的网页包含的内容丰富，各种干扰信息太多（广告也可以很长…）。测试过，正文通常都能包含进去，可惜干扰信息也太多（对远古的网页可能效果比较好，远古的网页可能比较规矩，网页广告样式没有现在丰富）。而且对于标题，作者，来源等信息提取不友好。</li>
+<li><strong>基于统计学习的方法</strong>： <ul>
+<li>启发式和无监督学习的网页正文抽取。早期的算法将网页表示成一个序列，混杂着标签和文本，通过对正文和标签赋予不同的权重（标签为负值），通过求最大得分的子序列得分即为网页正文，效果不理想。也可以通过聚类的方式对网页正文和非正文进行划分。后期利用网页 DOM 树化优化了算法。这种算法适合不同语言和结构的网页。实现较为简单。</li>
+<li>利用分类器正文抽取。通过标注的训练集合对模型进行构建，如决策树，SVM等分类算法。  </li>
+<li>网页模版生成的网页正文抽取算法。通过对相似结构的多个待抽取网页，可以分析其网页模版，内容相似的为非正文（广告，页脚等信息），不同部分则为正文。  </li>
+</ul>
+</li>
+</ol>
+<h3 id="具体的代码实现"><a href="#具体的代码实现" class="headerlink" title="具体的代码实现"></a>具体的代码实现</h3><p>这里我们以抓取人民网的网页新闻为任务。利用 Scrapy 进行以下步骤。</p>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p>可以使用一下命令行进行创建项目：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy startproject NewsCrawler</div></pre></td></tr></table></figure></p>
+<p>创建完的项目目录结构如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">NewsCrawler/</div><div class="line">    __init__.py</div><div class="line">    items.py</div><div class="line">    pipelines.py</div><div class="line">    settings.py</div><div class="line">    spiders/</div><div class="line">        __init__.py</div><div class="line">        spider1.py</div><div class="line">        spider2.py</div><div class="line">        ...</div></pre></td></tr></table></figure></p>
+<p>各个部分介绍如下：  </p>
+<ul>
+<li>items：是种简单的容器，保存了爬取到的数据。其提供了类似于词典(dictionary) 的 API 以及用于声明可用字段的简单语法。    </li>
+<li>pipeplines：会按照一定的顺序执行对 Item 的处理, 如清理，验证，去重，持久化数据。    </li>
+<li>settings：可以设置一些 Scrapy 全局的参数，具体可参考 Scrpay 的<a href="https://doc.scrapy.org/en/latest/topics/settings.html" target="_blank" rel="external">相关文档</a>。   </li>
+<li>spider/ ：这个文件夹下面放置具体的爬虫代码。爬虫代码定义了如何爬取某个或某些网站。包括了爬取的动作以及如何从网页的内容中提取结构化数据(爬取 item)。  <h4 id="设置-Item"><a href="#设置-Item" class="headerlink" title="设置 Item"></a>设置 Item</h4>通过 NewsItem 对抓取的网页设置了一些结构化的信息，如域名，语言，正文，标题等信息。具体代码如下所示：<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsItem</span><span class="params">(scrapy.Item)</span>:</span></div><div class="line">    domainname = scrapy.Field()</div><div class="line">    chinesename = scrapy.Field()</div><div class="line">    title = scrapy.Field()</div><div class="line">    author = scrapy.Field()</div><div class="line">    timeofpublish = scrapy.Field()</div><div class="line">    url = scrapy.Field()</div><div class="line">    content = scrapy.Field()</div><div class="line">    source = scrapy.Field()</div><div class="line">    <span class="keyword">pass</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="编写-NewsSpider"><a href="#编写-NewsSpider" class="headerlink" title="编写 NewsSpider"></a>编写 NewsSpider</h4><p>通过分析新闻的 url， 可以利用新闻 url 的规则进行新闻抓取。编写基于规则的抓取，NewsSpider 继承自 CrawlSpider 类，这个类提供了 rules，可以定义一些访问规则。需要注意的是 CrawlSpider 使用 parse 方法来实现其逻辑，如果覆盖了 parse 方法，Crawlspider 将会运行出错。<strong>这里爬虫的链接提取，以及 url 爬取队列的维护都是 Scrapy 自己完成的。</strong><br>下面给出了一个具体的实例，给出了详细的注释。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsSpider</span><span class="params">(CrawlSpider)</span>:</span></div><div class="line">    name = <span class="string">"people_news"</span>  <span class="comment"># 爬虫的名字，可用于命令行启动</span></div><div class="line">    allowed_domains = [   <span class="comment"># 允许爬取的域名</span></div><div class="line">                       <span class="string">"people.com.cn"</span></div><div class="line">                       ]</div><div class="line"></div><div class="line">    start_urls = [  <span class="comment"># 爬虫初始 url 种子</span></div><div class="line">        <span class="string">'http://people.com.cn'</span></div><div class="line">    ]</div><div class="line"></div><div class="line">    rules = (</div><div class="line">    	<span class="comment"># LinkExtractor 链接提取器，如果为空，则全部匹配, 有以下参数：</span></div><div class="line">        <span class="comment"># deny：与这个正则表达式匹配的 URL 一定不提取</span></div><div class="line">        <span class="comment"># allow_domains：会被提取的链接的domains</span></div><div class="line">        <span class="comment"># deny_domains：一定不会被提取链接的domains</span></div><div class="line">        Rule(LinkExtractor(allow=<span class="string">".*?people.com.cn.*?"</span>, deny=<span class="string">r'.*?people.com.cn.*?/\d&#123;4&#125;/\d&#123;4&#125;/.*?'</span>)), </div><div class="line">        <span class="comment"># follow：指定了根据该规则从 response 提取的链接是否需要跟进</span></div><div class="line">        <span class="comment"># callback 通过callback 设置回调函数</span></div><div class="line">        <span class="comment"># get_people_allow_url 方法撰写了可抓取多少天之内的新闻 URL 规则</span></div><div class="line">        Rule(LinkExtractor(allow=get_people_allow_url()), callback=<span class="string">"parse_item"</span>, follow=<span class="keyword">True</span>)</div><div class="line">    )</div><div class="line"></div><div class="line"><span class="meta">    @staticmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span><span class="params">(response)</span>:</span></div><div class="line">        sel = Selector(response) <span class="comment"># css选择器</span></div><div class="line">        url = response.request.url <span class="comment"># 获取 url</span></div><div class="line">        <span class="comment"># 再次判断是否是新闻的链接</span></div><div class="line">        <span class="keyword">if</span> re.match(<span class="string">r'.*?people.com.cn.*?/\d+/\d+/.*?'</span>, url) : </div><div class="line">            <span class="comment"># 利用 xpath 语法选择网页正文，结果是一个 list 对象。</span></div><div class="line">            content = response.xpath(<span class="string">'//*[@id="rwb_zw"]/p/text() | //*[@id="rwb_zw"]/p/strong/text()'</span>).extract()</div><div class="line">            <span class="keyword">if</span> content:</div><div class="line">                <span class="comment"># 设置 item 具体的信息</span></div><div class="line">                item = NewsItem(</div><div class="line">                    domainname=<span class="string">'http://people.com.cn'</span>,</div><div class="line">                    chinesename=<span class="string">'人民网'</span>,</div><div class="line">                    url=sel.root.base,</div><div class="line">                    title=sel.css(<span class="string">'div.text_title &gt; h1::text'</span>).extract_first(), <span class="comment"># 抽取标题</span></div><div class="line">                    timeofpublish=sel.re(</div><div class="line">                        <span class="string">r'\d&#123;4&#125;年\d&#123;2&#125;月\d&#123;2&#125;日\d&#123;2&#125;:\d&#123;2&#125;'</span>)[<span class="number">0</span>], <span class="comment"># 正则表达式获取发表时间</span></div><div class="line">                    content=<span class="string">''</span>.join(content), <span class="comment"># 将正文连接起来</span></div><div class="line">                    source=sel.css(<span class="string">'div.box01 &gt; div.fl &gt; a::text'</span>).extract_first(),</div><div class="line">                    author=sel.css(<span class="string">'p.author::text'</span>).extract_first()</div><div class="line">                )</div><div class="line">                <span class="keyword">if</span> item:</div><div class="line">                    <span class="keyword">yield</span> item</div></pre></td></tr></table></figure></p>
+<h4 id="持久化操作"><a href="#持久化操作" class="headerlink" title="持久化操作"></a>持久化操作</h4><p>持久化操作可以在 pipelines 中进行编写。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CrawlerPipeline</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></div><div class="line">        file = open(<span class="string">'items.jl'</span>, <span class="string">'w'</span>, encoding=<span class="string">'utf-8'</span>)</div><div class="line">        line = json.dumps(dict(item), ensure_ascii=<span class="keyword">False</span>)+<span class="string">"\n"</span></div><div class="line">        file.write(line) <span class="comment"># 以 json 的格式写入</span></div><div class="line">        <span class="keyword">return</span> item</div></pre></td></tr></table></figure></p>
+<p>为了启用一个Item Pipeline组件，你必须将它的类添加到 ITEM_PIPELINES 配置。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ITEM_PIPELINES = &#123;</div><div class="line">    <span class="string">'Crawler.pipelines.CrawlerPipeline'</span>: <span class="number">300</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="额外的设置"><a href="#额外的设置" class="headerlink" title="额外的设置"></a>额外的设置</h4><p>经过上面的几步就可以简单的完成一个网站新闻抓取的任务。通过 settings 文件可以简要的进行爬虫抓取的属性设置，如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">DEPTH_LIMIT = <span class="number">8</span> <span class="comment"># 设置连接深度的限制，离种子 url 的距离</span></div><div class="line">DEPTH_PRIORITY = <span class="number">2</span> <span class="comment"># 优先级设置</span></div><div class="line"></div><div class="line"><span class="comment"># 设置下载延迟时间</span></div><div class="line">DOWNLOAD_DELAY = <span class="number">0.5</span></div><div class="line">CONCURRENT_REQUESTS_PER_DOMAIN = <span class="number">16</span></div><div class="line"></div><div class="line"><span class="comment"># 设置下载ITEM数量后关闭</span></div><div class="line">CLOSESPIDER_ITEMCOUNT = <span class="number">18000</span></div><div class="line"><span class="comment"># 设置指定返回响应数量后停止</span></div><div class="line">CLOSESPIDER_PAGECOUNT = <span class="number">24000</span></div><div class="line"></div><div class="line"><span class="comment"># 中间件后面的数字代表着先后顺序，数值越小离引擎越近，越大离下载器越近。可以根据具体的需求，设置恰当的数值。</span></div><div class="line">DOWNLOADER_MIDDLEWARES = &#123;</div><div class="line">   <span class="string">'Crawler.middlewares.MyCustomDownloaderMiddleware'</span>: <span class="number">543</span>,</div><div class="line">   <span class="string">'Crawler.middlewares.IngoreRequestMiddleware'</span>: <span class="number">541</span>,</div><div class="line">   <span class="string">'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware'</span>: <span class="keyword">None</span>, <span class="comment"># 关闭默认开启的中间件</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过自定义的中间件的定义，可以满足一些额外的需求，比如切换 user-agent 和 增量抓取。具体的代码可以在 middlewares 文件中编写。如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCustomDownloaderMiddleware</span><span class="params">(UserAgentMiddleware)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, user_agent=<span class="string">''</span>)</span>:</span></div><div class="line">        self.user_agent = user_agent</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></div><div class="line">        useragent = random.choice(USER_AGENT_LIST) <span class="comment"># 随机选择</span></div><div class="line">        <span class="keyword">if</span> useragent:</div><div class="line">            logger = logging.getLogger(<span class="string">'UserAgent'</span>)</div><div class="line">            logging.debug(<span class="string">'Current UserAgent:%s'</span> % useragent)</div><div class="line">            request.headers.setdefault(<span class="string">'User-Agent'</span>, useragent) <span class="comment"># 进行设置 user-agent</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IngoreRequestMiddleware</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.redis = RedisFactory(<span class="string">'url'</span>) <span class="comment"># 初始化 redis </span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.redis.isExit(request.url):</div><div class="line">            <span class="keyword">raise</span> IgnoreRequest(<span class="string">"IgnoreRequest : %s"</span> % request.url)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line"><span class="comment"># redis </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisFactory</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></div><div class="line">        self.Redis = Redis(host=<span class="string">'localhost'</span>, port=<span class="number">6379</span>, db=<span class="number">0</span>)</div><div class="line">        self.name = name</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, element)</span>:</span></div><div class="line">        self.Redis.sadd(self.name, element)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isExit</span><span class="params">(self, element)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.Redis.sismember(self.name, element)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></div><div class="line">        self.Redis.smembers(self.name)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flush</span><span class="params">(self)</span>:</span></div><div class="line">        self.Redis.flush()</div></pre></td></tr></table></figure></p>
+<p>通过上述几个步骤即可完成一个增量抓取新闻爬虫，结合<a href="http://blog.wangchangzhi.me/2017/06/20/Scrapy-1/" target="_blank" rel="external">(爬虫一) 初识 Scrapy</a> 介绍的组件间的消息流向，可以更好的理解 Scrapy 的工作流程。<br>下一步会利用爬虫进行模拟用户登录及异步加载的信息获取。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Scrapy/" rel="tag"># Scrapy</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/12/Java-NIO/" rel="next" title="Java NIO 解读">
+                <i class="fa fa-chevron-left"></i> Java NIO 解读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.png"
+               alt="ManUu" />
+          <p class="site-author-name" itemprop="name">ManUu</p>
+           
+              <p class="site-description motion-element" itemprop="description">learn and live</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HeHeManuu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://twitter.com/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://nnecec.cc" title="nnecec" target="_blank">nnecec</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定制爬虫"><span class="nav-number">1.</span> <span class="nav-text">定制爬虫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网页内容抽取"><span class="nav-number">2.</span> <span class="nav-text">网页内容抽取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体的代码实现"><span class="nav-number">3.</span> <span class="nav-text">具体的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建项目"><span class="nav-number">3.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置-Item"><span class="nav-number">3.2.</span> <span class="nav-text">设置 Item</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写-NewsSpider"><span class="nav-number">3.3.</span> <span class="nav-text">编写 NewsSpider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#持久化操作"><span class="nav-number">3.4.</span> <span class="nav-text">持久化操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#额外的设置"><span class="nav-number">3.5.</span> <span class="nav-text">额外的设置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ManUu</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129856"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
