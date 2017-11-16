@@ -93,7 +93,7 @@ Channels：一个新的原始 I/O 抽象
 Channel通道（Channel）是对原 IO 中流的一种抽象，所有数据都要通过通道进行传输。
 Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有的数据读写都是通过缓冲区进行的。在前面的 IO 相">
 <meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/Java_NIO.png">
-<meta property="og:updated_time" content="2017-08-25T03:22:32.199Z">
+<meta property="og:updated_time" content="2017-08-25T03:26:28.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO 解读">
 <meta name="twitter:description" content="概念
@@ -673,7 +673,8 @@ Buffer缓冲区（Buffer） 可以看成一个容器对象，在 NIO 中所有�
 <li>等待通道数据准备好；</li>
 <li>从通道向缓冲复制数据。</li>
 </ol>
-<p>根据《UNIX网络编程》中的 IO multiplexing model 图模拟了 Java NIO 中的图示：<br><img src="http://oo2tkpanb.bkt.clouddn.com/Java_NIO.png" alt="NIO"><br>从图中可知，程序会先调用 select 方法，NIO 提供了三种 Select 方法，如上表所示。当调用阻塞的 select 方法时，会程序会一直阻塞，直至通道数据准备完毕，当调用非阻塞的 select 方法时，程序会直接返回 0，然后再不断的调用此方法，直至通道数据准备完毕。当通道数据准备完毕后，会进行通道数据复制到缓冲的操作，此时程序是阻塞的。虽然程序是阻塞的，但这是由于调用自身的方法导致的，并不是因为 IO 操作导致的，所以称 NIO 为非阻塞的。<br>关于同步和异步，《UNIX网络编程》中有这样的一段话：</p>
+<p>根据《UNIX网络编程》中的 IO multiplexing model 图模拟了 Java NIO 中的图示：</p>
+<p><center><br><img src="http://oo2tkpanb.bkt.clouddn.com/Java_NIO.png" alt="NIO"><br></center><br>从图中可知，程序会先调用 select 方法，NIO 提供了三种 Select 方法，如上表所示。当调用阻塞的 select 方法时，会程序会一直阻塞，直至通道数据准备完毕，当调用非阻塞的 select 方法时，程序会直接返回 0，然后再不断的调用此方法，直至通道数据准备完毕。当通道数据准备完毕后，会进行通道数据复制到缓冲的操作，此时程序是阻塞的。虽然程序是阻塞的，但这是由于调用自身的方法导致的，并不是因为 IO 操作导致的，所以称 NIO 为非阻塞的。<br>关于同步和异步，《UNIX网络编程》中有这样的一段话：</p>
 <blockquote>
 <p>A synchronous I/O operation causes the requesting process to be blocked until that I/O operation completes.<br>An asynchronous I/O operation does not cause the requesting process to be blocked. </p>
 </blockquote>
