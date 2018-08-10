@@ -78,7 +78,7 @@
 <meta property="og:description" content="前面的一篇爬虫文章 (爬虫一) 初识 Scrapy 介绍了 Scrapy 的基本部件功能和用法。下面的内容将介绍利用 Scrapy 进行新闻抓取的爬虫任务。
 定制爬虫首先根据具体的抓取需求，对任务进行分析。这里以抓取门户网站的新闻为任务。目的为获取精确的新闻网页的相关信息，例如标题，作者，来源，发布时间，内容等。我们需要对特定的网站新闻网页进行 url 及标签分析。
 网页内容抽取网页内容抽取的算法">
-<meta property="og:updated_time" content="2017-08-23T14:50:49.941Z">
+<meta property="og:updated_time" content="2017-11-23T14:28:34.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(爬虫二) Scrapy-抓取新闻">
 <meta name="twitter:description" content="前面的一篇爬虫文章 (爬虫一) 初识 Scrapy 介绍了 Scrapy 的基本部件功能和用法。下面的内容将介绍利用 Scrapy 进行新闻抓取的爬虫任务。
@@ -352,11 +352,13 @@
 <h3 id="网页内容抽取"><a href="#网页内容抽取" class="headerlink" title="网页内容抽取"></a>网页内容抽取</h3><p>网页内容抽取的算法通常有以下几种：  </p>
 <ol>
 <li><strong>基于标签的正文抽取</strong>，将网页解析成 DOM 树，利用工具对标签的内容进行选择，比如 title 等标签，针对具体网站页面标签的 class 和 id 等属性利用 Xpath 或 CSS 选择器进行内容的选择。这种方法适用于小范围（少数几个网站），高精度（对网页内容抽取的正确性需求较高）的网页内容提取。需要针对特定网站模版进行标签的提取，然后设定提取内容的规则。本文将介绍这种方法。   </li>
-<li><strong>基于标签密度的方法</strong>，也就是利用正文块的文本较长的特点进行正文抽取，实现算法需要在去除页面脚本语言基础上，统计每行文本字符数量，然后设置阈值进行筛选。该算法网址<a href="http://code.google.com/p/cx-extractor/" target="_blank" rel="external">点我</a>。目前的网页包含的内容丰富，各种干扰信息太多（广告也可以很长…）。测试过，正文通常都能包含进去，可惜干扰信息也太多（对远古的网页可能效果比较好，远古的网页可能比较规矩，网页广告样式没有现在丰富）。而且对于标题，作者，来源等信息提取不友好。</li>
-<li><strong>基于统计学习的方法</strong>： <ul>
-<li>启发式和无监督学习的网页正文抽取。早期的算法将网页表示成一个序列，混杂着标签和文本，通过对正文和标签赋予不同的权重（标签为负值），通过求最大得分的子序列得分即为网页正文，效果不理想。也可以通过聚类的方式对网页正文和非正文进行划分。后期利用网页 DOM 树化优化了算法。这种算法适合不同语言和结构的网页。实现较为简单。</li>
+<li><strong>基于标签密度的方法</strong>，也就是利用正文块的文本较长的特点进行正文抽取，实现算法需要在去除页面脚本语言基础上，统计每行文本字符数量，然后设置阈值进行筛选。该算法网址<a href="http://code.google.com/p/cx-extractor/" target="_blank" rel="external">点我</a>。目前的网页包含的内容丰富，各种干扰信息太多（广告也可以很长…）。测试过，正文通常都能包含进去，可惜干扰信息也太多（对远古的网页可能效果比较好，远古的网页可能比较规矩，网页广告样式没有现在丰富）。而且对于标题，作者，来源等信息提取不友好。  </li>
+<li><strong>基于统计学习的方法</strong>：  <ul>
+<li>启发式和无监督学习的网页正文抽取。早期的算法将网页表示成一个序列，混杂着标签和文本，通过对正文和标签赋予不同的权重（标签为负值），通过求最大得分的子序列得分即为网页正文，效果不理想。也可以通过聚类的方式对网页正文和非正文进行划分。后期利用网页 DOM 树化优化了算法。这种算法适合不同语言和结构的网页。实现较为简单。<ul>
 <li>利用分类器正文抽取。通过标注的训练集合对模型进行构建，如决策树，SVM等分类算法。  </li>
 <li>网页模版生成的网页正文抽取算法。通过对相似结构的多个待抽取网页，可以分析其网页模版，内容相似的为非正文（广告，页脚等信息），不同部分则为正文。  </li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>
@@ -430,6 +432,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/18/Hello-world/" rel="prev" title="test Markdown">
+                test Markdown <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -626,7 +632,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
