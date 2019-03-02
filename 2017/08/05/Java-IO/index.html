@@ -80,16 +80,16 @@
 流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
 字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
 字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/io/char_stream.png">
-<meta property="og:updated_time" content="2017-08-07T03:30:00.510Z">
+<meta property="og:image" content="http://209.97.172.248/images/io/byte_stream.png">
+<meta property="og:image" content="http://209.97.172.248/images/io/char_stream.png">
+<meta property="og:updated_time" content="2019-03-02T05:27:52.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java IO 详解">
 <meta name="twitter:description" content="概念
 流流是一个抽象的概念，它代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象。流屏蔽了实际的 I/O 设备中处理数据的细节。
 字节字节是现代计算机中连续的、固定数量的比特（二进制），即八个比特为一字节。可区别 256 个数字，取值范围：0 到 255。
 字符在计算机中，一个字符是一个单位的字形、类字形单位或符号的基本信息。在 Java 中使用的是 char 表示，其占两个字节。">
-<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png">
+<meta name="twitter:image" content="http://209.97.172.248/images/io/byte_stream.png">
 
 
 
@@ -333,11 +333,6 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
 
           
 
@@ -370,7 +365,7 @@
 </ul>
 <h2 id="类图及功能详解"><a href="#类图及功能详解" class="headerlink" title="类图及功能详解"></a>类图及功能详解</h2><hr>
 <p>在 Java IO 的包内，类种类繁多，下面介绍一些常用的类，给出相关特性和内部方法的逻辑解析。</p>
-<h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>下面是字节流相关类的层级关系图，只标出些常用的类。<br><img src="http://oo2tkpanb.bkt.clouddn.com/io/byte_stream.png" alt="ByteStream"></p>
+<h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>下面是字节流相关类的层级关系图，只标出些常用的类。<br><img src="http://209.97.172.248/images/io/byte_stream.png" alt="ByteStream"></p>
 <p><strong>OutputStream:</strong> 此抽象类是所有表示输出字节流相关类的基类。输出流接受输出字节并将这些字节发送到某个接收器。下面列出这个基类实用的方法总览：</p>
 <table>
 <thead>
@@ -446,7 +441,7 @@
 <p><strong>ByteArrayOutputStream:</strong> 继承自 OutputStream，其中的数据被写入一个 byte 数组。缓冲区会随着数据的不断写入而自动增长。可使用 toByteArray() 和 toString() 获取数据。此类中的方法在关闭此流后仍可被调用，而不会产生任何 IOException。<br>下面给出 write 方法的源码解析：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 同步的</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> ((off &lt; <span class="number">0</span>) || (off &gt; b.length) || (len &lt; <span class="number">0</span>) || <span class="comment">// 验证参数的合法性</span></div><div class="line">            ((off + len) - b.length &gt; <span class="number">0</span>)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException();</div><div class="line">        &#125;</div><div class="line">        ensureCapacity(count + len); <span class="comment">// 确保容量够用，不够则扩充</span></div><div class="line">        System.arraycopy(b, off, buf, count, len); <span class="comment">// 进行赋值</span></div><div class="line">        count += len;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p><strong>ByteArrayInputStream:</strong> 继承自 InputStream,其内部包含一个缓冲区，该缓冲区包含从流中读取的字节。内部计数器跟踪 read 方法要提供的下一个字节。此方法同样，关闭流后，可继续调用，不会产生 IOException。<br>下面介绍基础用法举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">byte</span>[] bytes = xxx <span class="comment">//get byte array from somewhere.</span></div><div class="line"></div><div class="line">InputStream input = <span class="keyword">new</span> ByteArrayInputStream(bytes);</div><div class="line"></div><div class="line"><span class="keyword">int</span> data = input.read();<span class="function">n</span></div><div class="line"><span class="title">while</span><span class="params">(data != <span class="number">-1</span>)</span> &#123;</div><div class="line">  <span class="comment">//do something with data</span></div><div class="line">  </div><div class="line">  data = input.read();</div><div class="line">&#125;</div><div class="line">input.close();</div></pre></td></tr></table></figure></p>
 <p><strong>SequenceInputStream:</strong> 继承自 InputStream,其可实现其他输入流的逻辑串联。其内部持有一个 Enumeration 和 InputStream 成员。此类提供了多个构造方法，可串联两个输入流，也可串联多个输入流（SequenceInputStream 也可）。<br>下面基本用法举例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// input* 代表输入流</span></div><div class="line">SequenceInputStream sequenceInputStream1 = <span class="keyword">new</span> SequenceInputStream(input1, input2); </div><div class="line">SequenceInputStream sequenceInputStream2 = <span class="keyword">new</span> SequenceInputStream(input3, input4);</div><div class="line"></div><div class="line">SequenceInputStream sequenceInputStream = <span class="keyword">new</span> SequenceInputStream(sequenceInputStream1, sequenceInputStream2);</div><div class="line"></div><div class="line"><span class="keyword">int</span> data = sequenceInputStream.read();</div><div class="line"><span class="keyword">while</span>(data != -<span class="number">1</span>)&#123;</div><div class="line">    System.out.println(data);</div><div class="line">    data = sequenceInputStream.read();</div><div class="line">&#125;</div><div class="line">sequenceInputStream.close();</div></pre></td></tr></table></figure></p>
-<h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><p>下面是字符流相关类的层级关系图，只标出些常用的类。<br><img src="http://oo2tkpanb.bkt.clouddn.com/io/char_stream.png" alt="CharStream"></p>
+<h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><p>下面是字符流相关类的层级关系图，只标出些常用的类。<br><img src="http://209.97.172.248/images/io/char_stream.png" alt="CharStream"></p>
 <p><strong>Writer:</strong> 所有写入字符流的基类，实现了Closeable，Appendable 和 Flushable 接口。子类必须实现的方法有 write(char[], int, int)、flush() 和 close()，多数子类将重写此处定义的一些方法，以提供更高的效率和其他功能。<br>下面列出此基类的主要方法：</p>
 <table>
 <thead>
@@ -690,7 +685,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -701,7 +696,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -802,7 +797,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -812,20 +807,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
         
       </div>
@@ -859,6 +840,8 @@
   
 
 
+  
+
 
 
 
@@ -886,6 +869,9 @@
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   

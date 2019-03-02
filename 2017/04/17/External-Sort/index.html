@@ -76,14 +76,14 @@
 <meta property="og:site_name" content="ManUu">
 <meta property="og:description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
 基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg">
-<meta property="og:updated_time" content="2017-08-05T14:20:24.920Z">
+<meta property="og:image" content="http://209.97.172.248/images/sort/merge2.jpg">
+<meta property="og:image" content="http://209.97.172.248/images/sort/merge1.jpg">
+<meta property="og:updated_time" content="2019-03-02T05:29:24.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="外部排序">
 <meta name="twitter:description" content="外部排序的概念前面基础排序算法总览–JAVA介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。
 基本思路外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存">
-<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg">
+<meta name="twitter:image" content="http://209.97.172.248/images/sort/merge2.jpg">
 
 
 
@@ -327,11 +327,6 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
 
           
 
@@ -347,10 +342,10 @@
       
 
       
-        <h4 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h4><p>前面<a href="http://blog.wangchangzhi.me/2017/02/18/Basic-Sort-Algorithms/" target="_blank" rel="external">基础排序算法总览–JAVA</a>介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。</p>
+        <h4 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h4><p>前面<a href="http://www.manuu.vip/2017/02/18/Basic-Sort-Algorithms/">基础排序算法总览–JAVA</a>介绍的排序算法都是在内存中进行的，可称为内部排序。在实际操作中，经常需要对大文件进行排序，文件记录太多，无法将整个文件拷贝到内存中进行排序。因此需要将待排序的记录存储在外存上，排序时再将部分数据调入内存中进行排序。在排序过程中会有多次的内外存之间交换。</p>
 <h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>外部排序大多采用归并排序。首先根据内存缓冲区大小将外存上文件分成若干长度的子文件，依次读入内存利用内部算法进行排序，并将排序后的子文件重新写回内存。然后将这些子文件逐趟归并，使子文件逐渐变大，直到得到这个有序文件为止。</p>
 <h4 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h4><p>假设按照内存缓冲区大小的子文件已经过内部排序成R1，R2等几个归并段。</p>
-<div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge2.jpg" alt="merge"><br></div><br>此时这些归并段都放置在外存中。我们以R1和R2归并段为例，将外存中的这两个归并段分别读入内存(不一定是完全读入，可部分读入)，如下图的输入缓冲区1和输入缓冲区2中。然后在内存中进行二路归并，归并的结果顺序存储在输出缓冲区中。当输出缓冲区满了，则将这些对象顺序的写到外存中，将输出缓冲区清空，继续存放归并后的对象。直到R1和R2归并段中的对象全部读入内存并且归并都完成为止。R1和R2归并成新的归并段，然后和别的新归并段继续归并，多趟归并后最后成为一个有序文件。<br><div align="center"><br><img src="http://oo2tkpanb.bkt.clouddn.com/sort/merge1.jpg" alt="merge"><br></div>
+<div align="center"><br><img src="http://209.97.172.248/images/sort/merge2.jpg" alt="merge"><br></div><br>此时这些归并段都放置在外存中。我们以R1和R2归并段为例，将外存中的这两个归并段分别读入内存(不一定是完全读入，可部分读入)，如下图的输入缓冲区1和输入缓冲区2中。然后在内存中进行二路归并，归并的结果顺序存储在输出缓冲区中。当输出缓冲区满了，则将这些对象顺序的写到外存中，将输出缓冲区清空，继续存放归并后的对象。直到R1和R2归并段中的对象全部读入内存并且归并都完成为止。R1和R2归并成新的归并段，然后和别的新归并段继续归并，多趟归并后最后成为一个有序文件。<br><div align="center"><br><img src="http://209.97.172.248/images/sort/merge1.jpg" alt="merge"><br></div>
 
 <h4 id="效率思考"><a href="#效率思考" class="headerlink" title="效率思考"></a>效率思考</h4><p>通常，对r个归并段，作m路平衡归并，归并树可用严格的m叉树来表示。第一趟可将r个初始归并段归并成$\left\lceil\frac{r}{m}\right \rceil$个归并段，以后每一趟并将l个归并段归并成$\left\lceil\frac{l}{m}\right \rceil$个归并段,直到最后形成一个大的归并段为止。树的高度=$\left\lceil\log_{m}r\right \rceil$=归并趟数。可见只要增大归并路数m，或者减少初始归并段个数r都可以减少归并趟数，以减少读写磁盘次数，达到提高外部排序效率的目的。<br>但归并路数并不是越大越好。归并路数增大时，需要相应的增加输出缓冲区的个数。如果可使用内存空间不变，则每个输入缓冲区的容量肯定会相应的减少，使得内外存交换数据次数增大。当m值过大时候，虽然归并趟数减少，但读写外存的次数仍然会增加。</p>
 
@@ -496,7 +491,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -507,7 +502,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -608,7 +603,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -618,20 +613,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
         
       </div>
@@ -665,6 +646,8 @@
   
 
 
+  
+
 
 
 
@@ -692,6 +675,9 @@
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   

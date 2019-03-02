@@ -1,0 +1,931 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hive," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="title Hive SQL学习分享hive sql语句的使用，如: join、left outer join、concat、lateral view explode等主要聚焦于Select 中
+WHERE  
+LIMIT
+GROUP BY 
+SORT/ORDER/CLUSTER/DISTRIBUTE BY
+JOIN
+USER-DEFINED FUNCTIONS (UDFS) 
+LATERAL V">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive SQL">
+<meta property="og:url" content="http://www.manuu.vip/2018/08/18/test/index.html">
+<meta property="og:site_name" content="ManUu">
+<meta property="og:description" content="title Hive SQL学习分享hive sql语句的使用，如: join、left outer join、concat、lateral view explode等主要聚焦于Select 中
+WHERE  
+LIMIT
+GROUP BY 
+SORT/ORDER/CLUSTER/DISTRIBUTE BY
+JOIN
+USER-DEFINED FUNCTIONS (UDFS) 
+LATERAL V">
+<meta property="og:updated_time" content="2018-08-20T05:57:53.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hive SQL">
+<meta name="twitter:description" content="title Hive SQL学习分享hive sql语句的使用，如: join、left outer join、concat、lateral view explode等主要聚焦于Select 中
+WHERE  
+LIMIT
+GROUP BY 
+SORT/ORDER/CLUSTER/DISTRIBUTE BY
+JOIN
+USER-DEFINED FUNCTIONS (UDFS) 
+LATERAL V">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.manuu.vip/2018/08/18/test/"/>
+
+
+
+
+
+  <title>Hive SQL | ManUu</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ManUu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.manuu.vip/2018/08/18/test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ManUu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ManUu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hive SQL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-18T18:06:58+08:00">
+                2018-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="title-Hive-SQL学习分享"><a href="#title-Hive-SQL学习分享" class="headerlink" title="title Hive SQL学习分享"></a>title Hive SQL学习分享</h2><h3 id="hive-sql语句的使用，如-join、left-outer-join、concat、lateral-view-explode等"><a href="#hive-sql语句的使用，如-join、left-outer-join、concat、lateral-view-explode等" class="headerlink" title="hive sql语句的使用，如: join、left outer join、concat、lateral view explode等"></a>hive sql语句的使用，如: join、left outer join、concat、lateral view explode等</h3><h4 id="主要聚焦于Select-中"><a href="#主要聚焦于Select-中" class="headerlink" title="主要聚焦于Select 中"></a>主要聚焦于Select 中</h4><ul>
+<li>WHERE  </li>
+<li>LIMIT</li>
+<li>GROUP BY </li>
+<li>SORT/ORDER/CLUSTER/DISTRIBUTE BY</li>
+<li>JOIN</li>
+<li>USER-DEFINED FUNCTIONS (UDFS) </li>
+<li>LATERAL VIEW</li>
+<li>UNION</li>
+<li>内部表和外部表</li>
+</ul>
+<p><strong>Select 句式</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> [ALL | <span class="keyword">DISTINCT</span>] select_expr, select_expr, ...</div><div class="line">  <span class="keyword">FROM</span> table_reference</div><div class="line">  [<span class="keyword">WHERE</span> where_condition]</div><div class="line">  [<span class="keyword">GROUP</span> <span class="keyword">BY</span> col_list]</div><div class="line">  [<span class="keyword">ORDER</span> <span class="keyword">BY</span> col_list]</div><div class="line">  [CLUSTER <span class="keyword">BY</span> col_list</div><div class="line">    | [<span class="keyword">DISTRIBUTE</span> <span class="keyword">BY</span> col_list] [<span class="keyword">SORT</span> <span class="keyword">BY</span> col_list]</div><div class="line">  ]</div><div class="line"> [<span class="keyword">LIMIT</span> [<span class="keyword">offset</span>,] <span class="keyword">rows</span>]</div></pre></td></tr></table></figure></p>
+<p><strong>特点如下：</strong>   </p>
+<ol>
+<li>SELECT 语句可以是联合查询的一部分，也可以是另一个查询的子查询的一部分。  </li>
+<li><em>table_reference</em> 可以是常规表、视图、连接结构或子查询。</li>
+</ol>
+<h5 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h5><p>where_condition 是一个布尔表达式。Hive 中 where 同时支持 operators and UDFs<br>here is sample:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT * FROM sales WHERE amount &gt; 10 AND region = &quot;US&quot;</div></pre></td></tr></table></figure></p>
+<h5 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h5><p>用来约束Select 语句返回的结果行数。其采用一个或者两个非负整数作为参数。   </p>
+<ul>
+<li>第一个参数指定了返回第一行的偏移量  </li>
+<li>第二个参数指定了返回的最大行数  </li>
+</ul>
+<p><strong>当只有一个参数时，代表着最大行数，偏移量默认为0</strong><br>eg:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 返回第3至第7行数据</div><div class="line">SELECT * FROM customers ORDER BY create_date LIMIT 2,5</div></pre></td></tr></table></figure></p>
+<h5 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a>GROUP BY</h5><p><strong>语法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GROUP BY groupByExpression (, groupByExpression)</div></pre></td></tr></table></figure></p>
+<p>当使用Group by 语句时，select 语句只能包含 Group by子句中的列，可以有多个聚合函数。<br>The query below DOES NOT work:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT a, b FROM t1 GROUP BY a;</div></pre></td></tr></table></figure></p>
+<h5 id="SORT-ORDER-CLUSTER-DISTRIBUTE-BY"><a href="#SORT-ORDER-CLUSTER-DISTRIBUTE-BY" class="headerlink" title="SORT/ORDER/CLUSTER/DISTRIBUTE BY"></a>SORT/ORDER/CLUSTER/DISTRIBUTE BY</h5><ol>
+<li>Order by<ul>
+<li>类似于SQL中 order by 用法。</li>
+<li>在严格模式（hive.mapred.mode=strict）下，order by 后必须跟一个limit 语句（需要排序，如果数量太大，则需要处理的时间太久）。</li>
+<li>默认升序（ASC | DESC），在Hive2.1.0后，在升序中，null排第一，同理倒序，null在后。</li>
+<li>在Hive 0.11.0后，可以用位置别名来替代列名。</li>
+<li>在Hive 3.0.0 后，子查询和视图中的order by，若没有limit语句，则会被优化器移除，此处可以通过设置禁用此法。</li>
+</ul>
+</li>
+<li><p>Sort by</p>
+<ul>
+<li>类似于SQL中 order by 用法。</li>
+<li>在给reducer 之前进行排序。</li>
+<li>排序顺序取决于列的数据类型，若是数字类型，则是数字顺序，若是字符串，则是字典序。</li>
+<li>在Hive 3.0.0 后，子查询和视图中的order by，若没有limit语句，则会被优化器移除，此处可以通过设置禁用此法。</li>
+</ul>
+</li>
+<li><p>Cluster by and Distribute by </p>
+<ul>
+<li>两者主要用于<em>Transform/Map-Reduce Scripts</em>。</li>
+<li><p>Cluster By 是 Distribute By 和 Sort By 的快捷实现方式。  </p>
+<blockquote>
+<p>SELECT col1, col2 FROM t1 CLUSTER BY col1<br>SELECT col1, col2 FROM t1 DISTRIBUTE BY col1 SORT BY col1 ASC, col2 DESC  </p>
+</blockquote>
+</li>
+<li><p>在select 语句中，两者应用于子查询的查询输出中需要分区和排序的情况。</p>
+</li>
+<li>Hive 利用Distrbute by 后的列来分配记录给reducer，并不保证在by 后的keys上进行聚类或者对属性排序</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>Order by 与 Sort by 区别 </strong>:Order by 保证最后输出是有序的，而Sort by只保证在一个reducer 中是有序的，如果有多个reducer，则最终结果可能是局部有序的。</p>
+</blockquote>
+<h5 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h5><p><strong>Join : 用于把来自两个或者多个表的行结合起来，基于这些表之间的共有值的字段。</strong>  </p>
+<p><strong>语法结构</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">join_table:</div><div class="line">    table_reference [INNER] JOIN table_factor [join_condition]</div><div class="line">  | table_reference &#123;LEFT|RIGHT|FULL&#125; [OUTER] JOIN table_reference join_condition</div><div class="line">  | table_reference LEFT SEMI JOIN table_reference join_condition</div><div class="line">  | table_reference CROSS JOIN table_reference [join_condition] </div><div class="line"> </div><div class="line">table_reference:</div><div class="line">    table_factor</div><div class="line">  | join_table</div><div class="line"> </div><div class="line">table_factor:</div><div class="line">    tbl_name [alias]</div><div class="line">  | table_subquery alias</div><div class="line">  | ( table_references )</div><div class="line"> </div><div class="line">join_condition:</div><div class="line">    ON expression (AND expression)*</div></pre></td></tr></table></figure></p>
+<p>特点   </p>
+<ul>
+<li><p>如果每个表中的连接表中使用相同的列，则HIVE将多个表的连接转换为单个MAP/REDUCE作业。<br>下列中是因为在连接中都包含了b.key1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT a.val, b.val, c.val FROM a JOIN b ON (a.key = b.key1) JOIN c ON (c.key = b.key1)</div></pre></td></tr></table></figure>
+</li>
+<li><p>下面的连接会转换为两个MAP/REDUCE作业，因为在第一个连接条件中使用来自B的KEY1列，而在第二个条件中使用B的KEY2列。<br>第一个MAP/REDUCE作业将A与B连接，然后将结果与C一起加入第二MAP/REDUCE作业中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT a.val, b.val, c.val FROM a JOIN b ON (a.key = b.key1) JOIN c ON (c.key = b.key2)</div><div class="line">``` </div><div class="line">+ 在连接的每个MAP/REDUCE阶段，序列中的最后一个表通过REDUCER，此时其他内容是被缓存的。**为了减少所需内存，应该把最大的表安排到序列的最后一个**。</div><div class="line">+ 在联接的每个MAP/REDUCE阶段，可以通过提示指定要流的表。下表中将a指定为最后处理的表，则表b和表c是被缓存的。  If the STREAMTABLE hint is omitted, Hive streams the rightmost table in the join.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>SELECT /<em>+ STREAMTABLE(a) </em>/ a.val, b.val, c.val FROM a JOIN b ON (a.key = b.key1) JOIN c ON (c.key = b.key1)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">+ LEFT, RIGHT, and FULL OUTER joins是为了对没有匹配的情况提供更多的控制</div><div class="line">      + inner join（join） : 如果表中有至少一个匹配，则返回行</div><div class="line">      + left join (left outer join) : 从左表中返回所有的行，即使右表中没有匹配。</div><div class="line">      + right join : 从右表中返回所有的行，即使左表中没有匹配。如果左表没有匹配，则结果返回NULL。</div><div class="line">      + full join : 返回所有行记录</div><div class="line"></div><div class="line">+ join 出现在WHERE子句之前。因此，如果要限制联接的输出，则约束该在WHERE子句中，否则它应该在联接子句中。</div></pre></td></tr></table></figure></p>
+<p>SELECT a.val, b.val FROM a LEFT OUTER JOIN b ON (a.key=b.key)<br>WHERE a.ds=’2009-07-07’ AND b.ds=’2009-07-07’</p>
+<p>SELECT a.val, b.val FROM a LEFT OUTER JOIN b<br>ON (a.key=b.key AND b.ds=’2009-07-07’ AND a.ds=’2009-07-07’)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ LEFT SEMI JOIN 以有效的方式实现了不用IN/EXISTS的子查询语义。</div></pre></td></tr></table></figure></p>
+<p>SELECT a.key, a.value FROM a WHERE a.key in (SELECT b.key FROM B);</p>
+<p>SELECT a.key, a.val FROM a LEFT SEMI JOIN b ON (a.key = b.key)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ 如果所连接的表是小的，则连接可以作为仅映射的作业执行。限制是不能执行FULL/RIGHT OUTER JOIN联接。</div></pre></td></tr></table></figure></p>
+<p>SELECT /<em>+ MAPJOIN(b) </em>/ a.key, a.value<br>FROM a JOIN b ON a.key = b.key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Joins</div><div class="line"></div><div class="line"></div><div class="line">#### 函数</div><div class="line">https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF</div><div class="line"></div><div class="line">##### 常用字符串相关内置函数</div><div class="line">| 返回值类型 | 样式 | 描述 |</div><div class="line">| :----:| :------: | :------: |</div><div class="line">|string | concat(string&amp;#124;binary A, string&amp;#124;binary B...) | 将参数依次拼接成一个字符串返回|</div><div class="line">|string|concat_ws(string SEP, string A, string B...)|链接字符串时，使用自定义分隔符 SEP|</div><div class="line">|string|concat_ws(string SEP, array&lt;string&gt;)|和上面 concat_ws() 类似, 但参数是字符串数组|</div><div class="line">|string|decode(binary bin, string charset)|将第一个参数根据编码解码成字符串，若某一个参数为空，则返回null|</div><div class="line">|int| find_in_set(string str, string strList)| 返回str在strList中出现的位置，strList为逗号分隔的字符串|</div><div class="line">|int | length(string A)| 返回字符串的长度|</div><div class="line">|string| parse_url(string ur&amp;#124;String, string partToExtract [, string keyToExtract])| 返回URL中具体的某部分值. 可抽取的有效值为HOST, PATH, QUERY, REF, PROTOCOL, AUTHORITY, FILE, and USERINFO.|</div><div class="line">|array| split(string str, string pat) |根据pat 分割str|</div><div class="line"></div><div class="line">##### 表生成函数</div><div class="line"></div><div class="line">| 每行返回值类型 | 样式 | 描述 |</div><div class="line">| :----:| :------: | :------: |</div><div class="line">| T | explode(ARRAY&lt;T\&gt; array) | 返回0到多行结果，每行都对应输入array数组中的一个元素 |</div><div class="line">| $T\_&#123;K&#125;$,$T_&#123;V&#125;$ | explode(MAP&lt;$T\_&#123;K&#125;,T_&#123;V&#125;$\&gt; map) | 返回0到多行结果，每行对应map中的每个键值对的key和value |</div><div class="line">|  int,T | posexplode(ARRAY&lt;T\&gt; a) |行为与参数为数组的explode方法相似，但包含项在原始数组中的位置，返回(pos,value)的二元组 |</div><div class="line">|  $T_1,...,T\_n$ | inline(ARRAY&lt;STRUCT&lt;\f1:T1,...,fn:Tn&gt;\&gt; a)|将结构体数组提取出来并插入到表中 |</div><div class="line">|  $T\_1,...,T\_&#123;n/r&#125;$ | stack(int r,T1 V1,...,Tn/r Vn) |将v_1, ..., v_n 分为r行，每行包含n/r列，n必须为常数 |</div><div class="line">| | |</div><div class="line">| 元组 | parse_url_tuple(url,partname1,partname2,...,partnameN) |从URL中解析N个部分信息，有效的参数名称为： HOST, PATH, QUERY, REF, PROTOCOL, AUTHORITY, FILE, USERINFO, QUERY:&lt;KEY\&gt; |</div><div class="line"></div><div class="line">**explode(array)**</div></pre></td></tr></table></figure></p>
+<p>select explode(array(‘A’,’B’,’C’)) as col;<br>select tf.* from (select 0) t lateral view explode(array(‘A’,’B’,’C’)) tf as col;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">|col|</div><div class="line">|:--:|</div><div class="line">|A|</div><div class="line">|B|</div><div class="line">|C|</div><div class="line"></div><div class="line">**explode(map)**</div></pre></td></tr></table></figure></p>
+<p>select explode(map(‘A’,10,’B’,20,’C’,30)) as (key,value);<br>select tf.* from (select 0) t lateral view explode(map(‘A’,10,’B’,20,’C’,30)) tf as key,value;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">|key|value|</div><div class="line">|:--:|:--:|</div><div class="line">|A|10|</div><div class="line">|B|20|</div><div class="line">|C|30|</div><div class="line"></div><div class="line">**posexplode(array)**</div></pre></td></tr></table></figure>
+<p>select posexplode(array(‘A’,’B’,’C’)) as (pos,val);<br>select tf.* from (select 0) t lateral view posexplode(array(‘A’,’B’,’C’)) tf as pos,val;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">|pos|val|</div><div class="line">|:--:|:--:|</div><div class="line">|0|A|</div><div class="line">|1|B|</div><div class="line">|2|C|</div><div class="line"></div><div class="line">**inline(array of structs)**</div></pre></td></tr></table></figure>
+<p>select inline(array(struct(‘A’,10,date ‘2015-01-01’),struct(‘B’,20,date ‘2016-02-02’))) as (col1,col2,col3);<br>select tf.* from (select 0) t lateral view inline(array(struct(‘A’,10,date ‘2015-01-01’),struct(‘B’,20,date ‘2016-02-02’))) tf as col1,col2,col3;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">|col1|col2|col3|</div><div class="line">|:--:|:--:|:--:|</div><div class="line">|A|10|2015-01-01|</div><div class="line">|B|20|2016-02-02|</div><div class="line"></div><div class="line">**stack(values)**</div></pre></td></tr></table></figure>
+<p>select stack(2,’A’,10,date ‘2015-01-01’,’B’,20,date ‘2016-01-01’) as (col0,col1,col2);<br>select tf.* from (select 0) t lateral view stack(2,’A’,10,date ‘2015-01-01’,’B’,20,date ‘2016-01-01’) tf as col0,col1,col2;<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">|col0|col1|col2|</div><div class="line">|:--:|:--:|:--:|</div><div class="line">|A|10|2015-01-01|</div><div class="line">|B|20|2016-01-01|</div><div class="line"></div><div class="line">&gt;使用 *&quot;SELECT udtf(col) AS colAlias...&quot;* 有如下限制：  </div><div class="line">1. 不能在SELECT 中有其他表达式  </div><div class="line">2. udtf 不能嵌套  </div><div class="line">3. 不支持 GROUP BY / CLUSTER BY / DISTRIBUTE BY / SORT BY   </div><div class="line">**Lateral view 没有这些限制**</div><div class="line"></div><div class="line">##### LATERAL VIEW</div><div class="line">Lateral view 通常和表生成函数一起使用。</div><div class="line">&gt;A lateral view first applies the UDTF to each row of base table and then joins resulting output rows to the input rows to form a virtual table having the supplied table alias.</div><div class="line"></div><div class="line">lateral view  首先将UDTF应用于基表的每一行，生成的结果形成一个虚表，然后再和原输入行进行连接。然后将结果输出行连接到输入行，产生一个支持别名表的虚拟表。 </div><div class="line">**语法：**</div></pre></td></tr></table></figure></p>
+<p>FROM baseTable LATERAL VIEW udtf(expression) tableAlias AS columnAlias<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">例表： </div><div class="line"></div><div class="line">|pageid|addid_list|</div><div class="line">|:--:|:--:|</div><div class="line">|page1|[1,2,3]|</div><div class="line">|page2|[3,4,5]|</div></pre></td></tr></table></figure></p>
+<p>SELECT pageid, adid<br>FROM pageAds LATERAL VIEW explode(adid_list) adTable AS adid;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">结果：</div><div class="line"></div><div class="line">|pageid|addid |</div><div class="line">|:--:|:--:|</div><div class="line">|page1|1|</div><div class="line">|page1|2|</div><div class="line">|page1|3|</div><div class="line">|page2|3|</div><div class="line">|page2|4|</div><div class="line">|page2|5|</div><div class="line"></div><div class="line">**多个Lateral Views**</div><div class="line">FROM 后可以有多个Lateral View，每个后续的Lateral View可以引用它左边任何一个Lateral View的列。</div></pre></td></tr></table></figure></p>
+<p>SELECT * FROM exampleTable<br>LATERAL VIEW explode(col1) myTable1 AS myCol1<br>LATERAL VIEW explode(myCol1) myTable2 AS myCol2;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">**Outer Lateral View**</div><div class="line">如果UDTF的结果是空，默认会被忽略输出，如果加上outer关键字，则会像left outer join 一样，还是会输出select出的列，而UDTF的输出结果是NULL。</div></pre></td></tr></table></figure></p>
+<p>SELECT * FROM src LATERAL VIEW OUTER explode(array()) C AS a limit 10;<br>```</p>
+<h5 id="内部表和外部表"><a href="#内部表和外部表" class="headerlink" title="内部表和外部表"></a>内部表和外部表</h5><ol>
+<li><p>内部表（managed table） </p>
+<ul>
+<li>默认创建的即内部表，会将数据存储在hive.metastore.warehouse.dir指向的路径中。</li>
+<li>删除表时，数据和元数据都会被删除</li>
+<li>hive 来管理表和数据的生命周期</li>
+<li>适用场景：<pre><code>* 数据临时的
+* 希望hive 来管理表和数据的生命周期
+</code></pre></li>
+</ul>
+</li>
+<li><p>外部表（external table）</p>
+<ul>
+<li>仅记录数据所在的路径，不会改变数据的位置，方便共享数据</li>
+<li>删除表时，只删除元数据，不删除实际数据</li>
+<li>创建外部表：create external table xxx</li>
+<li>describe formatted tablename 可查看表类型</li>
+<li>适用场景：<pre><code>* 数据会被多个工具使用，创建外部表，明确数据的所有权
+* hive 不管理数据和权限设置等
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<p><a href="https://acadgild.com/blog/managed-and-external-tables-in-hive" target="_blank" rel="external">https://acadgild.com/blog/managed-and-external-tables-in-hive</a><br><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-ManagedandExternalTables" target="_blank" rel="external">https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-ManagedandExternalTables</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/19/Scrapy-2/" rel="next" title="(爬虫二) Scrapy-抓取新闻">
+                <i class="fa fa-chevron-left"></i> (爬虫二) Scrapy-抓取新闻
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.png"
+               alt="ManUu" />
+          <p class="site-author-name" itemprop="name">ManUu</p>
+           
+              <p class="site-description motion-element" itemprop="description">learn and live</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HeHeManuu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://twitter.com/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Https://weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://nnecec.cc" title="nnecec" target="_blank">nnecec</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-Hive-SQL学习分享"><span class="nav-number">1.</span> <span class="nav-text">title Hive SQL学习分享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hive-sql语句的使用，如-join、left-outer-join、concat、lateral-view-explode等"><span class="nav-number">1.1.</span> <span class="nav-text">hive sql语句的使用，如: join、left outer join、concat、lateral view explode等</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要聚焦于Select-中"><span class="nav-number">1.1.1.</span> <span class="nav-text">主要聚焦于Select 中</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#WHERE"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LIMIT"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GROUP-BY"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">GROUP BY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SORT-ORDER-CLUSTER-DISTRIBUTE-BY"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">SORT/ORDER/CLUSTER/DISTRIBUTE BY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JOIN"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">JOIN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内部表和外部表"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">内部表和外部表</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ManUu</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2129856"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

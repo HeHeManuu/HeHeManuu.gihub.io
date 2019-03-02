@@ -80,15 +80,15 @@ The matching should cover the entire input">
 
 ‘.’ Matches any single character.‘*’ Matches zero or more of the preceding element.  
 The matching should cover the entire input">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/aboutRegex/regex.jpg">
-<meta property="og:updated_time" content="2017-08-25T03:40:03.929Z">
+<meta property="og:image" content="http://209.97.172.248/images/aboutRegex/regex.jpg">
+<meta property="og:updated_time" content="2019-03-02T05:28:00.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基础算法题-正则相关">
 <meta name="twitter:description" content="题一Implement regular expression matching with support for ‘.’ and ‘*’.
 
 ‘.’ Matches any single character.‘*’ Matches zero or more of the preceding element.  
 The matching should cover the entire input">
-<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/aboutRegex/regex.jpg">
+<meta name="twitter:image" content="http://209.97.172.248/images/aboutRegex/regex.jpg">
 
 
 
@@ -332,11 +332,6 @@ The matching should cover the entire input">
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
 
           
 
@@ -387,7 +382,7 @@ The matching should cover the entire input">
 <p><strong>递归解</strong>：<br>用一个布尔类型的二维数组来建立最优解的递归式，通过上述，可以写成如下：  </p>
 <p>$$dp[i,j]=<br>\begin{cases}<br>true&amp; \text{i=0 &amp; j=0}\\<br>dp[i-1,j-1]&amp; \text{i, j&gt;0, $p_{n}\ne$’*‘,且$s_{i}$和$p_{j}$匹配}\\<br>(dp[i,j-1] || dp[i,j-2] ||  dp[i-1,j]) &amp; \text{i, j&gt;0, $p_{j}=$’*‘,且$s_{i}$和$p_{j-1}$匹配}\\<br>(dp[i,j-2]) &amp; \text{i, j&gt;0, $p_{j}$=’*‘,且$s_{i}$和$p_{j-1}$不匹配}<br>\end{cases}$$  </p>
 <p><strong>计算</strong>：<br>通过自底向上地计算。匹配问题共有m*n个子问题。<br><strong>结果</strong>：<br>直接获取二维数组最后的值，即为匹配的结果。<br>部分过程模拟示意图如下：  </p>
-<center><br>    <img src="http://oo2tkpanb.bkt.clouddn.com/aboutRegex/regex.jpg" alt="regex"><br></center>
+<center><br>    <img src="http://209.97.172.248/images/aboutRegex/regex.jpg" alt="regex"><br></center>
 
 <p>动态规划解决代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isMatchByDP</span><span class="params">(String s, String p)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (p.isEmpty()) &#123;</div><div class="line">        <span class="keyword">return</span> s.isEmpty();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> len_s = s.length(), len_p = p.length();</div><div class="line">    <span class="comment">//申请,默认为false</span></div><div class="line">    <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[len_s + <span class="number">1</span>][len_p + <span class="number">1</span>];</div><div class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;</div><div class="line">    <span class="comment">//处理特殊情况，s为空的情况，例如 ""和".*"</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len_p; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (p.charAt(i) == <span class="string">'*'</span> &amp;&amp; dp[<span class="number">0</span>][i - <span class="number">1</span>]) &#123;</div><div class="line">            dp[<span class="number">0</span>][i + <span class="number">1</span>] = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len_s; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len_p; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (s.charAt(i) == p.charAt(j) || p.charAt(j) == <span class="string">'.'</span>)</div><div class="line">                dp[i + <span class="number">1</span>][j + <span class="number">1</span>] = dp[i][j];</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (p.charAt(j) == <span class="string">'*'</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (s.charAt(i) == p.charAt(j - <span class="number">1</span>) || p.charAt(j - <span class="number">1</span>) == <span class="string">'.'</span>) &#123;</div><div class="line">                    <span class="comment">//出现一次，0次，出现多次</span></div><div class="line">                    dp[i + <span class="number">1</span>][j + <span class="number">1</span>] = (dp[i + <span class="number">1</span>][j] || dp[i + <span class="number">1</span>][j - <span class="number">1</span>] || dp[i][j + <span class="number">1</span>]);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="comment">//出现0次</span></div><div class="line">                    dp[i + <span class="number">1</span>][j + <span class="number">1</span>] = dp[i + <span class="number">1</span>][j - <span class="number">1</span>];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> dp[len_s][len_p];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="题二"><a href="#题二" class="headerlink" title="题二"></a>题二</h4><p><strong>阿里的笔试题，由题一简单变换下。’?’匹配每个字符，’*’匹配任意串,可匹配空字符串。简单修改部分代码即可。</strong>、</p>
@@ -535,7 +530,7 @@ The matching should cover the entire input">
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -546,7 +541,7 @@ The matching should cover the entire input">
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -647,7 +642,7 @@ The matching should cover the entire input">
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -657,20 +652,6 @@ The matching should cover the entire input">
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
         
       </div>
@@ -704,6 +685,8 @@ The matching should cover the entire input">
   
 
 
+  
+
 
 
 
@@ -731,6 +714,9 @@ The matching should cover the entire input">
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   

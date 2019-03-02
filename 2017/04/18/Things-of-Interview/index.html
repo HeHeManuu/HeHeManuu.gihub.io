@@ -76,13 +76,13 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
 <meta property="og:site_name" content="ManUu">
 <meta property="og:description" content="连续四天的面试，简单记录下。  
 xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，">
-<meta property="og:image" content="http://oo2tkpanb.bkt.clouddn.com/interview/link.jpg">
-<meta property="og:updated_time" content="2017-06-20T12:37:30.482Z">
+<meta property="og:image" content="http://209.97.172.248/images/interview/link.jpg">
+<meta property="og:updated_time" content="2019-03-02T05:29:16.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四天面试小记">
 <meta name="twitter:description" content="连续四天的面试，简单记录下。  
 xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是外部排序，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，">
-<meta name="twitter:image" content="http://oo2tkpanb.bkt.clouddn.com/interview/link.jpg">
+<meta name="twitter:image" content="http://209.97.172.248/images/interview/link.jpg">
 
 
 
@@ -326,11 +326,6 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
 
           
 
@@ -347,7 +342,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
 
       
         <p>连续四天的面试，简单记录下。  </p>
-<h5 id="xx一面："><a href="#xx一面：" class="headerlink" title="xx一面："></a>xx一面：</h5><p>1.简单说了项目。<br>2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是<a href="http://blog.wangchangzhi.me/blog/2017/04/17/External-sort/" target="_blank" rel="external">外部排序</a>，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，输出到外存中，直到所有的数字全部筛选完。内部使用归并肯定比堆排序处理的IO次数少，所以效率要高。<br>3.找到这个大文件的中位数，快排加上外部排序。<br>4.Lock和synchronized的区别和实现。<br>5.Java文件流，IO和NIO。  这个比较有意思，传统Java的IO是阻塞的，面试官一直追问我线程被阻塞，线程在等什么，当时没理解他问题的目的，回答等文件被写入，重复问它在等什么，回答等java调用操作系统提供的接口…蜜汁尴尬，重复问题，原来是个操作系统相关问题，在等通道处理…<br>6.面试官给了些建议，多注重底层，他们不关心那些什么框架…</p>
+<h5 id="xx一面："><a href="#xx一面：" class="headerlink" title="xx一面："></a>xx一面：</h5><p>1.简单说了项目。<br>2.算法题。一个大于内存的文件怎么排序，这种题一看到肯定就是<a href="http://www.manuu.vip/blog/2017/04/17/External-sort/">外部排序</a>，内部归并处理，当时阻塞在认为每次归并必须把整个归并段全部调入内存中，再进行归并排序。然后就没把思路放在归并排序了，想到了堆排序，假设一共n个数，每趟可以使用小堆选出最大的k个数，然后将最大k个数输出到外存中，然后将剩下n-k个数再次调入内存进行堆排序，继续选出k个数，输出到外存中，直到所有的数字全部筛选完。内部使用归并肯定比堆排序处理的IO次数少，所以效率要高。<br>3.找到这个大文件的中位数，快排加上外部排序。<br>4.Lock和synchronized的区别和实现。<br>5.Java文件流，IO和NIO。  这个比较有意思，传统Java的IO是阻塞的，面试官一直追问我线程被阻塞，线程在等什么，当时没理解他问题的目的，回答等文件被写入，重复问它在等什么，回答等java调用操作系统提供的接口…蜜汁尴尬，重复问题，原来是个操作系统相关问题，在等通道处理…<br>6.面试官给了些建议，多注重底层，他们不关心那些什么框架…</p>
 <h5 id="xx二面："><a href="#xx二面：" class="headerlink" title="xx二面："></a>xx二面：</h5><p>1.JVM，GC简单说下。<br>2.多线程接触过没，简单描述下你使用的场景。<br>3.闲谈，实习时间等。</p>
 <h5 id="zz一面："><a href="#zz一面：" class="headerlink" title="zz一面："></a>zz一面：</h5><p>1.面试官第一个问题就问有刷题么，平时在哪刷题。。。答只刷了三十道题。<br>2.项目介绍。<br>3.算法题链表操作，复杂度，代码实现。  </p>
 <blockquote>
@@ -356,7 +351,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
 <p>面试期间，只给出了O($n^2$)复杂度的解决方法，当时写的代码在边界上也没处理好，虽然面试官没看出来，但是回来上机验证还是有问题。下面是用递归解决的。代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function">ListNode <span class="title">op</span><span class="params">(ListNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root.next == <span class="keyword">null</span> | root == <span class="keyword">null</span>) <span class="keyword">return</span> root;</div><div class="line">    ListNode pointer, fronter = <span class="keyword">null</span>, target;</div><div class="line">    pointer = root.next;</div><div class="line">    target = root;</div><div class="line">    <span class="keyword">while</span> (target.next != <span class="keyword">null</span>) &#123;</div><div class="line">        fronter = target;</div><div class="line">        target = target.next;</div><div class="line">    &#125;</div><div class="line">    fronter.next = <span class="keyword">null</span>;</div><div class="line">    root.next = <span class="function">target</span></div><div class="line">    <span class="title">if</span> <span class="params">(target != pointer)</span> &#123;</div><div class="line">        target.next = op(pointer);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>复杂度</strong>：每一次都会减少两个结点，假设有N个结点，第一次遍历N个结点，第二次遍历N-2个，第三次遍历N-4个…这是一个等差数列。套用等差数列公式，算出时间复杂度约为O($\frac{n^2}{4}$)。</p>
 <p>当时在面试中，想再优化问题，在稿纸上已经画出了一个链表，然后找到中间结点断开，当时思路还是卡在断开后，后面那一段链表还是从头开始到后面找，如果这样时间复杂度当然也是减少了，也只是增大了分母，但还是$n^2$的复杂度。后来回来睡觉就想到了，可惜当时没有想到。把后一段链表逆置，然后前后两个链表进行交叉合并，最后形成的链表就是目的链表。要找到中间结点需要设置两个指针，一个一次一步长一个两步长，走到链表尾部即可找到中间结点，链表逆置可以采用头插法，这里采用递归方法逆置。<br>以下面链表为例，展示处理过程：  </p>
-<p><center><br><img src="http://oo2tkpanb.bkt.clouddn.com/interview/link.jpg" alt="listnode"><br></center><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        ListNode pointer, pointer2, root2;</div><div class="line">        pointer = pointer2 = root;</div><div class="line">       <span class="comment">//先找到中间结点，断成两个链表</span></div><div class="line">        <span class="keyword">while</span> (pointer2.next != <span class="keyword">null</span>) &#123;</div><div class="line">            pointer = pointer.next;</div><div class="line">            pointer2 = pointer2.next;</div><div class="line">            <span class="keyword">if</span> (pointer2.next != <span class="keyword">null</span>)</div><div class="line">                pointer2 = pointer2.next;</div><div class="line">        &#125;</div><div class="line">        root2 = pointer.next;</div><div class="line">        pointer.next = <span class="keyword">null</span>;</div><div class="line">        <span class="comment">//将后一半链表逆置</span></div><div class="line">        pointer = root2;</div><div class="line">        root2 = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        <span class="keyword">while</span>(pointer != <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode tmp = pointer.next;</div><div class="line">            pointer.next = root2.next;</div><div class="line">            root2.next = pointer;</div><div class="line">            pointer = tmp;</div><div class="line">        &#125;</div><div class="line">        pointer = root;</div><div class="line">        pointer2 = root2.next;</div><div class="line">        ListNode tmp1, tmp2;</div><div class="line">        <span class="keyword">while</span> (pointer != <span class="keyword">null</span> &amp;&amp; pointer2 != <span class="keyword">null</span>) &#123;</div><div class="line">            tmp1 = pointer.next;</div><div class="line">            tmp2 = pointer2.next;</div><div class="line">            pointer.next = pointer2;</div><div class="line">            pointer = tmp1;</div><div class="line">            pointer2.next = pointer;</div><div class="line">            pointer2 = tmp2;</div><div class="line">        &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p><center><br><img src="http://209.97.172.248/images/interview/link.jpg" alt="listnode"><br></center><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        ListNode pointer, pointer2, root2;</div><div class="line">        pointer = pointer2 = root;</div><div class="line">       <span class="comment">//先找到中间结点，断成两个链表</span></div><div class="line">        <span class="keyword">while</span> (pointer2.next != <span class="keyword">null</span>) &#123;</div><div class="line">            pointer = pointer.next;</div><div class="line">            pointer2 = pointer2.next;</div><div class="line">            <span class="keyword">if</span> (pointer2.next != <span class="keyword">null</span>)</div><div class="line">                pointer2 = pointer2.next;</div><div class="line">        &#125;</div><div class="line">        root2 = pointer.next;</div><div class="line">        pointer.next = <span class="keyword">null</span>;</div><div class="line">        <span class="comment">//将后一半链表逆置</span></div><div class="line">        pointer = root2;</div><div class="line">        root2 = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</div><div class="line">        <span class="keyword">while</span>(pointer != <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode tmp = pointer.next;</div><div class="line">            pointer.next = root2.next;</div><div class="line">            root2.next = pointer;</div><div class="line">            pointer = tmp;</div><div class="line">        &#125;</div><div class="line">        pointer = root;</div><div class="line">        pointer2 = root2.next;</div><div class="line">        ListNode tmp1, tmp2;</div><div class="line">        <span class="keyword">while</span> (pointer != <span class="keyword">null</span> &amp;&amp; pointer2 != <span class="keyword">null</span>) &#123;</div><div class="line">            tmp1 = pointer.next;</div><div class="line">            tmp2 = pointer2.next;</div><div class="line">            pointer.next = pointer2;</div><div class="line">            pointer = tmp1;</div><div class="line">            pointer2.next = pointer;</div><div class="line">            pointer2 = tmp2;</div><div class="line">        &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
 <p>Python 版本如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reorderList</span><span class="params">(self, head)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    :type head: ListNode</div><div class="line">    :rtype: void Do not return anything, modify head in-place instead.</div><div class="line">    """</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> head:</div><div class="line">        <span class="keyword">return</span> head</div><div class="line">    slow = fast = head</div><div class="line">    <span class="keyword">while</span> fast <span class="keyword">and</span> fast.next:</div><div class="line">        fast = fast.next.next</div><div class="line">        slow = slow.next</div><div class="line">    slow.next, slow = <span class="keyword">None</span>, slow.next</div><div class="line">    head1 = ListNode(<span class="number">-1</span>)</div><div class="line">    <span class="keyword">while</span> slow:</div><div class="line">        slow.next, head1.next, slow = head1.next, slow,slow.next</div><div class="line">    p, q= head, head1.next</div><div class="line">    <span class="keyword">while</span> p <span class="keyword">and</span> q:</div><div class="line">        q.next, p.next, p, q = p.next, q, p.next, q.next</div></pre></td></tr></table></figure>
 <p><strong>复杂度</strong>：第一步找链表中间结点，需要遍历整个链表复杂度O($n$),第二步，逆置后一段链表，复杂度O($\frac{n}{2}$)，交叉合并两个链表复杂度为O($\frac{n}{2}$),所以最后的时间复杂度为O($2n$)。</p>
@@ -501,7 +496,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -512,7 +507,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -613,7 +608,7 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -623,20 +618,6 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
         
       </div>
@@ -670,6 +651,8 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
   
 
 
+  
+
 
 
 
@@ -697,6 +680,9 @@ xx一面：1.简单说了项目。2.算法题。一个大于内存的文件怎�
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
